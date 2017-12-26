@@ -1,0 +1,13 @@
+<check if="{{ @page_head!='raw' }}">
+	<true>
+  		<include href="header.htm" />
+		<check if="{{ @page_head!='form' }}">
+  		  	<true><include href="nav.htm"></true>
+		</check>
+		<include href="{{ @view }}"/>
+		<include href="footer.htm"/>
+	</true>
+	<false>
+	  	<include href="{{ @view }}">
+	</false>
+</check>

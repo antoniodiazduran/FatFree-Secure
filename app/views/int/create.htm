@@ -1,0 +1,96 @@
+<form action="{{ @BASE.'/int/create' }}" method="post" class="form-horizontal">
+    
+  <div class="form-group">
+    <label class="control-label col-xs-3 col-sm-2" for="transdate">Date:</label>
+    <div class="col-xs-5 col-sm-2">
+      <input type="text" class="form-control" id="transdate" name="transdate" placeholder="mm/dd/yyyy">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-xs-3 col-sm-2" for="type">Type:</label>
+    <div class="col-xs-5 col-sm-3">
+        <select id="type" name="type" class="form-control"/>
+        </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-xs-3 col-sm-2" for="shift">Shift:</label>
+    <div class="col-xs-5 col-sm-3">
+        <select id="shift" name="shift" class="form-control"/>
+        </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-xs-3 col-sm-2" for="station">Area:</label>
+    <div class="col-xs-5 col-sm-3">
+        <select id="area" name="area" value="" class="form-control"/>
+	    <option>
+            <option>Manufacturing
+            <option>Assembly
+            <option>Test
+        </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-xs-3 col-sm-2" for="station">Station:</label>
+    <div class="col-xs-5 col-sm-3">
+        <select id="station" name="station" class="form-control"/>
+        </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-xs-3 col-sm-2" for="partno">Part No:</label>
+    <div class="col-xs-5 col-sm-3">
+      <input type="text" class="form-control" id="partno" name="partno" placeholder="Part Number">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-xs-3 col-sm-2" for="what">What:</label>
+    <div class="col-xs-5 col-sm-3">
+        <select id="what" name="what" class="form-control"/>
+        </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-xs-3 col-sm-2" for="why">Why:</label>
+    <div class="col-xs-5 col-sm-3">
+        <select id="why" name="why" class="form-control"/>
+        </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-xs-3 col-sm-2" for="good">Qty:</label>
+    <div class="col-xs-5 col-sm-2"> 
+      <input type="text" class="form-control" id="qty" name="qty" placeholder="Quantity">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-xs-3 col-sm-2" for="comments">Comments:</label>
+    <div class="col-xs-9 col-sm-5">
+      <textarea class="form-control" id="comments" name="comments" placeholder="Comments..."></textarea>
+    </div>
+  </div>
+  <input type="hidden" id="timestamp" name="timestamp"/>
+  <input type="hidden" name="create" value="create" />
+  <div class="form-group"> 
+    <div class="col-xs-offset-3 col-xs-10 col-sm-offset-2 col-sm-5">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </div>
+
+</form>
+
+
+<script>   
+    
+    $(document).ready(function(){  
+        $("#transdate").val(formatDates());
+        $("#timestamp").val(formatNow());
+        fillType();
+	fillShift();
+	fillWhat();
+    });     
+
+</script>
+
+

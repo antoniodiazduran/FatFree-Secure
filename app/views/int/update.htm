@@ -1,0 +1,153 @@
+<form action="{{ @BASE.'/int/update' }}" method="post" class="form-horizontal">
+    
+  <div class="form-group">
+    <label class="control-label col-xs-3 col-sm-2" for="transdate">Date:</label>
+    <div class="col-xs-5 col-sm-2">
+      <input type="text" class="form-control" id="transdate" name="transdate" value="{{ @POST.transdate }}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-xs-3 col-sm-2" for="type">Type:</label>
+    <div class="col-xs-5 col-sm-3">
+        <select id="type" name="type" class="form-control"/>
+        </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-xs-3 col-sm-2" for="shift">Shift:</label>
+    <div class="col-xs-5 col-sm-3">
+        <select id="shift" name="shift" class="form-control"/>
+        </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-xs-3 col-sm-2" for="station">Area:</label>
+    <div class="col-xs-5 col-sm-3">
+        <select id="area" name="area" value="" class="form-control"/>
+	    <option>
+            <option {{ @POST.area=='Manufacturing'?'selected':''}}>Manufacturing
+            <option {{ @POST.area=='Assembly'?'selected':''}}>Assembly
+            <option {{ @POST.area=='Test'?'selected':''}}>Test
+        </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-xs-3 col-sm-2" for="station">Station:</label>
+    <div class="col-xs-5 col-sm-3">
+        <select id="station" name="station" class="form-control"/>
+        </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-xs-3 col-sm-2" for="partno">Part No:</label>
+    <div class="col-xs-5 col-sm-3">
+      <input type="text" class="form-control" id="partno" name="partno" placeholder="Part Number" value="{{ @POST.partno }}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-xs-3 col-sm-2" for="what">What:</label>
+    <div class="col-xs-5 col-sm-3">
+        <select id="what" name="what" class="form-control"/>
+        </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-xs-3 col-sm-2" for="why">Why:</label>
+    <div class="col-xs-5 col-sm-3">
+        <select id="why" name="why" class="form-control"/>
+        </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-xs-3 col-sm-2" for="good">Qty:</label>
+    <div class="col-xs-5 col-sm-2"> 
+      <input type="text" class="form-control" id="qty" name="qty" placeholder="Quantity" value="{{ @POST.qty }}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-xs-3 col-sm-2" for="comments">Comments:</label>
+    <div class="col-xs-9 col-sm-5">
+      <textarea class="form-control" id="comments" name="comments" placeholder="Comments...">{{ @POST.comments}} </textarea>
+    </div>
+  </div>
+  <input type="hidden" id="id" name="id" value="{{ @POST.id }}"/>
+  <input type="hidden" id="timestamp" name="timestamp"/>
+  <input type="hidden" name="update" value="update" />
+  <div class="form-group"> 
+    <div class="col-xs-offset-3 col-xs-10 col-sm-offset-2 col-sm-5">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </div>
+
+</form>
+
+
+<script>   
+    
+    $(document).ready(function(){  
+        $("#timestamp").val(formatNow());
+        $("#why").empty();
+        if ('{{ @POST.area }}' == 'Manufacturing') {
+            $.each(mfg, function(index,value) {
+		if ('{{ @POST.station }}' == value) {  
+                  $('#station').append($('<option selected>').text(value).attr('value',value));
+                } else {
+                  $('#station').append($('<option>').text(value).attr('value',value));
+                }
+            });             
+        }
+        if ('{{ @POST.area }}' == 'Assembly') {
+            $.each(assy, function(index,value) {
+                if ('{{ @POST.station }}' == value) { 
+		  $('#station').append($('<option selected>').text(value).attr('value',value));
+		} else {
+                  $('#station').append($('<option>').text(value).attr('value',value));
+                }
+            });
+        }
+        if ('{{ @POST.area }}' == 'Test') {
+            $.each(test, function(index,value) {
+		if ('{{ @POST.station }}' == value) {  
+                  $('#station').append($('<option selected>').text(value).attr('value',value));
+                } else {
+                  $('#station').append($('<option>').text(value).attr('value',value));
+                }
+            });
+        }
+        $.each(type, function(index,value){
+		if ('{{ @POST.type }}' == value) {
+                  $('#type').append($('<option selected>').text(value).attr('value',value));
+                } else {
+                  $('#type').append($('<option>').text(value).attr('value',value));
+                }
+	});
+	$.each(shif, function(index,value){
+                if ('{{ @POST.shift }}' == value) {
+                  $('#shift').append($('<option selected>').text(value).attr('value',value));
+                } else {
+                  $('#shift').append($('<option>').text(value).attr('value',value));
+                }
+        });
+	$.each(what, function(index,value){
+                if ('{{ @POST.what }}' == value) {
+                  $('#what').append($('<option selected>').text(value).attr('value',value));
+                } else {
+                  $('#what').append($('<option>').text(value).attr('value',value));
+                }
+        });
+
+	$.each(why, function(index,value){
+		var x = '{{ @POST.what }}';
+                if (value.includes(x)) {
+		var arr = value.split(":");
+			if ('{{ @POST.why }}' == arr[1]) {
+	                  $('#why').append($('<option selected>').text(arr[1]).attr('value',arr[1]));
+        	        } else {
+                	  $('#why').append($('<option>').text(arr[1]).attr('value',arr[1]));
+			}
+                }
+        });
+    });     
+
+</script>
+
