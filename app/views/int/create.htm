@@ -1,4 +1,4 @@
-<form action="{{ @BASE.'/int/create' }}" method="post" class="form-horizontal">
+<form action="/int/create" method="post" class="form-horizontal">
     
   <div class="form-group">
     <label class="control-label col-xs-3 col-sm-2" for="transdate">Date:</label>
@@ -6,71 +6,95 @@
       <input type="text" class="form-control" id="transdate" name="transdate" placeholder="mm/dd/yyyy">
     </div>
   </div>
+  <br>
   <div class="form-group">
     <label class="control-label col-xs-3 col-sm-2" for="type">Type:</label>
     <div class="col-xs-5 col-sm-3">
-        <select id="type" name="type" class="form-control"/>
+        <select id="type" name="type" class="form-control">
         </select>
     </div>
   </div>
-  <div class="form-group">
-    <label class="control-label col-xs-3 col-sm-2" for="shift">Shift:</label>
-    <div class="col-xs-5 col-sm-3">
-        <select id="shift" name="shift" class="form-control"/>
-        </select>
-    </div>
-  </div>
+  <br>
+
   <div class="form-group">
     <label class="control-label col-xs-3 col-sm-2" for="station">Area:</label>
     <div class="col-xs-5 col-sm-3">
-        <select id="area" name="area" value="" class="form-control"/>
+        <select id="area" name="area" value="" class="form-control">
 	    <option>
-            <option>Manufacturing
-            <option>Assembly
-            <option>Test
+            <option>Machine Shop
+            <option>Station 1
+            <option>Station 2
+            <option>Station 3
+            <option>Station 4  
+            <option>Station 5
+            <option>Sub Assy
+            <option>Hardware Test
         </select>
     </div>
   </div>
-  <div class="form-group">
-    <label class="control-label col-xs-3 col-sm-2" for="station">Station:</label>
-    <div class="col-xs-5 col-sm-3">
-        <select id="station" name="station" class="form-control"/>
-        </select>
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="control-label col-xs-3 col-sm-2" for="partno">Part No:</label>
-    <div class="col-xs-5 col-sm-3">
-      <input type="text" class="form-control" id="partno" name="partno" placeholder="Part Number">
-    </div>
-  </div>
+  <br>
   <div class="form-group">
     <label class="control-label col-xs-3 col-sm-2" for="what">What:</label>
     <div class="col-xs-5 col-sm-3">
-        <select id="what" name="what" class="form-control"/>
+        <select id="what" name="what" class="form-control">
         </select>
     </div>
   </div>
+  <br>
   <div class="form-group">
-    <label class="control-label col-xs-3 col-sm-2" for="why">Why:</label>
+    <label class="control-label col-xs-3 col-sm-2" for="reason">Reason:</label>
     <div class="col-xs-5 col-sm-3">
-        <select id="why" name="why" class="form-control"/>
+        <select id="reason" name="reason" class="form-control">
         </select>
     </div>
   </div>
+  <br>
   <div class="form-group">
     <label class="control-label col-xs-3 col-sm-2" for="good">Qty:</label>
     <div class="col-xs-5 col-sm-2"> 
       <input type="text" class="form-control" id="qty" name="qty" placeholder="Quantity">
+      <input type="text" class="form-control" id="units" name="units" readonly>
     </div>
   </div>
+  <br>
   <div class="form-group">
-    <label class="control-label col-xs-3 col-sm-2" for="comments">Comments:</label>
-    <div class="col-xs-9 col-sm-5">
-      <textarea class="form-control" id="comments" name="comments" placeholder="Comments..."></textarea>
+    <label class="control-label col-xs-3 col-sm-2" for="partnumber">Part No:</label>
+    <div class="col-xs-5 col-sm-3">
+      <input type="text" class="form-control" id="partnumber" name="partnumber" placeholder="Part Number">
     </div>
   </div>
+  <br>
+  <div class="form-group">
+    <label class="control-label col-xs-3 col-sm-2" for="jobnumber">Job No:</label>
+    <div class="col-xs-5 col-sm-3">
+      <input type="text" class="form-control" id="jobnumber" name="jobnumber" placeholder="Job Number">
+    </div>
+  </div>
+  <br>
+  <div class="form-group">
+    <label class="control-label col-xs-3 col-sm-2" for="ordernumber">Order No:</label>
+    <div class="col-xs-5 col-sm-3">
+      <input type="text" class="form-control" id="ordernumber" name="ordernumber" placeholder="Order Number">
+    </div>
+  </div>
+  <br>
+  <div class="form-group">
+    <label class="control-label col-xs-3 col-sm-2" for="description">Description:</label>
+    <div class="col-xs-9 col-sm-5">
+      <textarea class="form-control" id="description" name="description" placeholder="Write the description..."></textarea>
+    </div>
+  </div>
+  <br>
+  <div class="form-group">
+    <label class="control-label col-xs-3 col-sm-2" for="instructions">Instructions:</label>
+    <div class="col-xs-9 col-sm-5">
+      <textarea class="form-control" id="instructions" name="instructions" placeholder="Write the instructions..."></textarea>
+    </div>
+  </div>
+  <br>
+  
   <input type="hidden" id="timestamp" name="timestamp"/>
+  <input type="hidden" id="unit" name="unit" value="M+V"/>
   <input type="hidden" name="create" value="create" />
   <div class="form-group"> 
     <div class="col-xs-offset-3 col-xs-10 col-sm-offset-2 col-sm-5">
@@ -87,10 +111,9 @@
         $("#transdate").val(formatDates());
         $("#timestamp").val(formatNow());
         fillType();
-	fillShift();
-	fillWhat();
+	      
     });     
 
 </script>
 
-
+</div>

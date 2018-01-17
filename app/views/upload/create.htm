@@ -1,0 +1,61 @@
+<form action="/upload/create" method="post" class="form-horizontal" enctype="multipart/form-data">
+    
+  <div class="form-group">
+    <label class="control-label col-xs-3 col-sm-2" for="transdate">Date:</label>
+    <div class="col-xs-5 col-sm-2">
+      <input type="text" class="form-control" id="transdate" name="transdate" placeholder="mm/dd/yyyy">
+    </div>
+  </div>
+  <br>
+  <div class="form-group">
+    <label class="control-label col-xs-3 col-sm-2" for="area">Area:</label>
+    <div class="col-xs-5 col-sm-3">
+        <select id="area" name="area" value="" class="form-control">
+	    <option>
+            <option>Safety
+            <option>Quality
+            <option>Inventory
+            <option>Planning
+            <option>Purchasing  
+            <option>Operations
+            <option>Hardware Test
+        </select>
+    </div>
+  </div>
+  <br>
+  <div class="form-group">
+    <label class="control-label col-xs-3 col-sm-2" for="filename">File Name:</label>
+    <div class="col-xs-5 col-sm-3">
+      <input type="text" class="form-control" id="filename" name="filename" placeholder="File Name" readonly>
+    </div>
+  </div>
+  <br>
+  <div class="form-group">
+    <label class="control-label col-xs-3 col-sm-2" for="filetoupload">File to Upload:</label>
+    <div class="col-xs-5 col-sm-3">
+      <input type="file" class="form-control" id="filetoupload" name="filetoupload" placeholder="Browse your file">
+    </div>
+  </div>
+  <br>
+  
+  <input type="hidden" id="timestamp" name="timestamp"/>
+  <input type="hidden" id="unit" name="unit" value="ATS"/>
+  <input type="hidden" name="upload" value="upload" />
+  <div class="form-group"> 
+    <div class="col-xs-offset-3 col-xs-10 col-sm-offset-2 col-sm-5">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </div>
+
+</form>
+<script>
+ $(document).ready(function(){  
+        $("#transdate").val(formatDates());
+        $("#timestamp").val(formatNow());
+	$("#filetoupload").change( function() {
+		var ftu = $(this).val().substring(12,200);
+		$("#filename").val(ftu);
+	});		      
+    });     
+
+</script>

@@ -5,16 +5,18 @@ class IntController extends Controller {
     public function index()
     {
         $ints = new Ints($this->db);
-        $this->f3->set('ints',$ints->all(''));
+        $this->f3->set('ints',$ints->all('M+V'));
         $this->f3->set('page_head','List');
         $this->f3->set('view','int/list.htm');
     }
+
     public function chart()
     {
 	$this->f3->set('page_head','Chart');
         $this->f3->set('json','sampleData');
 	$this->f3->set('view','int/chart.htm');
     }
+
     public function create()
     {
         if($this->f3->exists('POST.create'))

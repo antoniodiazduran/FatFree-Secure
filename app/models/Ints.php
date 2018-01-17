@@ -3,19 +3,20 @@
 class Ints extends DB\SQL\Mapper {
 
     public function __construct(DB\SQL $db) {
-        parent::__construct($db,'interruption');
+        parent::__construct($db,'ints');
     }
 
     public function all($crit) {
         //if ($crit=='') {
-            $this->load(array(),array('order'=>'timestamp DESC'));
+        //    $this->load(array(),array('order'=>'timestamp DESC'));
         //} else {
         //    $this->load(array('order'=>'timestamp DESC'));
         //}
-        return $this->query;
-        //$result = $this->db->exec('SELECT * FROM interruption ORDER BY timestamp DESC');
-        //return $result;
+        //return $this->query;
+        $result = $this->db->exec('SELECT * FROM ints WHERE unit = ? ORDER BY transdate DESC',$crit);
+        return $result;
     }
+
     public function add() {
         $this->copyFrom('POST');
         $this->save();

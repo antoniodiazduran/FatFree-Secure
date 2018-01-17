@@ -7,12 +7,12 @@
                <th scope="col">Trans Date</th>
                <th scope="col">Area</th>
 	       <th scope="col">Type</th>
-               <th scope="col">Station</th>
-               <th scope="col">Part No</th>
                <th scope="col">What</th>
                <th scope="col">Why</th>
+               <th scope="col">Part # </th>
+               <th scope="col">Job #</th>
                <th scope="col">Qty</th>
-               <th scope="col">time Stamp</th>
+               <th scope="col">Units</th>
                <th scope="col">Action</th>
            </tr>
            </thead>
@@ -23,12 +23,12 @@
                    <td>{{ substr(trim(@rows.transdate),0,10) }}</td>
                    <td>{{ trim(@rows.area) }}</td>
                    <td>{{ trim(@rows.type) }}</td>
-                   <td>{{ trim(@rows.station) }}</td>
-                   <td>{{ trim(@rows.partno) }}</td>
                    <td>{{ trim(@rows.what) }}</td>
-                   <td>{{ trim(@rows.why) }}</td>
+                   <td>{{ trim(@rows.reason) }}</td>
+                   <td>{{ trim(@rows.partnumber) }}</td>
+                   <td>{{ trim(@rows.jobnumber) }}</td>
                    <td>{{ trim(@rows.qty) }}</td>
-                   <td>{{ substr(trim(@rows.timestamp),0,16) }}</td>
+                   <td>{{ trim(@rows.units) }}</td>
                    <td>
                       [ <a href="{{ @BASE.'/int/update/'. @rows.id }}">Edit</a> | 
                        <a href="{{ @BASE.'/int/delete/'. @rows.id }}">Delete</a> ]
