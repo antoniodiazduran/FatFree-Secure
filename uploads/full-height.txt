@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Set DIV Height to 100% Using CSS</title>
+<style type="text/css">
+    html, body {
+    	height: 100%;
+		margin: 0px;
+	}
+    .h1 {
+		height: 20%;
+		background: #112251;
+	}
+	.c1 {
+		height: 10%;
+		background: #f1f1f2;
+	}
+	.c2 {
+		height: 10%;
+		background: #e6e6e7;
+	}
+
+    </style>
+</hea2>
+<body>
+    <div class="h1">The height of this DIV0 element is equal to the 100% height of its parent element's height.    </div>
+    <div class="c1">The height of this DIV1 element is equal to the 100% height of its parent element's height.    </div>
+    <div class="c2">The height of this DIV2 element is equal to the 100% height of its parent element's height.    </div>
+    <div class="c1">The height of this DIV3 element is equal to the 100% height of its parent element's height.    </div>
+    <div class="c2">The height of this DIV4 element is equal to the 100% height of its parent element's height.    </div>
+    <div class="c1">The height of this DIV5 element is equal to the 100% height of its parent element's height.    </div>
+    <div class="c2">The height of this DIV6 element is equal to the 100% height of its parent element's height.    </div>
+    <div class="c1">The height of this DIV7 element is equal to the 100% height of its parent element's height.    </div>
+    <div class="c2">The height of this DIV8 element is equal to the 100% height of its parent element's height.    </div>
+</body>
+</html>                       

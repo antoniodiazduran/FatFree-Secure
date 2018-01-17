@@ -7,6 +7,7 @@ class Controller {
     protected $d1;
 
     function beforeroute() {
+      if ($this->f3->get('secure')) {
         if($this->f3->get('SESSION.user') === null ) {
             $this->f3->reroute('/login');
             exit;
@@ -18,9 +19,11 @@ class Controller {
 	   exit;
         }
 	$this->f3->set('SESSION.timeout', time()+$this->f3->get('expire'));
+      }
     }
 
     function afterroute() {
+      if ($this->f3->get('secure')) {
         if($this->f3->get('SESSION.user') != null ) {
           if ( $this->f3->get('SESSION.ip') === $this->f3->ip() ) {
              echo Template::instance()->render('layout.htm');
@@ -28,6 +31,9 @@ class Controller {
 	     echo "Session Terminated..".$this->f3->get('SESSION.ip');
 	  }
         }
+      } else {
+	echo Template::instance()->render('layout.htm');
+      }
     }
 
     function __construct() {

@@ -38,6 +38,7 @@
           <li><a href="/upload">List</a></li>
         </ul>
       </li>//-->
+    <check if="{{ @secure == true}}">
      <check if="{{ @SESSION.roles=='Admin' }}">
       <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Users
@@ -45,11 +46,12 @@
         <ul class="dropdown-menu">
           <li><a href="/users/create">Create</a></li>
           <li><a href="/users">List</a></li>
+	  <li><a href="/users/password/{{ @SESSION.user}} ">Change Password</a></li>
         </ul>
       </li>
-      <li><a href="/users/password/{{ @SESSION.user}} ">Change Password</a></li>
       </check>
       <li><a href="/logout">Logout</a><li>
+    </check>
     </ul>
    </div>
 
