@@ -1,13 +1,11 @@
-<input type="button" id="btnExport" value="Export XLS"><br>
 
 <div class="table-responsive" id="dvData">
         <table  class="table table-condensed">
            <thead>
            <tr>
-               <th scope="col">Trans Date</th>
-               <th scope="col">Unit</th>
+               <th scope="col">Date</th>
+               <th scope="col">Customer</th>
 	       <th scope="col">Area</th>
-               <th scope="col">Sequence</th>
                <th scope="col">Filename</th>
                <th scope="col">Action</th>
            </tr>
@@ -17,12 +15,13 @@
            <repeat group="{{ @ups }}" value="{{ @rows }}">
                <tr>
                    <td>{{ substr(trim(@rows.transdate),0,10) }}</td>
-                   <td>{{ trim(@rows.unit) }}</td>
+                   <td>{{ trim(@rows.customer) }}</td>
                    <td>{{ trim(@rows.area) }}</td>
-                   <td>{{ trim(@rows.sequence) }}</td>
-                   <td>{{ trim(@rows.filename) }}</td>
+                   <td><a href="uploads/{{ trim(@rows.filename) }}">{{ trim(@rows.filename) }}</a></td>
                    <td>
+			<check if="@SESSION.roles == 'Admin'">
                       [ <a href="{{ @BASE.'/upload/delete/'. @rows.id }}">Delete</a> ]
+			</check>
                    </td>
        
                </tr>
