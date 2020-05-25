@@ -4,8 +4,10 @@ class UpController extends Controller {
 
     public function index()
     {
-        $ups = new Upload($this->db);
-        $this->f3->set('ups',$ups->all('ATS'));
+        $ups = new Upload($this->d1);
+        $ses =  $this->f3->get('SESSION.roles');
+        $usr =  $this->f3->get('SESSION.user');
+        $this->f3->set('ups',$ups->all($ses,$usr) );
         $this->f3->set('page_head','List');
         $this->f3->set('view','upload/list.htm');
     }
@@ -14,8 +16,8 @@ class UpController extends Controller {
     {
         if($this->f3->exists('POST.upload'))
         {
-            $ups = new Upload($this->db);
-            $ups->upload($this->f3->get('POST'));
+            $ups = new Upload($this->d1);
+            $ups->upload($this->f3->get('POST'),$this->f3->get('SESSION.user'));
             $this->f3->reroute('/upload');
         }
         else
@@ -29,7 +31,7 @@ class UpController extends Controller {
     {
         if($this->f3->exists('PARAMS.id'))
         {
-            $ups = new Upload($this->db);
+            $ups = new Upload($this->d1);
             $ups->delete($this->f3->get('PARAMS.id'));
         }
 
