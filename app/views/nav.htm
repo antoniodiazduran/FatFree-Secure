@@ -1,60 +1,58 @@
-
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span> 
-      </button>
-      <a class="navbar-brand" href="/">{{ @SESSION.user }}|{{ @IP }}</a>
-    </div>
-
-
-   <div class="collapse navbar-collapse" id="myNavbar">
-    <ul class="nav navbar-nav">
-      <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Interruptions
-        <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="/int/create">Create</a></li>
-          <li><a href="/int">List</a></li>
-        </ul>
+<nav class="navbar navbar-expand-md bg-warning navbar-light fixed-top">
+  <a href="/"><img src="/ui/images/DiazLLC_logo_transparent.png" height="25"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar" style="align:r">
+    <ul class="navbar-nav">      
+      <li class="nav-item">
+        <span class="nav-link">[ {{ @SESSION.user }} ]</span>
       </li>
-      <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Summary
-        <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="/summary/create">Create</a></li>
-          <li><a href="/summary">List</a></li>
-        </ul>
+   <check if="{{ @SESSION.roles!='Admin' }}">
+      <li class="nav-item">
+        <a class="nav-link" href="/expenses">Expenses</a>
       </li>
-<!--      <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Upload
-        <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="/upload/create">Create</a></li>
-          <li><a href="/upload">List</a></li>
-        </ul>
-      </li>//-->
+      <li class="nav-item">
+        <a class="nav-link" href="/time">Time</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/invoices">Invoices</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Upload
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/upload/create">Create</a>
+          <a class="dropdown-item" href="/upload">List</a>
+        </div>
+      </li>
+    </check>
+
     <check if="{{ @secure == true}}">
      <check if="{{ @SESSION.roles=='Admin' }}">
-      <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Users
-        <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="/users/create">Create</a></li>
-          <li><a href="/users">List</a></li>
-	  <li><a href="/users/password/{{ @SESSION.user}} ">Change Password</a></li>
-        </ul>
-      </li>
+	<li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Users
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/users/create">Create</a>
+          <a class="dropdown-item" href="users">List</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/users/password">Change Password</a>
+ 	  <a class="dropdown-item"  href="/logout">Logout</a>
+        </div>
+      	</li>
       </check>
-      <li><a href="/logout">Logout</a><li>
     </check>
+      <li class="nav-item">
+        <a class="nav-link" href="/logout">Logout</a>
+      </li>    
+      <li class="nav-item">
+	<span class="nav-link">	{{ @SESSION.timezone }} </span>
+      </li>
     </ul>
-   </div>
-
-
-  </div>
+  </div>  
 </nav>
+
+

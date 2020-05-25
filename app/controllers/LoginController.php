@@ -37,11 +37,14 @@
 //exit;
 
         if(password_verify($password, $user->password)) {
+	    $datetime = new DateTime();
+	    $zone = $datetime->format('T');
             $this->f3->set('SESSION.user', $user->username);
             $this->f3->set('SESSION.roles', $user->roles);
             $this->f3->set('SESSION.bp_id', $user->bp_id);
             $this->f3->set('SESSION.ip', $this->f3->ip());
             $this->f3->set('SESSION.timeout', time()+$this->f3->get('expire'));
+	    $this->f3->set('SESSION.timezone', $zone);
 	    $this->f3->set('bpid',$user->bp_id);
 	    $this->f3->set('stat','success');
 	    $this->f3->set('msg','Welcome!!');

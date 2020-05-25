@@ -2,13 +2,13 @@
 
 class Upload extends DB\SQL\Mapper {
 
-    public function __construct(DB\SQL $db) {
-        parent::__construct($db,'upfiles');
+    public function __construct(DB\SQL $d1) {
+        parent::__construct($d1,'upfiles');
     }
 
-    public function all($crit) {
-        if ($crit!='') {
-            $this->load(array('unit=?',$crit),array('order'=>'transdate DESC'));
+    public function all($roles,$user) {
+        if ($roles!='Admin') {
+            $this->load(array('username=?',$user),array('order'=>'transdate DESC'));
         } else {
             $this->load(array('order'=>'transdate DESC'));
         }
@@ -22,7 +22,26 @@ class Upload extends DB\SQL\Mapper {
         $this->erase();
     }
 
-    public function upload($fn) {
+    function getGUID(){
+      if (function_exists('com_create_guid')){
+        return com_create_guid();
+      }else{
+        mt_srand((double)microtime()*10000);			//optional for php 4.2.0 and up.
+        $charid = strtoupper(md5(uniqid(rand(), true)));
+        $hyphen = chr(45);					// "-"
+  	//$uuid = chr(123)					// "{"
+	$uuid = ""
+            .substr($charid, 0, 8).$hyphen
+            .substr($charid, 8, 4).$hyphen
+            .substr($charid,12, 4).$hyphen
+            .substr($charid,16, 4).$hyphen
+            .substr($charid,20,12);
+        //    .chr(125);					// "}"
+        return $uuid;
+      }
+    }
+
+    public function upload($fn,$user) {
         $overwrite = false; // set to true, to overwrite an existing file; Default: false
         $slug = true; // rename file to filesystem-friendly version
         $web = \Web::instance();
@@ -57,12 +76,15 @@ class Upload extends DB\SQL\Mapper {
 	$str1 = str_replace('uploads\/','',$str1);
         list($filenm,$action) = explode(":",$str1);
 	if($action!=false) {
-	// Adding data to the database
-	$this->db->exec('INSERT INTO upfiles (transdate,filename,unit,area,sequence) VALUES (?,?,?,?,?)',array($fn['timestamp'],$filenm,$fn['unit'],$fn['area'],$fn['sequence']));
+  	  // Adding data to the database
+	  $sql  = 'INSERT INTO upfiles (filename,customer,area,internalfn,username) ';
+ 	  $sql .= 'VALUES (?,?,?,?,?) ';
+	  $this->db->exec($sql,array( $filenm,$fn['customer'],$fn['area'],$this->getGUID(),$user ) );
         }
         //$answer = array( 'answer' => 'Files transfer completed' );
         //$json = json_encode( $answer );
         //echo $json;
     }
+
 }
 ?>

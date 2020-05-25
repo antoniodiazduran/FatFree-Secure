@@ -50,7 +50,7 @@ class UsersController extends Controller {
         }
         else
         {
-            $ints->getByName($this->f3->get('PARAMS.user'));
+            $ints->getByName($this->f3->get('SESSION.user'));
             $this->f3->set('page_head','Update');
             $this->f3->set('view','users/change.htm');
         }
