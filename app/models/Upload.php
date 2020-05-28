@@ -8,13 +8,23 @@ class Upload extends DB\SQL\Mapper {
 
     public function all($roles,$user) {
         if ($roles!='Admin') {
-            $this->load(array('username=?',$user),array('order'=>'transdate DESC'));
+            $this->load(array('username=?',$user),array('order'=>'id DESC'));
         } else {
             $this->load(array('order'=>'transdate DESC'));
         }
         return $this->query;
-        //$result = $this->db->exec('SELECT * FROM upfiles ORDER BY transdate DESC');
-        //return $result;
+    }
+    public function receipts($user) {
+        $sql  = 'SELECT id,area,filename FROM upfiles WHERE username = ? AND (isnull(expense) or expense = 0 )  ORDER BY transdate DESC';
+        $result = $this->db->exec($sql, $user);
+//	var_dump( json_encode($result) );
+	echo json_encode($result);
+    }
+    public function receiptsedit($id) {
+        $sql  = 'SELECT id,area,filename FROM upfiles WHERE expense = 0 or expense = ?' ;
+        $result = $this->db->exec($sql, $id);
+	//var_dump( json_encode($result) );
+	echo json_encode($result);
     }
 
     public function delete($id) {
@@ -46,7 +56,6 @@ class Upload extends DB\SQL\Mapper {
         $slug = true; // rename file to filesystem-friendly version
         $web = \Web::instance();
         $files = $web->receive(function($filename,$filetoupload){
-                //var_dump($filename);
                 /* looks like:
                   array(5) {
                       ["name"] =>     string(19) "csshat_quittung.png"

@@ -1,0 +1,76 @@
+<form action="/clocktime/create" method="post" class="form-horizontal">
+
+<div class="row">
+  <div class="col-lg-4">
+    <label class="control-label" for="customer">Customer:</label>
+      <input type="text" class="form-control" id="customer" name="customer" placeholder="Zipcode">
+  </div>
+  <div class="col-lg-4">
+    <label class="control-label" for="area">Country:</label>
+        <select id="country" name="country" value="" class="browser-default custom-select">
+        </select>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <label class="control-label" for="startdate">Start Date:</label>
+      <input type="text" class="form-control" id="startdate" name="startdate">
+  </div>
+  <div class="col">
+    <label class="control-label" for="enddate">End Date:</label>
+      <input type="text" class="form-control" id="enddate" name="enddate">
+  </div>
+  <div class="col">
+    <label class="control-label" for="enddate">Hours:</label>
+      <input type="text" class="form-control" id="hours" name="hours" value="0" style="text-align:right;"  readonly>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col">
+    <label class="control-label" for="description">Description:</label>
+      <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col">
+    <input type="hidden" name="username" value="{{ @SESSION.user }}"/>
+    <input type="hidden" name="create" value="create" />
+    <button type="submit" id="mode" class="btn btn-primary">Submit</button>
+  </div>
+</div>
+</form>
+<script>
+  const submitButton = document.getElementById('mode');
+  submitButton.disabled = true;
+
+  // without jQuery (doesn't work in older IEs)
+  document.addEventListener('DOMContentLoaded', function(){ 
+	document.getElementById('startdate').value = formatNow();  
+	document.getElementById('enddate').value = formatNow();  
+	$.each(countryFields, function(index, value){
+                $('#country').append($('<option>').text(value).attr('value',value));
+        });
+  }, false);
+
+document.getElementById('startdate').addEventListener('focusout',(event)=>{ diffdate(); });
+document.getElementById('enddate').addEventListener('focusout',(event)=>{ diffdate(); });
+document.getElementById('description').addEventListener('click', (event)=> { checkStatus() });
+
+function checkStatus() {
+	let status = 0;
+	if(document.getElementById('hours').value > 0 ) { status++; }
+	if(document.getElementById('customer').value.length > 4 ) { status++; }
+	console.log(status);
+	if(status>=2) { submitButton.disabled = false; }
+	else { submitButton.disabled = true; }
+}
+
+function diffdate() {
+	let std = new Date(document.getElementById('startdate').value);
+	let end = new Date(document.getElementById('enddate').value);
+	let diffmill = (end-std)/1000/3600;
+	document.getElementById('hours').value = diffmill.toFixed(2);
+}   
+</script>

@@ -1,0 +1,52 @@
+<!--<input type="button" id="btnExport" value="Export"><br> //-->
+
+<div class="table-responsive" id="dvData">
+        <table  class="table table-condensed">
+           <thead>
+           <tr>
+               <th scope="col">ID</th>
+               <th scope="col">Start Date</th>
+               <th scope="col">End Date</th>
+               <th scope="col">Customer</th>
+               <th scope="col">Country</th>
+               <th scope="col">Hours</th>
+               <th scope="col"></th>
+               <th scope="col">Action</th>
+           </tr>
+           </thead>
+       
+           <tbody>
+           <repeat group="{{ @clocktime }}" value="{{ @rows }}">
+               <tr>
+                   <td>{{ trim(@rows.id) }}</td>
+                   <td>{{ substr(trim(@rows.startdate),0,16) }}</td>
+                   <td>{{ substr(trim(@rows.enddate),0,16) }}</td>
+                   <td>{{ trim(@rows.customer) }}</td>
+                   <td>{{ trim(@rows.country) }}</td>
+                   <td>{{ trim(@rows.hours) }}</td>
+                   <td></td>
+                   <td>
+                      [ <a href="{{ @BASE.'/clocktime/update/'. @rows.id }}">Edit</a> | 
+                       <a href="{{ @BASE.'/clocktime/delete/'. @rows.id }}">Delete</a> ]
+                   </td>
+       
+               </tr>
+           </repeat>
+           </tbody>
+       
+        </table>
+       </div>
+<script>
+
+$(document).ready(function(){
+  $("#btnExport").click(function(e) {
+//    window.open('data:application/vnd.ms-excel,' + encodeURIComponent($('#dvData').html()) );
+    window.open('data:application/csv,' + encodeURIComponent($('#dvData').html()) );
+    e.preventDefault();
+  })
+});
+
+</script>
+
+
+

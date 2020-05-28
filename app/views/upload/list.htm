@@ -7,6 +7,7 @@
                <th scope="col">Customer</th>
 	       <th scope="col">Area</th>
                <th scope="col">Filename</th>
+               <th scope="col">Expense</th>
                <th scope="col">Action</th>
            </tr>
            </thead>
@@ -18,10 +19,9 @@
                    <td>{{ trim(@rows.customer) }}</td>
                    <td>{{ trim(@rows.area) }}</td>
                    <td><a href="uploads/{{ trim(@rows.filename) }}">{{ trim(@rows.filename) }}</a></td>
+                   <td>{{ trim(@rows.expense) }}</td>
                    <td>
-			<check if="@SESSION.roles == 'Admin'">
-                      [ <a href="{{ @BASE.'/upload/delete/'. @rows.id }}">Delete</a> ]
-			</check>
+                      <a href="{{ @BASE.'/upload/delete/'. @rows.id }}"><span class="glyphicon glyphicon--trash">Delete</span></a> 
                    </td>
        
                </tr>

@@ -1,50 +1,36 @@
 <form action="/upload/create" method="post" class="form-horizontal" enctype="multipart/form-data">
-    
-  <div class="form-group">
-    <label class="control-label col-xs-3 col-sm-2" for="transdate">Date:</label>
-    <div class="col-xs-5 col-sm-2">
-      <input type="text" class="form-control" id="transdate" name="transdate" placeholder="mm/dd/yyyy">
-    </div>
+
+ <div class="col-sm-2">
+    <label class="control-label" for="customer">Customer:</label>
+      <input type="text" class="form-control" id="customer" name="customer" placeholder="Zipcode">
   </div>
-  <br>
-  <div class="form-group">
-    <label class="control-label col-xs-3 col-sm-2" for="area">Area:</label>
-    <div class="col-xs-5 col-sm-3">
-        <select id="area" name="area" value="" class="form-control">
+  <div class="col-sm-3">
+    <label class="control-label" for="area">Area:</label>
+        <select id="area" name="area" value="" class="browser-default custom-select">
 	    <option>
-            <option>Safety
-            <option>Quality
-            <option>Inventory
-            <option>Planning
-            <option>Purchasing  
-            <option>Operations
-            <option>Hardware Test
+            <option>Airfare
+            <option>Hotel
+            <option>Rental
+            <option>Parking
+            <option>Taxi  
+            <option>Restaurant
+            <option>Supplies
         </select>
-    </div>
   </div>
-  <br>
-  <div class="form-group">
-    <label class="control-label col-xs-3 col-sm-2" for="filename">File Name:</label>
-    <div class="col-xs-5 col-sm-3">
+<br>
+  <div class="col-sm-4">
+    <label class="control-label" for="filename">File Name:</label>
       <input type="text" class="form-control" id="filename" name="filename" placeholder="File Name" readonly>
-    </div>
   </div>
-  <br>
-  <div class="form-group">
-    <label class="control-label col-xs-3 col-sm-2" for="filetoupload">File to Upload:</label>
-    <div class="col-xs-5 col-sm-3">
-      <input type="file" class="form-control" id="filetoupload" name="filetoupload" placeholder="Browse your file">
-    </div>
+<br>
+  <div class="col-sm-4">
+    <label class="control-label" for="filetoupload">File to Upload:</label>
+      <input type="file" id="filetoupload" name="filetoupload" placeholder="Browse your file">
   </div>
-  <br>
-  
-  <input type="hidden" id="timestamp" name="timestamp"/>
-  <input type="hidden" id="unit" name="unit" value="ATS"/>
-  <input type="hidden" name="upload" value="upload" />
-  <div class="form-group"> 
-    <div class="col-xs-offset-3 col-xs-10 col-sm-offset-2 col-sm-5">
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
+<br>
+  <div class="col-sm-4">
+    <input type="hidden" name="upload" value="upload" />
+    <button type="submit" class="btn btn-primary">Submit</button>
   </div>
 
 </form>

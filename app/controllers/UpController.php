@@ -11,6 +11,20 @@ class UpController extends Controller {
         $this->f3->set('page_head','List');
         $this->f3->set('view','upload/list.htm');
     }
+    public function receipts()
+    {
+        $ups = new Upload($this->d1);
+        $usr =  $this->f3->get('SESSION.user');
+        $this->f3->set('ups',$ups->receipts($usr) );
+	exit;    	// API Call to get data for popup
+    }
+    public function receiptsedit()
+    {
+        $ups = new Upload($this->d1);
+        $id =  $this->f3->get('PARAMS.user');
+        $this->f3->set('ups',$ups->receiptsedit($id) );
+	exit;    	// API Call to get data for popup
+    }
 
     public function create()
     {

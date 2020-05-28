@@ -1,0 +1,107 @@
+<form action="/expenses/create" method="post" class="form-horizontal">
+
+<div class="row">
+  <div class="col-lg-4">
+    <label class="control-label" for="transdate">Transaction Date:</label>
+      <input type="text" class="form-control" id="transdate" name="transdate" placeholder="mm/dd/yyyy">
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-4">
+    <label class="control-label" for="customer">Customer:</label>
+      <input type="text" class="form-control" id="customer" name="customer" placeholder="Zipcode">
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-4">
+    <label class="control-label" for="area">Area:</label>
+        <select id="area" name="area" value="" class="browser-default custom-select">
+        </select>
+  </div>
+  <div class="col-lg-4">
+    <label class="control-label" for="area">Receipt:</label>
+        <select id="receipt" name="receipt" value="" class="browser-default custom-select">
+	<option value="0">Select...
+	</select>
+  </div>
+  <div class="col-lg-4">
+    <label class="control-label" for="area">Country:</label>
+        <select id="country" name="country" value="" class="browser-default custom-select">
+        </select>
+  </div>
+</div>
+ <div class="row">
+  <div class="col">
+    <label class="control-label" for="qty">Quantity:</label>
+      <input type="text" class="form-control" id="qty" name="qty" placeholder="0.00" style="text-align:right;">
+  </div>
+  <div class="col">
+    <label class="control-label" for="taxes">Taxes:</label>
+      <input type="text" class="form-control" id="taxes" name="taxes" placeholder="0.00" style="text-align:right;">
+  </div>
+  <div class="col">
+    <label class="control-label" for="vat">VAT:</label>
+      <input type="text" class="form-control" id="vat" name="vat" value="0" placeholder="0.00" style="text-align:right;">
+  </div>
+ </div>
+ <div class="row">
+  <div class="col-lg-4">
+    <label class="control-label" for="vat">Total:</label>
+      <input type="text" class="form-control" id="total" name="total" placeholder="0.00" readonly style="text-align:right;">
+  </div>
+ </div>
+<br>
+<div class="row">
+  <div class="col">
+    <label class="control-label" for="description">Description:</label>
+      <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <label class="control-label" for="people">People:</label>
+      <textarea class="form-control" id="people" name="people" rows="3"></textarea>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col">
+    <input type="hidden" name="username" value="{{ @SESSION.user }}"/>
+    <input type="hidden" name="create" value="create" />
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+</div>
+</form>
+<script>
+ $(document).ready(function(){  
+        $("#transdate").val(formatDates());
+        $("#timestamp").val(formatNow());
+	$("#qty").change( function() { 
+		tot = $("#qty").val()*1+$("#taxes").val()*1+$("#vat").val()*1;
+		$("#total").val( tot );
+	});
+	$("#taxes").change( function() { 
+		tot = $("#qty").val()*1+$("#taxes").val()*1+$("#vat").val()*1;
+		$("#total").val( tot );
+	});
+	$("#vat").change( function() { 
+		tot = $("#qty").val()*1+$("#taxes").val()*1+$("#vat").val()*1;
+		$("#total").val( tot );
+	});
+	$.each(areaFields, function(index, value){
+                $('#area').append($('<option>').text(value).attr('value',value));
+        });
+        $.each(countryFields, function(index, value){
+                $('#country').append($('<option>').text(value).attr('value',value));
+        });
+	$.get( "/receipts/{{ @SESSION.user }}"  )
+  		.done(function( data ) {
+		var datx = JSON.parse(data);
+		$.each(datx, function(index,value) {
+   			$('#receipt').append($('<option>').text(value.filename).attr('value',value.id));
+		});
+  	});
+ });
+      
+
+</script>

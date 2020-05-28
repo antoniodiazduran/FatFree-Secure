@@ -1,0 +1,49 @@
+            body{
+                background: white;
+                font-family: 'Tahoma';
+                font-size: 14px;
+                line-height: 1.4;
+                color: black;
+                font-weight: 100; 
+            }
+            
+            table {
+                width: 100%;
+                border: 2px dotted gray;
+            }
+            td {
+                text-align: center;
+                border: 1px solid silver;
+                color: black;
+            }
+            .th {
+                text-align: center;
+                border: 0px solid silver;
+                color: white;
+                background: gray;
+            }
+            .today {
+                text-align: center;
+                border: 2px solid red;
+                color: black;
+            }
+            .days {
+                border: 0px;
+                background: white;
+                padding: 2px;
+
+            }
+            .divinput {
+                position: relative;
+                width: 280px;
+            }
+            .thecalendar {
+                position: absolute;
+                background: white;
+                border: 1px solid white;
+                width: 210px;
+                top: 30px;
+                left: 50px;
+                color: gray;
+                display: none;
+            }

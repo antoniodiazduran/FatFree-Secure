@@ -1,0 +1,58 @@
+<!--<input type="button" id="btnExport" value="Export"><br> //-->
+
+<div class="table-responsive" id="dvData">
+        <table  class="table table-condensed">
+           <thead>
+           <tr>
+               <th scope="col">ID</th>
+               <th scope="col">Date</th>
+               <th scope="col">Customer</th>
+	       <th scope="col">Area</th>
+               <th scope="col">Qty</th>
+               <th scope="col">Tax</th>
+               <th scope="col">VAT </th>
+               <th scope="col">Country</th>
+               <th scope="col">Receipt</th>
+               <th scope="col"></th>
+               <th scope="col">Action</th>
+           </tr>
+           </thead>
+       
+           <tbody>
+           <repeat group="{{ @expenses }}" value="{{ @rows }}">
+               <tr>
+                   <td>{{ trim(@rows.id) }}</td>
+                   <td>{{ substr(trim(@rows.transdate),0,10) }}</td>
+                   <td>{{ trim(@rows.customer) }}</td>
+                   <td>{{ trim(@rows.area) }}</td>
+                   <td>{{ trim(@rows.qty) }}</td>
+                   <td>{{ trim(@rows.taxes) }}</td>
+                   <td>{{ trim(@rows.vat) }}</td>
+                   <td>{{ trim(@rows.country) }}</td>
+                   <td><check if="trim(@rows.filename)!=''"><a href="uploads/{{ trim(@rows.filename) }}">Receipt</a></check></td>
+                   <td></td>
+                   <td>
+                      [ <a href="{{ @BASE.'/expenses/update/'. @rows.id }}">Edit</a> | 
+                       <a href="{{ @BASE.'/expenses/delete/'. @rows.id }}">Delete</a> ]
+                   </td>
+       
+               </tr>
+           </repeat>
+           </tbody>
+       
+        </table>
+       </div>
+<script>
+
+$(document).ready(function(){
+  $("#btnExport").click(function(e) {
+//    window.open('data:application/vnd.ms-excel,' + encodeURIComponent($('#dvData').html()) );
+    window.open('data:application/csv,' + encodeURIComponent($('#dvData').html()) );
+    e.preventDefault();
+  })
+});
+
+</script>
+
+
+

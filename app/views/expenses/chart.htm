@@ -1,0 +1,86 @@
+
+   <!--Load the AJAX API-->
+   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+       <div class="col-xs-5 col-sm-2">
+         <select name="type" id="type" class="form-control">
+         </select>
+       </div>
+       <div class="col-xs-1 col-sm-1">
+         <button type="submit" class="btn btn-primary" onCLick="loadChart();">Search</button>
+       </div>
+ 
+    <!--Div that will hold the pie chart-->
+    <div id="charts" style="float:left;top:40px;">
+	    <div id="column_div" style="float:left;margin:10px;"></div>
+	    <div id="line_div" style="float:left;margin:10px;"></div>
+    </div>
+
+    <script>   
+    
+      $(document).ready(function(){  
+        fillType();
+      });     
+
+      // Load the Visualization API and the piechart package.
+      google.charts.load('current', {'packages':['corechart']});
+      
+      function loadChart() {
+     	// Set a callback to run when the Google Visualization API is loaded.
+    	google.charts.setOnLoadCallback(colChart);
+    	google.charts.setOnLoadCallback(lineChart);
+
+      }
+
+      function colChart() {
+       var par = $("#type").val();
+       var jsonData = $.ajax({
+          url: "/ui/data/getData.php?q="+par,
+          dataType: "json",
+          async: false
+          }).responseText;
+          
+       // Create our data table out of JSON data loaded from server.
+       var data = new google.visualization.DataTable(jsonData);
+
+       // Options for the chart
+        var options = {
+                width: 500,
+                height: 240,
+                title: 'Scrap, Rework & Downtime Pareto',
+		legend: 'none',
+                hAxis: { title:'Area' },
+                vAxis: { title:'Pieces'}
+                };
+
+       // Instantiate and draw our chart, passing in some options.
+       var chart = new google.visualization.ColumnChart(document.getElementById('column_div'));
+       chart.draw(data, options);
+      }
+
+     function lineChart() {
+       var par = $("#type").val();
+       var jsonData = $.ajax({
+          url: "/ui/data/getLine.php?q="+par,
+          dataType: "json",
+          async: false
+          }).responseText;
+
+       // Create our data table out of JSON data loaded from server.
+       var data = new google.visualization.DataTable(jsonData);
+
+       // Options for the chart
+	var options = {
+		width: 500, 
+		height: 240, 
+		title: 'Scrap, Rework & Downtime Run Chart',
+		hAxis: { title:'Date' },
+		vAxis: { title:'Pieces'}
+		};
+
+       // Instantiate and draw our chart, passing in some options.
+       var chart = new google.visualization.LineChart(document.getElementById('line_div'));
+       chart.draw(data, options);
+      }
+
+    </script>  
