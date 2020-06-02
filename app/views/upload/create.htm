@@ -1,38 +1,45 @@
 <form action="/upload/create" method="post" class="form-horizontal" enctype="multipart/form-data">
 
- <div class="col-sm-2">
+ <div class="row">
+  <div class="col-lg-3">
+    <label class="control-label" for="transdate">Transaction Date:</label>
+      <input type="text" class="form-control" id="transdate" name="transdate" placeholder="mm/dd/yyyy">
+  </div>
+</div>
+<div class="row">
+ <div class="col-lg-3">
     <label class="control-label" for="customer">Customer:</label>
       <input type="text" class="form-control" id="customer" name="customer" placeholder="Zipcode">
   </div>
-  <div class="col-sm-3">
+</div>
+<div class="row">
+  <div class="col-lg-3">
     <label class="control-label" for="area">Area:</label>
         <select id="area" name="area" value="" class="browser-default custom-select">
-	    <option>
-            <option>Airfare
-            <option>Hotel
-            <option>Rental
-            <option>Parking
-            <option>Taxi  
-            <option>Restaurant
-            <option>Supplies
         </select>
   </div>
+</div>
 <br>
-  <div class="col-sm-4">
+<div class="row">
+  <div class="col-lg-4">
     <label class="control-label" for="filename">File Name:</label>
       <input type="text" class="form-control" id="filename" name="filename" placeholder="File Name" readonly>
   </div>
+</div>
 <br>
-  <div class="col-sm-4">
+<div class="row">
+  <div class="col-lg-4">
     <label class="control-label" for="filetoupload">File to Upload:</label>
       <input type="file" id="filetoupload" name="filetoupload" placeholder="Browse your file">
   </div>
+</div>
 <br>
-  <div class="col-sm-4">
+<div class="row">
+  <div class="col-lg-4">
     <input type="hidden" name="upload" value="upload" />
     <button type="submit" class="btn btn-primary">Submit</button>
   </div>
-
+</div>
 </form>
 <script>
  $(document).ready(function(){  
@@ -42,6 +49,9 @@
 		var ftu = $(this).val().substring(12,200);
 		$("#filename").val(ftu);
 	});		      
-    });     
+        $.each(areaFields, function(index, value){
+                $('#area').append($('<option>').text(value).attr('value',value));
+        });
+ });     
 
 </script>

@@ -1,4 +1,4 @@
-<form action="/expenses/create" method="post" class="form-horizontal">
+<form action="/expenses/create" id="expform" method="post" class="form-horizontal">
 
 <div class="row">
   <div class="col-lg-4">
@@ -9,7 +9,7 @@
 <div class="row">
   <div class="col-lg-4">
     <label class="control-label" for="customer">Customer:</label>
-      <input type="text" class="form-control" id="customer" name="customer" placeholder="Zipcode">
+      <input type="text" class="form-control" id="customer" name="customer" placeholder="Name or Zipcode">
   </div>
 </div>
 <div class="row">
@@ -37,11 +37,11 @@
   </div>
   <div class="col">
     <label class="control-label" for="taxes">Taxes:</label>
-      <input type="text" class="form-control" id="taxes" name="taxes" placeholder="0.00" style="text-align:right;">
+      <input type="text" class="form-control" id="taxes" name="taxes" value="0.00" style="text-align:right;">
   </div>
   <div class="col">
     <label class="control-label" for="vat">VAT:</label>
-      <input type="text" class="form-control" id="vat" name="vat" value="0" placeholder="0.00" style="text-align:right;">
+      <input type="text" class="form-control" id="vat" name="vat" value="0.00" style="text-align:right;">
   </div>
  </div>
  <div class="row">
@@ -54,7 +54,7 @@
 <div class="row">
   <div class="col">
     <label class="control-label" for="description">Description:</label>
-      <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+      <textarea class="form-control" id="description" name="description" rows="4"></textarea>
   </div>
 </div>
 <div class="row">
@@ -68,9 +68,10 @@
   <div class="col">
     <input type="hidden" name="username" value="{{ @SESSION.user }}"/>
     <input type="hidden" name="create" value="create" />
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="button" id="mode" class="btn btn-primary">Submit</button>
   </div>
 </div>
+<div id="errors" style="color:red;"><div>
 </form>
 <script>
  $(document).ready(function(){  
@@ -101,6 +102,44 @@
    			$('#receipt').append($('<option>').text(value.filename).attr('value',value.id));
 		});
   	});
+  	$("#area").change( function() {
+  		$("#description").val('');
+  		$("#people").val('');
+  		if($("#area").val() == 'Airfare') {
+  			$("#description").val('Airline: \nLocation From: \tTo: \nDates From: mm/dd/YYYY \tTo: mm/dd/YYYY ');
+  			$("#people").val('Passenger: ');
+  		}
+  		if($("#area").val() == 'Hotel') {
+  			$("#description").val('Chain/Brand: \nDates From: mm/dd/YYYY \nTo: mm/dd/YYYY \nDays: ');
+  		}
+  		if($("#area").val() == 'Rental') {
+  			$("#description").val('Company: \nSize: \nDays: ');
+  		}
+  		if($("#area").val() == 'Parking') {
+  			$("#description").val('City/Airport: \nDays: ');
+  		}
+  		if($("#area").val() == 'Meals') {
+  			$("#description").val('Name: \nLocation: ');
+  			$("#people").val('Guest: \nGuest: ');
+  		}
+  		if($("#area").val() == 'Taxi') {
+  			$("#description").val('Uber: \nLocation From: \nTo: ');
+  		}
+  		if($("#area").val() == 'Miles') {
+  			$("#description").val('Vehicle: \nLocation From: \nTo: ');
+  		}
+  	});
+	$("#mode").click( function () {
+		var errors = '';
+		if (document.getElementById('customer').value.length == 0) { errors += "* Need a customer!\n" } 
+		if (document.getElementById('area').value.length == 0) { errors += "* Select an area!\n" } 
+		if (document.getElementById('qty').value.length == 0) { errors += "* Quantity can't be Null!\n" } 
+		if (document.getElementById('taxes').value.length == 0) { errors += "* Taxes can't be Null!\n" } 
+		if (document.getElementById('vat').value.length == 0) { errors += "* VAT can't be Null!\n" } 
+		document.getElementById('errors').innerHTML = errors;
+		if (errors.length != 0) { alert(errors) } 
+		else { document.getElementById('expform').submit(); }
+	});
  });
       
 

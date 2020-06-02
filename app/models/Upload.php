@@ -20,9 +20,10 @@ class Upload extends DB\SQL\Mapper {
 //	var_dump( json_encode($result) );
 	echo json_encode($result);
     }
-    public function receiptsedit($id) {
-        $sql  = 'SELECT id,area,filename FROM upfiles WHERE expense = 0 or expense = ?' ;
-        $result = $this->db->exec($sql, $id);
+    public function receiptsedit($id,$user) {
+        $sql  = 'SELECT id,area,filename FROM upfiles WHERE (isnull(expense) OR expense = 0 or expense = '.$id.')  ';
+	$sql .= ' AND username = "'.$user.'"' ;
+        $result = $this->db->exec($sql);
 	//var_dump( json_encode($result) );
 	echo json_encode($result);
     }
@@ -86,9 +87,9 @@ class Upload extends DB\SQL\Mapper {
         list($filenm,$action) = explode(":",$str1);
 	if($action!=false) {
   	  // Adding data to the database
-	  $sql  = 'INSERT INTO upfiles (filename,customer,area,internalfn,username) ';
- 	  $sql .= 'VALUES (?,?,?,?,?) ';
-	  $this->db->exec($sql,array( $filenm,$fn['customer'],$fn['area'],$this->getGUID(),$user ) );
+	  $sql  = 'INSERT INTO upfiles (transdate,filename,customer,area,internalfn,username) ';
+ 	  $sql .= 'VALUES (?,?,?,?,?,?) ';
+	  $this->db->exec($sql,array( $fn['transdate'],$filenm,$fn['customer'],$fn['area'],$this->getGUID(),$user ) );
         }
         //$answer = array( 'answer' => 'Files transfer completed' );
         //$json = json_encode( $answer );

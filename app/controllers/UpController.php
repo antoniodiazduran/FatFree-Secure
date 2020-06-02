@@ -22,7 +22,8 @@ class UpController extends Controller {
     {
         $ups = new Upload($this->d1);
         $id =  $this->f3->get('PARAMS.user');
-        $this->f3->set('ups',$ups->receiptsedit($id) );
+        $usr =  $this->f3->get('SESSION.user');
+        $this->f3->set('ups',$ups->receiptsedit($id,$usr) );
 	exit;    	// API Call to get data for popup
     }
 

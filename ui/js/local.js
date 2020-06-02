@@ -11,7 +11,6 @@
         if (dd<10) { dd = "0"+dd; }
         if (hh<10) { hh = "0"+hh; }
         if (ii<10) { ii = "0"+ii; }
-	console.log(yy);
         return yy+'/'+mm+'/'+dd+' '+hh+':'+ii;
     }
 
