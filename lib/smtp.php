@@ -2,7 +2,7 @@
 
 /*
 
-	Copyright (c) 2009-2017 F3::Factory/Bong Cosca, All rights reserved.
+	Copyright (c) 2009-2019 F3::Factory/Bong Cosca, All rights reserved.
 
 	This file is part of the Fat-Free Framework (http://fatfreeframework.com).
 
@@ -171,7 +171,7 @@ class SMTP extends Magic {
 		if (!is_file($file))
 			user_error(sprintf(self::E_Attach,$file),E_USER_ERROR);
 		if ($alias)
-			$file=[$alias=>$file];
+			$file=[$alias,$file];
 		$this->attachments[]=['filename'=>$file,'cid'=>$cid];
 	}
 
@@ -204,14 +204,19 @@ class SMTP extends Magic {
 			stream_set_blocking($socket,TRUE);
 		}
 		// Get server's initial response
-		$this->dialog(NULL,TRUE,$mock);
+		$this->dialog(NULL,$log,$mock);
 		// Announce presence
 		$reply=$this->dialog('EHLO '.$fw->HOST,$log,$mock);
 		if (strtolower($this->scheme)=='tls') {
 			$this->dialog('STARTTLS',$log,$mock);
-			if (!$mock)
-				stream_socket_enable_crypto(
-					$socket,TRUE,STREAM_CRYPTO_METHOD_TLS_CLIENT);
+			if (!$mock) {
+				$method=STREAM_CRYPTO_METHOD_TLS_CLIENT;
+				if (defined('STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT')) {
+					$method|=STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT;
+					$method|=STREAM_CRYPTO_METHOD_TLSv1_1_CLIENT;
+				}
+				stream_socket_enable_crypto($socket,TRUE,$method);
+			}
 			$reply=$this->dialog('EHLO '.$fw->HOST,$log,$mock);
 		}
 		$message=wordwrap($message,998);
@@ -244,14 +249,8 @@ class SMTP extends Magic {
 			if (empty($headers[$id]))
 				user_error(sprintf(self::E_Header,$id),E_USER_ERROR);
 		$eol="\r\n";
-		$str='';
 		// Stringify headers
 		foreach ($headers as $key=>&$val) {
-			if (!in_array($key,$reqd) &&
-				(!$this->attachments ||
-				$key!='Content-Type' &&
-				$key!='Content-Transfer-Encoding'))
-				$str.=$key.': '.$val.$eol;
 			if (in_array($key,['From','To','Cc','Bcc'])) {
 				$email='';
 				preg_match_all('/(?:".+?" )?(?:<.+?>|[^ ,]+)/',
@@ -265,8 +264,10 @@ class SMTP extends Magic {
 			}
 			unset($val);
 		}
+		$from=isset($headers['Sender'])?$headers['Sender']:strstr($headers['From'],'<');
+		unset($headers['Sender']);
 		// Start message dialog
-		$this->dialog('MAIL FROM: '.strstr($headers['From'],'<'),$log,$mock);
+		$this->dialog('MAIL FROM: '.$from,$log,$mock);
 		foreach ($fw->split($headers['To'].
 			(isset($headers['Cc'])?(';'.$headers['Cc']):'').
 			(isset($headers['Bcc'])?(';'.$headers['Bcc']):'')) as $dst) {
@@ -291,11 +292,11 @@ class SMTP extends Magic {
 			$out.='--'.$hash.$eol;
 			$out.='Content-Type: '.$type.$eol;
 			$out.='Content-Transfer-Encoding: '.$enc.$eol;
-			$out.=$str.$eol;
+			$out.=$eol;
 			$out.=$message.$eol;
 			foreach ($this->attachments as $attachment) {
 				if (is_array($attachment['filename']))
-					list($alias,$file)=each($attachment['filename']);
+					list($alias,$file)=$attachment['filename'];
 				else
 					$alias=basename($file=$attachment['filename']);
 				$out.='--'.$hash.$eol;
