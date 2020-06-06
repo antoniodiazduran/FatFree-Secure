@@ -1,8 +1,10 @@
 <!--<input type="button" id="btnExport" value="Export"><br> //-->
-
-<div class="table-responsive" id="dvData">
-        <table  class="table table-condensed">
-           <thead>
+<input type="text" id="search" placeholder="Customer or Zipcode">
+<input type="button" value="Search" onClick="customerSearch()">
+<p>
+<div id="dvData">
+        <table class="table table-hover">
+           <thead class="thead-light">
            <tr>
                <th scope="col">ID</th>
                <th scope="col">Date</th>
@@ -52,6 +54,10 @@ $(document).ready(function(){
   })
 });
 
+function customerSearch() {
+	var customer = document.getElementById('search').value;
+	window.open('/expenses/'+customer);
+}
 </script>
 
 

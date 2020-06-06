@@ -12,6 +12,12 @@ class Expenses extends DB\SQL\Mapper {
         return $result;
     }
 
+    public function customer($user,$customer) {
+        $sql  = 'SELECT * FROM expenses_view1 WHERE username = ? AND customer = ? ORDER BY id DESC';
+        $result = $this->db->exec($sql,array($user,$customer));
+        return $result;
+    }
+
     public function add() {
         $this->copyFrom('POST');
         $this->save();
