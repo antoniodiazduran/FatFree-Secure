@@ -1,9 +1,8 @@
 <!--<input type="button" id="btnExport" value="Export"><br> //-->
-<input type="text" id="search" placeholder="Customer or Zipcode">
-<input type="button" value="Search" onClick="customerSearch()">
+<input type="text" id="search" onkeyup="searchTable()" placeholder="Customer or Zipcode">
 <p>
 <div id="dvData">
-        <table class="table table-hover">
+        <table id="expenses" class="table table-hover">
            <thead class="thead-light">
            <tr>
                <th scope="col">ID</th>
@@ -27,15 +26,15 @@
                    <td>{{ substr(trim(@rows.transdate),0,10) }}</td>
                    <td>{{ trim(@rows.customer) }}</td>
                    <td>{{ trim(@rows.area) }}</td>
-                   <td>{{ trim(@rows.qty) }}</td>
-                   <td>{{ trim(@rows.taxes) }}</td>
-                   <td>{{ trim(@rows.vat) }}</td>
+                   <td align="right">{{ trim(@rows.qty) }}</td>
+                   <td align="right">{{ trim(@rows.taxes) }}</td>
+                   <td align="right">{{ trim(@rows.vat) }}</td>
                    <td>{{ trim(@rows.country) }}</td>
                    <td><check if="trim(@rows.filename)!=''"><a href="uploads/{{ trim(@rows.filename) }}">Receipt</a></check></td>
                    <td></td>
                    <td>
                       [ <a href="{{ @BASE.'/expenses/update/'. @rows.id }}">Edit</a> | 
-                       <a href="{{ @BASE.'/expenses/delete/'. @rows.id }}">Delete</a> ]
+                       <a href="#" onClick="confirmDelete('{{ @rows.id }}')">Delete</a> ]
                    </td>
        
                </tr>
@@ -54,9 +53,29 @@ $(document).ready(function(){
   })
 });
 
-function customerSearch() {
-	var customer = document.getElementById('search').value;
-	window.open('/expenses/'+customer);
+function searchTable() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("search");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("dvData");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+
+function confirmDelete(rid) {
+	if(confirm("Delete record:"+rid+" ?")){
+		window.open("/expenses/delete/"+rid,"_self");
+	}
 }
 </script>
 

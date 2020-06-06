@@ -1,7 +1,8 @@
-
-<div class="table-responsive" id="dvData">
-        <table  class="table table-condensed">
-           <thead>
+<input type="text" id="search" onkeyup="searchTable()" placeholder="Customer or zipcode">
+<p>
+<div id="dvData">
+        <table  class="table table-hover">
+           <thead class="thead-light">
            <tr>
                <th scope="col">Date</th>
                <th scope="col">Customer</th>
@@ -21,7 +22,7 @@
                    <td><a href="uploads/{{ trim(@rows.filename) }}">{{ trim(@rows.filename) }}</a></td>
                    <td>{{ trim(@rows.expense) }}</td>
                    <td>
-                      <a href="{{ @BASE.'/upload/delete/'. @rows.id }}"><span class="glyphicon glyphicon--trash">Delete</span></a> 
+                      <a href="{{ @BASE.'/upload/delete/'. @rows.id }}">Delete</span></a> 
                    </td>
        
                </tr>
@@ -39,6 +40,24 @@ $(document).ready(function(){
   })
 });
 
+function searchTable() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("search");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("dvData");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
 </script>
 
 

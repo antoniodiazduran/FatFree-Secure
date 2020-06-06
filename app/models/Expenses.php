@@ -7,14 +7,8 @@ class Expenses extends DB\SQL\Mapper {
     }
 
     public function all($user) {
-        $sql  = 'SELECT * FROM expenses_view1 WHERE username = ? ORDER BY id DESC';
+        $sql  = 'SELECT * FROM expenses_view1 WHERE username = ? ORDER BY transdate DESC';
         $result = $this->db->exec($sql,$user);
-        return $result;
-    }
-
-    public function customer($user,$customer) {
-        $sql  = 'SELECT * FROM expenses_view1 WHERE username = ? AND customer = ? ORDER BY id DESC';
-        $result = $this->db->exec($sql,array($user,$customer));
         return $result;
     }
 
