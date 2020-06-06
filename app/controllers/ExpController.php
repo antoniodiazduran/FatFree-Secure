@@ -19,6 +19,15 @@ class ExpController extends Controller {
         $this->f3->set('view',$this->getViewFolder().'/list.htm');
     }
 
+    public function indexCustomer()
+    {
+        $expenses = new Expenses($this->db);
+	$customer = $this->f3->get('PARAMS.customer');
+        $this->f3->set('expenses',$expenses->customer($this->f3->get('SESSION.user'),$customer));
+        $this->f3->set('page_head','List');
+        $this->f3->set('view',$this->getViewFolder().'/list.htm');
+    }
+
     public function chart()
     {
 	$this->f3->set('page_head','Chart');
