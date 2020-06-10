@@ -1,0 +1,75 @@
+<!--<input type="button" id="btnExport" value="Export"><br> //-->
+<div class="row">
+&nbsp; &nbsp; <img src="/ui/images/DiazLLC_logo_transparent.png" height="40" >
+</div>
+<div class="row">
+<div class="col"> 
+1436 Trip Line Dr<br>
+Mount Pleasant, SC<br>
+29466-2442<br>
+USA
+</div>
+<div class="col">&nbsp;</div>
+<div class="col" align="right">
+	Invoice Number:<br>
+	Invoice Date:<br>
+	Due Date:<br>
+</div>
+<div class="col">
+	<font color="red"> {{ substr(@details[0].transdate,0,4)."-00".@details[0].id }}</font><br>
+	<font color="gray">{{ substr(@details[0].transdate,5,2).'-'.substr(@details[0].transdate,8,2).'-'.substr(@details[0].transdate,0,4) }}</font><br>
+	<font color="gray">{{ substr(@details[0].transdate,5,2).'-'.substr(@details[0].transdate,8,2).'-'.substr(@details[0].transdate,0,4) }}</font><br>
+</div>
+</div>
+<br>
+<br>
+<div class="row">
+<div class="col"> <b>Bill to:</b><br><i>{{ @details[0].customername }}</i><br>{{ @details[0].customerd }}</div>
+<div class="col"> <b>Description:</b><br>{{ @details[0].description }}</div>
+<div class="col">&nbsp;</div>
+<div class="col">&nbsp;</div>
+</div>
+<div id="errors" style="color:red;"></div>
+<p> 
+<div id="dvData">
+        <table id="invoices" class="table ">
+           <thead class="thead-light">
+           <tr>
+               <th scope="col">Date</th>
+               <th scope="col">Detail</th>
+               <th scope="col">Quantiy</th>
+	       <th scope="col">Price</th>
+               <th scope="col">Total</th>
+           </tr>
+           </thead>
+       
+           <tbody>
+           <repeat group="{{ @invoicesd }}" value="{{ @rows }}">
+               <tr>
+                   <td>{{ substr(@rows.transdate,5,2).'-'.substr(@rows.transdate,8,2).'-'.substr(@rows.transdate,0,4) }}</td>
+                   <td><b>{{ trim(@rows.detail) }}</b><br><i>{{ trim(@rows.description)}}</i></td>
+                   <td align="right">{{ number_format(@rows.qty,2) }}</td>
+                   <td align="right">{{ number_format(@rows.price,2) }}</td>
+                   <td align="right">{{ number_format(@rows.total,2) }}</td>
+               </tr>
+           </repeat>
+           </tbody>
+        </table>
+</div>
+<div class="row">
+ <div class="col"><i>Customer:</i> {{ @details[0].customer }}</div>
+ <div class="col"></div>
+ <div class="col"></div>
+ <div class="col" align="right"><b>Total :</b> {{ number_format(@details[0].total,2) }} &nbsp; </div>
+</div>
+<br>
+<br>
+<div class="row">
+ <div class="col-lg-8">
+	<b>Terms:</b><br>Please pay within 5 days of invoice date<br><br>
+	<b>Wire instructions</b><br><i>Wells Fargo</i><br>Account: 3146094754<br>Direct deposit: 053207766</div>
+ <div class="col"><h4>Thank you for your business!</h4></div>
+</div>
+<br>
+<br>
+

@@ -2,40 +2,35 @@
 <input type="text" id="search" onkeyup="searchTable()" placeholder="Customer or Zipcode">
 <p>
 <div id="dvData">
-        <table id="expenses" class="table table-hover">
+        <table id="invoices" class="table table-hover">
            <thead class="thead-light">
            <tr>
                <th scope="col">ID</th>
                <th scope="col">Date</th>
                <th scope="col">Customer</th>
-	       <th scope="col">Area</th>
-               <th scope="col">Qty</th>
-               <th scope="col">Tax</th>
-               <th scope="col">VAT </th>
-               <th scope="col">Total </th>
-               <th scope="col">Country</th>
-               <th scope="col">Receipt</th>
-               <th scope="col"></th>
+	       <th scope="col">Address</th>
+               <th scope="col">Total</th>
+               <th scope="col">Invoice #</th>
+               <th scope="col">Details</th>
                <th scope="col">Action</th>
            </tr>
            </thead>
        
            <tbody>
-           <repeat group="{{ @expenses }}" value="{{ @rows }}">
+           <repeat group="{{ @invoices }}" value="{{ @rows }}">
                <tr>
                    <td>{{ trim(@rows.id) }}</td>
                    <td>{{ substr(trim(@rows.transdate),0,10) }}</td>
                    <td>{{ trim(@rows.customer) }}</td>
-                   <td>{{ trim(@rows.area) }}</td>
-                   <td align="right">{{ number_format(@rows.qty,2) }}</td>
-                   <td align="right">{{ number_format(@rows.taxes,2) }}</td>
-                   <td align="right">{{ number_format(@rows.vat,2) }}</td>
-                   <td align="right">{{ number_format(@rows.vat+@rows.taxes+@rows.qty,2) }}</td>
-                   <td>{{ trim(@rows.country) }}</td>
-                   <td align="center"><check if="trim(@rows.filename)!=''"><a href="uploads/{{ trim(@rows.filename) }}"><img src="/ui/images/page.gif" width="15"></a></check></td>
-                   <td></td>
+                   <td>{{ trim(@rows.customerd) }}</td>
+                   <td>{{ trim(@rows.invoicenumber) }}</td>
+                   <td align="right">{{ number_format(@rows.total,2) }}</td>
+                   <td align="center">
+			<a href="{{ @BASE. '/invoices/details/'. @rows.id}}"><img src="/ui/images/page.gif" width="15"></a>&nbsp;
+			<a href="{{ @BASE. '/invoices/print/'. @rows.id}}"><img src="/ui/images/print.gif" width="20"></a>
+		   </td>
                    <td>
-                       <a href="{{ @BASE.'/expenses/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15"></a> &nbsp;
+                       <a href="{{ @BASE.'/invoices/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15"</a> &nbsp;
                        <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15"></a> 
                    </td>
        
@@ -46,14 +41,6 @@
         </table>
        </div>
 <script>
-
-$(document).ready(function(){
-  $("#btnExport").click(function(e) {
-//    window.open('data:application/vnd.ms-excel,' + encodeURIComponent($('#dvData').html()) );
-    window.open('data:application/csv,' + encodeURIComponent($('#dvData').html()) );
-    e.preventDefault();
-  })
-});
 
 function searchTable() {
   var input, filter, table, tr, td, i, txtValue;
@@ -76,7 +63,7 @@ function searchTable() {
 
 function confirmDelete(rid) {
 	if(confirm("Delete record:"+rid+" ?")){
-		window.open("/expenses/delete/"+rid,"_self");
+		window.open("/invoices/delete/"+rid,"_self");
 	}
 }
 </script>

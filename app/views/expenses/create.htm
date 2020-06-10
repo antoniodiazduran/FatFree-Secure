@@ -68,7 +68,7 @@
   <div class="col">
     <input type="hidden" name="username" value="{{ @SESSION.user }}"/>
     <input type="hidden" name="create" value="create" />
-    <button type="button" id="mode" class="btn btn-primary">Submit</button>
+    <button type="button" id="mode" class="btn btn-warning">Submit</button>
   </div>
 </div>
 <div id="errors" style="color:red;"><div>
@@ -79,15 +79,15 @@
         $("#timestamp").val(formatNow());
 	$("#qty").change( function() { 
 		tot = $("#qty").val()*1+$("#taxes").val()*1+$("#vat").val()*1;
-		$("#total").val( tot );
+		$("#total").val( tot.toFixed(2) );
 	});
 	$("#taxes").change( function() { 
 		tot = $("#qty").val()*1+$("#taxes").val()*1+$("#vat").val()*1;
-		$("#total").val( tot );
+		$("#total").val( tot.toFixed(2) );
 	});
 	$("#vat").change( function() { 
 		tot = $("#qty").val()*1+$("#taxes").val()*1+$("#vat").val()*1;
-		$("#total").val( tot );
+		$("#total").val( tot.toFixed(2) );
 	});
 	$.each(areaFields, function(index, value){
                 $('#area').append($('<option>').text(value).attr('value',value));
@@ -103,27 +103,30 @@
 		});
   	});
   	$("#area").change( function() {
-  		$("#description").val('');
-  		$("#people").val('');
+  		document.getElementById('description').value = "";
+  		document.getElementById('people').value = "";
   		if($("#area").val() == 'Airfare') {
-  			$("#description").val('Airline: \nLocation From: \tTo: \nDates From: mm/dd/YYYY \tTo: mm/dd/YYYY ');
+  			$("#description").val('Airline: \nLocation From: \tTo: \nDates From: \tTo: ');
   			$("#people").val('Passenger: ');
   		}
   		if($("#area").val() == 'Hotel') {
-  			$("#description").val('Chain/Brand: \nDates From: mm/dd/YYYY \nTo: mm/dd/YYYY \nDays: ');
+  			$("#description").val('Chain/Brand: \nDates From: \nTo: \nDays: ');
+  			$("#people").val('Guest: ');
   		}
   		if($("#area").val() == 'Rental') {
-  			$("#description").val('Company: \nSize: \nDays: ');
+  			$("#description").val('Company: \nSize: \nDates From: \nDays: ');
+  			$("#people").val('Guest: ');
   		}
   		if($("#area").val() == 'Parking') {
   			$("#description").val('City/Airport: \nDays: ');
   		}
   		if($("#area").val() == 'Meals') {
   			$("#description").val('Name: \nLocation: ');
-  			$("#people").val('Guest: \nGuest: ');
+  			$("#people").val('Host: \nGuest: ');
   		}
   		if($("#area").val() == 'Taxi') {
   			$("#description").val('Uber: \nLocation From: \nTo: ');
+  			$("#people").val('Guest: \nGuest: ');
   		}
   		if($("#area").val() == 'Miles') {
   			$("#description").val('Vehicle: \nLocation From: \nTo: ');

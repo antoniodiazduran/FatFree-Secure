@@ -27,8 +27,8 @@
                    <td align="right">{{ trim(@rows.hours) }}</td>
                    <td></td>
                    <td>
-                      [ <a href="{{ @BASE.'/clocktime/update/'. @rows.id }}">Edit</a> | 
-                       <a href="{{ @BASE.'/clocktime/delete/'. @rows.id }}">Delete</a> ]
+                       <a href="{{ @BASE.'/clocktime/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15"></a> &nbsp; 
+                       <a href="" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15"></a> 
                    </td>
        
                </tr>
@@ -65,7 +65,11 @@ function searchTable() {
     }
   }
 }
-
+function confirmDelete(rid) {
+        if(confirm("Delete record:"+rid+" ?")){
+                window.open("/clocktime/delete/"+rid,"_self");
+        }
+}
 </script>
 
 

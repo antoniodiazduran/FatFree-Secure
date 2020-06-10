@@ -1,4 +1,4 @@
-<check if="{{ @page_head!='raw' }}">
+<check if="{{ @page_head!='print' }}">
 	<true>
   		<include href="header.htm" />
 		<check if="{{ @page_head!='form' }}">
@@ -7,7 +7,16 @@
 		<include href="{{ @view }}"/>
 		<include href="footer.htm"/>
 	</true>
-	<false>
+</check>
+<check if="{{ @page_head=='print' }}">
+	<true>
+		<include href="header.htm"/>
+		<include href="{{ @view }}"/>
+		<include href="footer.htm"/>
+	</true>
+</check>
+<check if="{{ @page_head=='raw' }}">
+	<true>
 	  	<include href="{{ @view }}">
-	</false>
+	</true>
 </check>

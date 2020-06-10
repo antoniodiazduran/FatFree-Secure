@@ -1,0 +1,95 @@
+<!--<input type="button" id="btnExport" value="Export"><br> //-->
+<div class="row">
+<div class="col"> 
+	<b>Customer:</b> {{ @details[0].customer }}<br>
+	<b>Record ID:</b> {{ @details[0].id }}<br>
+	<b>Total :</b> {{ number_format(@details[0].total,2) }}
+</div>
+<div class="col"> <b>Address:</b><br> {{ @details[0].customerd }}</div>
+<div class="col"> <b>Description:</b><br>{{ @details[0].description }}</div>
+<div class="col"> <a href="/invoices/print/{{ @details[0].id }}"><img src="/ui/images/print.gif" width="30"></a></div>
+</div>
+<div id="errors" style="color:red;"></div>
+<p> 
+<div id="dvData">
+	<form method="post" id="detform" action="/invoices/details/create">
+        <table id="invoices" class="table ">
+           <thead class="thead-light">
+           <tr>
+               <th scope="col">Date</th>
+               <th scope="col">Detail</th>
+               <th scope="col">Quantiy</th>
+	       <th scope="col">Price</th>
+               <th scope="col">Total</th>
+               <th scope="col">Action</th>
+           </tr>
+           </thead>
+       
+           <tbody>
+		<tr>
+			<td><input type="text" id="transdate" name="transdate" class="form-control" placeholder="Select date"></td>
+			<td><select id="detail" name="detail" class="form-control"></select></td>
+			<td><input style="text-align:right;" type="text" id="qty" name="qty" class="form-control" placeholder="Hours/Days"></td>
+			<td><input style="text-align:right; type="text" id="price" name="price" class="form-control" placeholder="Price"></td>
+			<td><input style="text-align:right;type="text" id="total" name="total" class="form-control" placeholder="Total" readonly></td>
+		</tr>
+		<tr>
+			<td colspan="5"><input type="text" id="description" class="form-control" name="description" placeholder="Describe the work"></td>
+			<td><input type="button" id="mode" name="mode" value="Submit" class="btn btn-warning"></td>
+		</tr>
+           <repeat group="{{ @invoicesd }}" value="{{ @rows }}">
+               <tr>
+                   <td align="right">{{ trim(@rows.transdate) }}</td>
+                   <td><b>{{ trim(@rows.detail) }}</b><br><i>{{ trim(@rows.description)}}</i></td>
+                   <td align="right">{{ number_format(@rows.qty,2) }}</td>
+                   <td align="right">{{ number_format(@rows.price,2) }}</td>
+                   <td align="right">{{ number_format(@rows.total,2) }}</td>
+                   <td align="center">
+                        <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15"></a>
+                   </td>       
+               </tr>
+           </repeat>
+           </tbody>
+        </table>
+	<input type="hidden" id="rid" name="rid" value="{{ @details[0].id }}">
+	<input type="hidden" id="relation" name="relation" value="{{ @details[0].id }}">
+	<input type="hidden" id="create" name="create">
+	<input type="hidden" id="username" name="{{ @SESION.user }}" value="">
+	</form>
+       </div>
+
+<script>
+   $(document).ready(function(){
+        $("#qty").change( function() {
+                tot = $("#qty").val()*1*$("#price").val()*1;
+                $("#total").val( tot.toFixed(2) );
+        });
+        $("#price").change( function() {
+                tot = $("#qty").val()*1*$("#price").val()*1;
+                $("#total").val( tot.toFixed(2) );
+        });
+        $.each(detailFields, function(index, value){
+                $('#detail').append($('<option>').text(value).attr('value',value));
+        });
+   });
+
+   $("#mode").click( function () {
+                var errors = '';
+                if (document.getElementById('transdate').value.length == 0) { errors += "* Date can't be empty!<br>" }
+                if (document.getElementById('detail').value.length == 0) { errors += "* Select detail!<br>" }
+                if (document.getElementById('qty').value.length == 0) { errors += "* Quantity can't be Null!<br>" }
+                if (document.getElementById('price').value.length == 0) { errors += "* Price can't be Null!<br>" }
+                if (document.getElementById('description').value.length == 0) { errors += "* Description can't be empty!<br>" }
+                document.getElementById('errors').innerHTML = errors;
+                if (errors.length == 0) { document.getElementById('detform').submit(); }
+   });
+
+   function confirmDelete(rid) {
+	if(confirm("Delete record # "+rid+" ?")){
+		window.open("/invoices/details/delete/"+rid,"_self");
+	}
+   }
+</script>
+
+
+

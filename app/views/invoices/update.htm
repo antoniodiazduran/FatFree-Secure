@@ -1,0 +1,52 @@
+<form action="/invoices/update" id="expform" method="post" class="form-horizontal">
+
+ <div class="row">
+  <div class="col-lg-4">
+    <label class="control-label" for="transdate">Transaction Date:</label>
+      <input type="text" class="form-control" id="transdate" name="transdate" placeholder="mm/dd/yyyy">
+  </div>
+  <div class="col-lg-4">
+    <label class="control-label" for="invoicenumber">Invoice Number:</label>
+      <input type="ext" class="form-control" id="invoicenumber" name="invoicenumber" value="{{ @POST.invoicenumber }}" placeholder="year-xxx"></textarea>
+  </div>
+ </div>
+ <div class="row">
+  <div class="col-lg-4">
+    <label class="control-label" for="customer">Customer:</label>
+      <input type="text" class="form-control" id="customer" name="customer" value="{{ @POST.customer }}" placeholder="Name or Zipcode">
+  </div>
+  <div class="col-lg-4">
+    <label class="control-label" for="customer">Customer Name:</label>
+      <input type="text" class="form-control" id="customername" name="customername" value="{{ @POST.customername }}" placeholder="Customer Name">
+  </div>
+ </div>
+ <div class="row">
+  <div class="col-lg-4">
+    <label class="control-label" for="qty">Customer Address:</label>
+      <textarea class="form-control" id="customerd" name="customerd" rows="4">{{ @POST.customerd }}</textarea>
+  </div>
+ </div>
+<br>
+ <div class="row">
+  <div class="col-lg-6">
+    <label class="control-label" for="description">Description:</label>
+      <textarea class="form-control" id="description" name="description" rows="4">{{ @POST.description }}</textarea>
+  </div>
+ </div>
+<br> 
+ <div class="row">
+  <div class="col">
+    <input type="hidden" name="id" value="{{ @POST.id }}">
+    <input type="hidden" name="username" value="{{ @POST.username }}"/>
+    <input type="hidden" name="update" value="update" />
+    <button type="submit" id="mode" class="btn btn-primary">Submit</button>
+  </div>
+ </div>
+<div id="errors" style="color:red;"><div>
+</form>
+<script>
+ $(document).ready(function(){  
+        $("#transdate").val(formatDates());
+        $("#timestamp").val(formatNow());
+ });
+</script>
