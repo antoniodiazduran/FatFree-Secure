@@ -1,6 +1,7 @@
   var areaFields = ["","Airfare","Hotel","Rental","Parking","Meals","Taxi","Marketing","Supplies","Miles"];
   var countryFields = ["USA","Canada","Mexico","Germany","France","England","Italy","China"];
   var detailFields = ["","Kaizen","Training","Couching","Support","Analyzing","Expenses","Programming"];
+  var statusFields = ["","not ready","sent","errors","paid"];
 
     function formatNow(){
         var yy = new Date().getFullYear();

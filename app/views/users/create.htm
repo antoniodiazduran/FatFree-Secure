@@ -1,67 +1,108 @@
-<form action="{{ @BASE.'/users/create' }}" method="post" class="form-horizontal">
-    
-  <div class="form-group">
-    <label class="control-label col-xs-3 col-sm-2" for="username">Username:</label>
-    <div class="col-xs-5 col-sm-3">
-        <input type="text" id="username" name="username" class="form-control"/>
+<form action="{{ @BASE.'/users/create' }}" method="post" class="form-horizontal" onkeyup="validate()">
+  <div class="row">
+    <div class="col-sm-4">
+      <label class="control-label" for="username">Username:</label>
+        <input type="text" id="username" name="username" class="form-control" onkeyup="check_username()"/>
     </div>
+    <div class="col-sm-4" id="username_error"></div>
   </div>
-  <div class="form-group">
-    <label class="control-label col-xs-3 col-sm-2" for="password">Password:</label>
-    <div class="col-xs-5 col-sm-3">
+  <div class="row">
+    <div class="col-sm-4">
+      <label class="control-label" for="password">Password:</label>
         <input type="password" id="password" name="password" class="form-control"/>
     </div>
+    <div class="col-sm-4" id="password_error"></div>
   </div>
-  <div class="form-group">
-    <label class="control-label col-xs-3 col-sm-2" for="password">Re-Type:</label>
-    <div class="col-xs-5 col-sm-3">
+  <div class="row">
+    <div class="col-sm-4">
+      <label class="control-label" for="password">Re-Type:</label>
         <input type="password" id="retype" name="retype" class="form-control"/>
     </div>
+    <div class="col-sm-4" id="retype_error"></div>
   </div>
-  <div class="form-group">
-    <label class="control-label col-xs-3 col-sm-2" for="roles">User role:</label>
-    <div class="col-xs-5 col-sm-3">
-        <select id="roles" name="roles" class="form-control">
-		<option>
-		<option>User
-		<option>Admin
-	</select>
+  <div class="row">
+    <div class="col-sm-4">
+      <label class="control-label" for="roles">User role:</label>
+        <select id="roles" name="roles" class="form-control" onChange="validate()">
+                <option>
+                <option>User
+                <option>Data
+        </select>
     </div>
   </div>
-  <div class="form-group">
-    <label class="control-label col-xs-3 col-sm-2" for="bp_id">Buisness Partner:</label>
-    <div class="col-xs-5 col-sm-3">
+  <div class="row">
+    <div class="col-sm-4">
+      <label class="control-label" for="email">Email:</label>
+        <input type="text" id="email" name="email" class="form-control"/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <label class="control-label" for="bp_id">Business Code:</label>
         <input type="text" id="bp_id" name="bp_id" class="form-control"/>
     </div>
   </div>
-  <input type="hidden" name="create" value="create" />
-  <div class="form-group"> 
-    <div class="col-xs-offset-3 col-xs-10 col-sm-offset-2 col-sm-5">
-      <button id="create" type="submit" class="btn btn-primary">Create</button>
+<br>
+  <div class="row">
+    <div class="col-sm-4">
+      <button id="create" type="submit" class="form-control btn btn-warning">Create</button>
     </div>
   </div>
-
+  <input type="hidden" name="create" value="create" />
 </form>
 <script>
- $(document).ready(function(){
-	$("#create").attr("disabled",true);
-	$("#retype").change(check_submit);
-	$("#username").change(check_submit);
-	$("#bp_id").change(check_submit);
+$(document).ready(function(){
+        $("#create").hide();
+ });
 
-  function check_submit(){
-    	var pass = $("#password").val();
-        if (pass === $("#retype").val()) {
-        	if( ($("#bp_id").val()!='') && ($("#username").val()!='') ){
-		$("#create").removeAttr("disabled");
-        	} else {
-		$("#create").attr("disabled",true);
-		}
-	} else {
-		$("#create").attr("disabled",true);
+  function validate(){
+        var ok_count = 0;
+        if ($("#username_error").html() == '<br><br>User available') { ok_count++; }
+        if ($("#password_error").html() == '<br><br>') { ok_count++; }
+        if ($("#retype_error").html() == '<br><br>') { ok_count++; }
+        if ($("#roles").val() != '') { ok_count++; }
+        if ($("#email").val() != '') { ok_count++; }
+        if (ok_count == 5){
+                $("#create").show();
+        } else {
+                $("#create").hide();
         }
+        var error1 = '<br><br>';
+        var error2 = '<br><br>';
+        if ($("#password").val() != $("#retype").val()) {
+                $("#retype").attr('style','background-color:white;color:black;')
+                error2 += 'Password not matching';
+        }
+        $("#retype_error").html(error2);
+
+        if ($("#password").val().length < 8) {
+                $("#password").attr('style','background-color:white;color:black;')
+                error1 += 'Must be at least 8 characters';
+        }
+        $("#password_error").html(error1);
+
   }
 
- });
+  function check_username() {
+        var urlx = '/checkusername/'+$("#username").val();
+        var error = '<br><br>';
+        if ($("#username").val().length < 8) {
+                $("#username").attr('style','background-color:white;color:black;')
+                $("#username_error").html(error + 'Must be at least 8 characters');
+        }
+        if ($("#username").val().length >= 8) {
+           $.get(urlx, function(data,result) {
+                if ( data == 0 && result == 'success') {
+                        $("#username").attr('style','background-color:green;color:white;')
+                        $("#username_error").html(error + 'User available');
+                        validate();
+                } else {
+                        $("#username").attr('style','background-color:red;color:white;')
+                        $("#username_error").html(error + 'User NOT available');
+                        validate();
+                }
+           });
+        }
+  }
 
 </script>

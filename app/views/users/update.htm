@@ -2,35 +2,43 @@
 <check if="{{ @SESSION.roles=='Admin' }}">
  <form action="{{ @BASE.'/users/update' }}" method="post" class="form-horizontal">
     
-  <div class="form-group">
-    <label class="control-label col-xs-3 col-sm-2" for="username">Username:</label>
-    <div class="col-xs-5 col-sm-3">
+  <div class="row">
+    <div class="col-sm-4">
+    <label class="control-label" for="username">Username:</label>
         <input readonly type="text" id="username" name="username" value="{{ @POST.username }}" class="form-control"/>
     </div>
   </div>
-  <div class="form-group">
-    <label class="control-label col-xs-3 col-sm-2" for="roles">User role:</label>
-    <div class="col-xs-5 col-sm-3">
+  <div class="row">
+    <div class="col-sm-4">
+    <label class="control-label" for="roles">User role:</label>
         <select id="roles" name="roles" class="form-control">
                 <option>
                 <option {{ @POST.roles=='User'?' selected':'' }}>User
                 <option {{ @POST.roles=='Admin'?' selected':'' }}>Admin
+                <option {{ @POST.roles=='Data'?' selected':'' }}>Data
         </select>
     </div>
   </div>
-  <div class="form-group">
-    <label class="control-label col-xs-3 col-sm-2" for="bp_id">Buisness Partner:</label>
-    <div class="col-xs-5 col-sm-3">
+  <div class="row">
+    <div class="col-sm-4">
+    <label class="control-label" for="email">Email:</label>
+        <input type="text" id="email" name="email" value="{{ @POST.email}}" class="form-control"/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+    <label class="control-label" for="bp_id">Business Partner:</label>
         <input type="text" id="bp_id" name="bp_id" value="{{ @POST.bp_id}}" class="form-control"/>
+    </div>
+  </div>
+<br>
+  <div class="row"> 
+    <div class="col-sm-4">
+      <button type="submit" name="update" id="update" class="form-control btn btn-warning">update</button>
     </div>
   </div>
   <input type="hidden" name="update" id="update" value="update" />
   <input type="hidden" name="id" id="id" value="{{ @POST.id }}" />
-  <div class="form-group"> 
-    <div class="col-xs-offset-3 col-xs-10 col-sm-offset-2 col-sm-5">
-      <button type="submit" name="update" id="update" class="btn btn-primary">update</button>
-    </div>
-  </div>
 
  </form>
 </check>

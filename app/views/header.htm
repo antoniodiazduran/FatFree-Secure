@@ -12,15 +12,17 @@
 	<script>
 		var myCalendar;
 		function doOnLoad() {
-			myCalendar = new dhtmlXCalendarObject(["transdate","startdate","enddate"]);
-                        myCalendar.setDateFormat("%Y/%m/%d %H:%i:%s");
+			myCalendar = new dhtmlXCalendarObject(["transdate","duedate","startdate","enddate"]);
+			<check if="{{ @page_head=='clock'}}">
+                        <true>myCalendar.setDateFormat("%Y/%m/%d %H:%i");</true>
+			<false>myCalendar.setDateFormat("%Y/%m/%d");</false>
+			</check>
 		}
 	</script>
 
     </head>
 
 <body onLoad="doOnLoad();" class="container" style="padding-top:65px;">
-
 <div>
 
 

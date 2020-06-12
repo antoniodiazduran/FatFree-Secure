@@ -16,9 +16,9 @@ USA
 	Due Date:<br>
 </div>
 <div class="col">
-	<font color="red"> {{ substr(@details[0].transdate,0,4)."-00".@details[0].id }}</font><br>
+	<font color="red"> {{ trim(@details[0].invoicenumber) }}</font><br>
 	<font color="gray">{{ substr(@details[0].transdate,5,2).'-'.substr(@details[0].transdate,8,2).'-'.substr(@details[0].transdate,0,4) }}</font><br>
-	<font color="gray">{{ substr(@details[0].transdate,5,2).'-'.substr(@details[0].transdate,8,2).'-'.substr(@details[0].transdate,0,4) }}</font><br>
+	<font color="gray">{{ substr(@details[0].duedate,5,2).'-'.substr(@details[0].duedate,8,2).'-'.substr(@details[0].duedate,0,4) }}</font><br>
 </div>
 </div>
 <br>
@@ -66,8 +66,9 @@ USA
 <br>
 <div class="row">
  <div class="col-lg-8">
-	<b>Terms:</b><br>Please pay within 5 days of invoice date<br><br>
-	<b>Wire instructions</b><br><i>Wells Fargo</i><br>Account: 3146094754<br>Direct deposit: 053207766</div>
+	<b>Terms:</b><br>Please pay before invoice due date<br>
+	<b>Check:</b><br>Mailing address above<br>
+	<b>Wire instructions:</b><br><i>Wells Fargo</i><br>Account: 3146094754<br>Direct deposit: 053207766</div>
  <div class="col"><h4>Thank you for your business!</h4></div>
 </div>
 <br>

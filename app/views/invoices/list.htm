@@ -7,10 +7,12 @@
            <tr>
                <th scope="col">ID</th>
                <th scope="col">Date</th>
+               <th scope="col">Due Date</th>
+               <th scope="col">Status</th>
                <th scope="col">Customer</th>
 	       <th scope="col">Address</th>
-               <th scope="col">Total</th>
                <th scope="col">Invoice #</th>
+               <th scope="col">Total</th>
                <th scope="col">Details</th>
                <th scope="col">Action</th>
            </tr>
@@ -21,6 +23,8 @@
                <tr>
                    <td>{{ trim(@rows.id) }}</td>
                    <td>{{ substr(trim(@rows.transdate),0,10) }}</td>
+                   <td>{{ substr(trim(@rows.duedate),0,10) }}</td>
+                   <td>{{ trim(@rows.invoicestatus) }}</td>
                    <td>{{ trim(@rows.customer) }}</td>
                    <td>{{ trim(@rows.customerd) }}</td>
                    <td>{{ trim(@rows.invoicenumber) }}</td>
@@ -30,7 +34,7 @@
 			<a href="{{ @BASE. '/invoices/print/'. @rows.id}}"><img src="/ui/images/print.gif" width="20"></a>
 		   </td>
                    <td>
-                       <a href="{{ @BASE.'/invoices/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15"</a> &nbsp;
+                       <a href="{{ @BASE.'/invoices/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15"></a>&nbsp;
                        <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15"></a> 
                    </td>
        

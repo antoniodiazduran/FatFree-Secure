@@ -1,20 +1,29 @@
-<form action="/invoices/update" id="expform" method="post" class="form-horizontal">
+<form action="/invoices/update" id="invform" method="post" class="form-horizontal">
 
  <div class="row">
   <div class="col-lg-4">
     <label class="control-label" for="transdate">Transaction Date:</label>
-      <input type="text" class="form-control" id="transdate" name="transdate" placeholder="mm/dd/yyyy">
+      <input type="text" class="form-control" id="transdate" name="transdate" value="{{ @POST.transdate }}" placeholder="mm/dd/yyyy">
   </div>
+  <div class="col-lg-4">
+    <label class="control-label" for="duedate">Due Date:</label>
+      <input type="text" class="form-control" id="duedate" name="duedate" value="{{ @POST.duedate}}"  placeholder="mm/dd/yyyy">
+  </div>
+ </div>
+ <div class="row">
   <div class="col-lg-4">
     <label class="control-label" for="invoicenumber">Invoice Number:</label>
       <input type="ext" class="form-control" id="invoicenumber" name="invoicenumber" value="{{ @POST.invoicenumber }}" placeholder="year-xxx"></textarea>
   </div>
+  <div class="col" id="errors" style="color:red;"></div>
  </div>
  <div class="row">
   <div class="col-lg-4">
     <label class="control-label" for="customer">Customer:</label>
       <input type="text" class="form-control" id="customer" name="customer" value="{{ @POST.customer }}" placeholder="Name or Zipcode">
   </div>
+ </div>
+ <div class="row">
   <div class="col-lg-4">
     <label class="control-label" for="customer">Customer Name:</label>
       <input type="text" class="form-control" id="customername" name="customername" value="{{ @POST.customername }}" placeholder="Customer Name">
@@ -33,13 +42,20 @@
       <textarea class="form-control" id="description" name="description" rows="4">{{ @POST.description }}</textarea>
   </div>
  </div>
+ <div class="row">
+  <div class="col-lg-4">
+    <label class="control-label" for="invoicestatus">Invoice Status:</label>
+        <select id="invoicestatus" name="invoicestatus" value="" class="browser-default custom-select">
+        </select>
+  </div>
+ </div>
 <br> 
  <div class="row">
   <div class="col">
     <input type="hidden" name="id" value="{{ @POST.id }}">
     <input type="hidden" name="username" value="{{ @POST.username }}"/>
     <input type="hidden" name="update" value="update" />
-    <button type="submit" id="mode" class="btn btn-primary">Submit</button>
+    <button type="button" name="mode" id="mode" class="btn btn-warning">Submit</button>
   </div>
  </div>
 <div id="errors" style="color:red;"><div>
@@ -48,5 +64,23 @@
  $(document).ready(function(){  
         $("#transdate").val(formatDates());
         $("#timestamp").val(formatNow());
+	$.each(statusFields, function(index, value){
+	if(value == '{{ @POST.invoicestatus }}') {
+                $('#invoicestatus').append($('<option>').text(value).attr('value',value).attr('selected','selected'));
+        } else {
+                $('#invoicestatus').append($('<option>').text(value).attr('value',value));
+	}
+        });
+ });
+ $("#mode").click( function () {
+		var errors = '';
+		if (document.getElementById('transdate').value.length == 0) { errors += "* Date can't be blank!\n" } 
+		if (document.getElementById('duedate').value.length == 0) { errors += "* Due date can't be blank!\n" } 
+		if (document.getElementById('customer').value.length == 0) { errors += "* Customer can't be Null!\n" } 
+		if (document.getElementById('customername').value.length == 0) { errors += "* Customer name can't be Null!\n" } 
+		if (document.getElementById('customerd').value.length == 0) { errors += "* Customer detail can't be Null!\n" } 
+		document.getElementById('errors').innerHTML = '<br>'+errors;
+		if (errors.length != 0) { alert(errors) } 
+		else { document.getElementById('invform').submit(); }
  });
 </script>

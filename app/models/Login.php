@@ -11,6 +11,12 @@ class Login extends DB\SQL\Mapper{
         return $this->query;
     }
 
+    public function checkusername($id) {
+	$sql = 'SELECT count(*) as total FROM  bpuser WHERE username = ?';
+	$result = $this->db->exec($sql,$id);
+	echo $result[0]['total'];
+	exit;
+    }
     public function getById($id) {
         $this->load(array('id=?',$id));
         return $this->query;

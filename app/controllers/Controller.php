@@ -32,6 +32,7 @@ class Controller {
 	  }
         }
       } else {
+echo "null";exit;
 	echo Template::instance()->render('layout.htm');
       }
     }

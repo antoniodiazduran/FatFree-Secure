@@ -7,6 +7,7 @@
                <th scope="col">Username</th>
 	       <th scope="col">Password</th>            
 	       <th scope="col">Roles</th>            
+               <th scope="col">Email</th>
                <th scope="col">BP</th>
                <th scope="col">Action</th>
            </tr>
@@ -19,6 +20,7 @@
                    <td>{{ trim(@rows.username) }}</td>
                    <td> ** </td>
                    <td>{{ trim(@rows.roles) }}</td>
+                   <td>{{ trim(@rows.email) }}</td>
                    <td>{{ trim(@rows.bp_id) }}</td>
                    <td>
                       [ <a href="{{ @BASE.'/users/update/'. @rows.id }}">Edit</a> | 

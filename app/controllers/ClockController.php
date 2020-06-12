@@ -36,7 +36,7 @@ class ClockController extends Controller {
         }
         else
         {
-            $this->f3->set('page_head','New');
+            $this->f3->set('page_head','clock');
             $this->f3->set('view','/'.$this->getViewFolder().'/create.htm');
         }
     }
@@ -53,7 +53,7 @@ class ClockController extends Controller {
         else
         {
             $clocktime->getById($this->f3->get('PARAMS.id'));
-            $this->f3->set('page_head','Update');
+            $this->f3->set('page_head','clock');
             $this->f3->set('view',$this->getViewFolder().'/update.htm');
         }
     }

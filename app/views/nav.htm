@@ -8,7 +8,37 @@
       <li class="nav-item">
         <span class="nav-link">[ {{ @SESSION.user }} ]</span>
       </li>
-   <check if="{{ @SESSION.roles!='Admin' }}">
+
+   <check if="{{ @SESSION.roles=='Data' }}">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Interuptions
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/expenses/create">Create</a>
+          <a class="dropdown-item" href="/expenses">List</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Pareto
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/clocktime/create">Create</a>
+          <a class="dropdown-item" href="/clocktime">List</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Trends
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/invoices/create">Create</a>
+          <a class="dropdown-item" href="/invoices">List</a>
+        </div>
+      </li>
+   </check>
+   <check if="{{ @SESSION.roles=='User' }}">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Expenses
@@ -56,7 +86,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/users/create">Create</a>
-          <a class="dropdown-item" href="users">List</a>
+          <a class="dropdown-item" href="/users">List</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="/users/password">Change Password</a>
  	  <a class="dropdown-item"  href="/logout">Logout</a>
