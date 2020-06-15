@@ -15,7 +15,7 @@ class InvoicesController extends Controller {
         $classvar = new Invoices($this->db);
         $this->f3->set('details',$classvar->allid($this->f3->get('PARAMS.id')));
         $this->f3->set('invoicesd',$classvar->details($this->f3->get('PARAMS.id')));
-
+	$this->f3->set('guid',$classvar->guid());
         $this->f3->set('page_head','print');
         $this->f3->set('view',$this->getViewFolder().'/print.htm');
     }

@@ -54,6 +54,7 @@
   <div class="col">
     <input type="hidden" name="id" value="{{ @POST.id }}">
     <input type="hidden" name="username" value="{{ @POST.username }}"/>
+    <input type="hidden" name="timestamp" id="timestamp">
     <input type="hidden" name="update" value="update" />
     <button type="button" name="mode" id="mode" class="btn btn-warning">Submit</button>
   </div>
@@ -62,7 +63,6 @@
 </form>
 <script>
  $(document).ready(function(){  
-        $("#transdate").val(formatDates());
         $("#timestamp").val(formatNow());
 	$.each(statusFields, function(index, value){
 	if(value == '{{ @POST.invoicestatus }}') {
@@ -71,6 +71,12 @@
                 $('#invoicestatus').append($('<option>').text(value).attr('value',value));
 	}
         });
+	if($("#invoicestatus").val()=='sent') { 
+		$("#transdate").attr('readonly','readonly');
+		$("#invoicenumber").attr('readonly','readonly');
+		$("#customer").attr('readonly','readonly');
+		$("#customername").attr('readonly','readonly')
+	}
  });
  $("#mode").click( function () {
 		var errors = '';

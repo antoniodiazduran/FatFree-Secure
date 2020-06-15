@@ -9,8 +9,8 @@ class Controller {
     function beforeroute() {
       if ($this->f3->get('secure')) {
         if($this->f3->get('SESSION.user') === null ) {
-            $this->f3->reroute('/login');
-            exit;
+           $this->f3->reroute('/login');
+           exit;
         }
         if ( $this->f3->get('SESSION.timeout') < time() ) {
            $this->f3->set('SESSION.user', null);
@@ -32,8 +32,7 @@ class Controller {
 	  }
         }
       } else {
-echo "null";exit;
-	echo Template::instance()->render('layout.htm');
+        echo Template::instance()->render('layout.htm');
       }
     }
 

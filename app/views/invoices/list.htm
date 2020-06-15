@@ -11,7 +11,7 @@
                <th scope="col">Status</th>
                <th scope="col">Customer</th>
 	       <th scope="col">Address</th>
-               <th scope="col">Invoice #</th>
+               <th scope="col">Invoice</th>
                <th scope="col">Total</th>
                <th scope="col">Details</th>
                <th scope="col">Action</th>
@@ -26,7 +26,7 @@
                    <td>{{ substr(trim(@rows.duedate),0,10) }}</td>
                    <td>{{ trim(@rows.invoicestatus) }}</td>
                    <td>{{ trim(@rows.customer) }}</td>
-                   <td>{{ trim(@rows.customerd) }}</td>
+                   <td>{{ substr(trim(@rows.customerd),0,25) }}...</td>
                    <td>{{ trim(@rows.invoicenumber) }}</td>
                    <td align="right">{{ number_format(@rows.total,2) }}</td>
                    <td align="center">

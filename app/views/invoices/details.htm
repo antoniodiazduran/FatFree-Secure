@@ -3,7 +3,8 @@
 <div class="col"> 
 	<b>Customer:</b> {{ @details[0].customer }}<br>
 	<b>Record ID:</b> {{ @details[0].id }}<br>
-	<b>Total :</b> {{ number_format(@details[0].total,2) }}
+	<b>Total :</b> {{ number_format(@details[0].total,2) }}<br>
+	<b>Status :</b> {{ @details[0].invoicestatus }}
 </div>
 <div class="col"> <b>Address:</b><br> {{ @details[0].customerd }}</div>
 <div class="col"> <b>Description:</b><br>{{ @details[0].description }}</div>
@@ -26,6 +27,8 @@
            </thead>
        
            <tbody>
+		<check if="{{ @details[0].invoicestatus == 'not ready' }}">
+		<true>
 		<tr>
 			<td><input type="text" id="transdate" name="transdate" class="form-control" placeholder="Select date"></td>
 			<td><select id="detail" name="detail" class="form-control"></select></td>
@@ -37,6 +40,8 @@
 			<td colspan="5"><input type="text" id="description" class="form-control" name="description" placeholder="Describe the work"></td>
 			<td><input type="button" id="mode" name="mode" value="Submit" class="btn btn-warning"></td>
 		</tr>
+		</true>
+		</check>
            <repeat group="{{ @invoicesd }}" value="{{ @rows }}">
                <tr>
                    <td align="right">{{ trim(@rows.transdate) }}</td>
@@ -45,7 +50,9 @@
                    <td align="right">{{ number_format(@rows.price,2) }}</td>
                    <td align="right">{{ number_format(@rows.total,2) }}</td>
                    <td align="center">
+			<check if="{{ @details[0].invoicestatus == 'not ready'}}">
                         <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15"></a>
+			</check>
                    </td>       
                </tr>
            </repeat>
