@@ -32,8 +32,13 @@ class UpController extends Controller {
         if($this->f3->exists('POST.upload'))
         {
             $ups = new Upload($this->d1);
-            $ups->upload($this->f3->get('POST'),$this->f3->get('SESSION.user'));
-            $this->f3->reroute('/upload');
+            $result = $ups->upload($this->f3->get('POST'),$this->f3->get('SESSION.user'));
+		if($result!='[]') {
+			$this->f3->set('msg',$result);
+			$this->f3->set('view','/auth/internalerror.htm');
+		} else {
+          		$this->f3->reroute('/upload');
+		}
         }
         else
         {

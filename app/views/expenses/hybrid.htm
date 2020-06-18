@@ -1,0 +1,156 @@
+<form action="/expenses/{{ @mode }}" method="post" class="form-horizontal">
+<div class="row">
+  <div class="col-lg-4">
+    <label class="control-label" for="transdate">Transaction Date:</label>
+      <input type="text" class="form-control" id="transdate" name="transdate" placeholder="mm/dd/yyyy">
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-4">
+    <label class="control-label" for="customer">Customer:</label>
+      <input type="text" class="form-control" id="customer" name="customer" <check if="{{ @mode == 'update' }}">value="{{ @POST.customer }}" </check> placeholder="Zipcode">
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-4">
+    <label class="control-label" for="area">Area:</label>
+        <select id="area" name="area" value="" class="browser-default custom-select">
+        </select>
+  </div>
+  <div class="col-lg-4">
+    <label class="control-label" for="area">Receipt:</label>
+        <select id="receipt" name="receipt" value="" class="browser-default custom-select">
+	</select>
+  </div>
+  <div class="col-lg-4">
+    <label class="control-label" for="area">Country:</label>
+        <select id="country" name="country" value="" class="browser-default custom-select">
+        </select>
+  </div>
+</div>
+ <div class="row">
+  <div class="col">
+    <label class="control-label" for="qty">Quantity:</label>
+      <input type="text" class="form-control" id="qty" name="qty" placeholder="0.00" <check if="{{ @mode == 'update' }}">value="{{ @POST.qty }}"</check> style="text-align:right;">
+  </div>
+  <div class="col">
+    <label class="control-label" for="taxes">Taxes:</label>
+      <input type="text" class="form-control" id="taxes" name="taxes" placeholder="0.00" <check if="{{ @mode == 'update' }}">value="{{ @POST.taxes }}"</check> style="text-align:right;">
+  </div>
+  <div class="col">
+    <label class="control-label" for="vat">VAT:</label>
+      <input type="text" class="form-control" id="vat" name="vat" value="0" placeholder="0.00" <check if="{{ @mode == 'update' }}">value="{{ @POST.vat }}"</check> style="text-align:right;">
+  </div>
+ </div>
+ <div class="row">
+  <div class="col-lg-4">
+    <label class="control-label" for="vat">Total:</label>
+      <input type="text" class="form-control" id="total" name="total" placeholder="0.00" readonly style="text-align:right;">
+  </div>
+ </div>
+<br>
+<div class="row">
+  <div class="col">
+    <label class="control-label" for="description">Description:</label>
+      <textarea class="form-control" id="description" name="description" rows="3"><check if="{{ @mode == 'update' }}">{{ @POST.description }}</check></textarea>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <label class="control-label" for="people">People:</label>
+      <textarea class="form-control" id="people" name="people" rows="3"><check if="{{ @mode == 'update' }}">{{ @POST.people }}</check></textarea>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col">
+   <check if="{{ @mode == 'update' }}">
+    <input type="hidden" name="id" value="{{ @POST.id }}">
+   </check>
+    <input type="hidden" name="username" value="{{ @SESSION.user }}"/>
+    <input type="hidden" name="{{ @mode }}" value="{{ @mode }}" />
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+</div>
+</form>
+<script>
+
+ $(document).ready(function(){  
+        //$("#transdate").val(formatDates());
+	<check if="{{ @mode == 'update' }}">
+	document.getElementById('transdate').value = formatDBDate('{{ @POST.transdate }}');
+	</check>
+	<check if="{{ @mode == 'create' }}">
+	document.getElementById('transdate').value = formatDates();
+	</check>
+        $("#timestamp").val(formatNow());
+	tot = $("#qty").val()*1+$("#taxes").val()*1+$("#vat").val()*1;
+	$("#total").val( tot );
+
+	$("#qty").change( function() { 
+		tot = $("#qty").val()*1+$("#taxes").val()*1+$("#vat").val()*1;
+		$("#total").val( tot );
+	});
+	$("#taxes").change( function() { 
+		tot = $("#qty").val()*1+$("#taxes").val()*1+$("#vat").val()*1;
+		$("#total").val( tot );
+	});
+	$("#vat").change( function() { 
+		tot = $("#qty").val()*1+$("#taxes").val()*1+$("#vat").val()*1;
+		$("#total").val( tot );
+	});
+	$.each(areaFields, function(index, value){
+	if(value == '{{ @POST.area }}') {
+		$('#area').append($('<option>').text(value).attr('value',value).attr('selected','selected'));
+	} else {
+		$('#area').append($('<option>').text(value).attr('value',value));
+	}
+	});
+	$.each(countryFields, function(index, value){
+	if(value == '{{ @POST.country }}') {
+		$('#country').append($('<option>').text(value).attr('value',value).attr('selected','selected'));
+	} else {
+		$('#country').append($('<option>').text(value).attr('value',value));
+	}
+	});
+	// ajax {{ @mode }}
+	<check if="{{ @mode == 'update' }}">
+	$.get( "/receiptsedit/{{ @POST.id }}"  )
+  		.done(function( data ) {
+		var datx = JSON.parse(data);
+		if( {{ strlen(@POST.receipt) }} == 0 ) {
+			$('#receipt').append($('<option>').text('Select...').attr('value',0));
+		} else {
+			$('#receipt').append($('<option>').text('Remove...').attr('value',0));
+		}
+		$.each(datx, function(index,value) {
+		<check if="{{ strlen(@POST.receipt) != 0}}">
+		<true>
+			if (value.id == {{ @POST.receipt }}  ) {
+				$('#receipt').append($('<option>').text(value.filename).attr('value',value.id).attr('selected','selected'));
+			} else {
+   				$('#receipt').append($('<option>').text(value.filename).attr('value',value.id));
+			}
+		</true>
+		<false>
+			$('#receipt').append($('<option>').text(value.filename).attr('value',value.id));
+		</false>
+		</check>
+		});
+  	});
+	</check>
+	<check if="{{ @mode == 'create' }}">
+	$.get( "/receipts/{{ @SESSION.user }}"  )
+                .done(function( data ) {
+                var datx = JSON.parse(data);
+		$('#receipt').append($('<option>').text('Select...').attr('value',0));
+                $.each(datx, function(index,value) {
+                        $('#receipt').append($('<option>').text(value.filename).attr('value',value.id));
+                });
+        });
+	</check>
+
+ });
+      
+
+</script>

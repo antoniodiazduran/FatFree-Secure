@@ -1,4 +1,4 @@
-<form action="/upload/create" method="post" class="form-horizontal" enctype="multipart/form-data">
+<form action="/upload/create" method="post" id="upForm" class="form-horizontal" enctype="multipart/form-data">
 
  <div class="row">
   <div class="col-lg-3">
@@ -10,7 +10,10 @@
  <div class="col-lg-3">
     <label class="control-label" for="customer">Customer:</label>
       <input type="text" class="form-control" id="customer" name="customer" placeholder="Zipcode">
-  </div>
+ </div>
+ <div class="col-lg-2">
+	<br><br><span style="color:red;" id="errcustomer"></span>
+ </div> 
 </div>
 <div class="row">
   <div class="col-lg-3">
@@ -18,6 +21,9 @@
         <select id="area" name="area" value="" class="browser-default custom-select">
         </select>
   </div>
+  <div class="col-lg-2">
+	<br><br><span style="color:red;" id="errarea"></span>
+  </div> 
 </div>
 <br>
 <div class="row">
@@ -25,6 +31,9 @@
     <label class="control-label" for="filename">File Name:</label>
       <input type="text" class="form-control" id="filename" name="filename" placeholder="File Name" readonly>
   </div>
+  <div class="col-lg-2">
+	<br><br><span style="color:red;" id="errfilename"></span>
+  </div> 
 </div>
 <br>
 <div class="row">
@@ -36,22 +45,64 @@
 <br>
 <div class="row">
   <div class="col-lg-4">
+    <input type="hidden" name="internal" id="internal"/>
     <input type="hidden" name="upload" value="upload" />
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" id="create" class="btn btn-warning">Submit</button>
   </div>
 </div>
 </form>
 <script>
  $(document).ready(function(){  
+	$("#create").hide();
         $("#transdate").val(formatDates());
         $("#timestamp").val(formatNow());
 	$("#filetoupload").change( function() {
 		var ftu = $(this).val().substring(12,200);
 		$("#filename").val(ftu);
+		var vuuid = guid();
+		$("#internal").val(vuuid);
 	});		      
         $.each(areaFields, function(index, value){
                 $('#area').append($('<option>').text(value).attr('value',value));
         });
  });     
+
+ $("#upForm").change(function () {
+	$("#errcustomer").text("");
+	$("#errarea").text("")
+	$("#errfilename").text("")
+	if($("#customer").val() == '' ) {
+		$("#errcustomer").text("Customer ID required!")
+		$("#create").hide();
+	}	
+	if($("#area").val() == '') {
+		$("#errarea").text("Area required!")	
+		$("#create").hide();
+	}
+	if($("#filename").val()	== '') {
+		$("#errfilename").text("Select a file!")	
+		$("#create").hide();
+	}
+	if ($("#customer").val()!='' && $("#area").val()!='' && $("#filename").val()!='' ) {
+		$("#create").show();	
+	} 
+ });
+
+
+ function guid() {
+    function _p8(s) {
+        var p = (Math.random().toString(16)+"000000000").substr(2,8);
+	//console.log(p);
+        return s ? "-" + p.substr(0,4) + "-" + p.substr(4,4) : p ;
+    }
+    return _p8() + _p8(true) + _p8(true) + _p8();
+ }
+ 
+ function uuidv4() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+ }
 
 </script>

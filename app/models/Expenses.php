@@ -15,8 +15,10 @@ class Expenses extends DB\SQL\Mapper {
     public function add() {
         $this->copyFrom('POST');
         $this->save();
-	$sql = 'UPDATE upfiles SET expense = '.$this->id.' WHERE id = '.$_POST['receipt'];
-	$this->db->exec($sql);
+	if($_POST['receipt']>0) {
+		$sql = 'UPDATE upfiles SET expense = '.$this->id.' WHERE id = '.$_POST['receipt'];
+		$this->db->exec($sql);
+	}
     }
 
     public function getById($id) {

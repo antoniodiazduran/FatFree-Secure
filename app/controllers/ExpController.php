@@ -37,7 +37,8 @@ class ExpController extends Controller {
         else
         {
             $this->f3->set('page_head','New');
-            $this->f3->set('view','/'.$this->getViewFolder().'/create.htm');
+	    $this->f3->set('mode','create');
+            $this->f3->set('view','/'.$this->getViewFolder().'/hybrid.htm');
         }
     }
 
@@ -54,7 +55,8 @@ class ExpController extends Controller {
         {
             $expenses->getById($this->f3->get('PARAMS.id'));
             $this->f3->set('page_head','Update');
-            $this->f3->set('view',$this->getViewFolder().'/update.htm');
+	    $this->f3->set('mode','update');
+            $this->f3->set('view',$this->getViewFolder().'/hybrid.htm');
         }
     }
 

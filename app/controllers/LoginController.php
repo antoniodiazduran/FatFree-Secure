@@ -87,7 +87,7 @@
 	    $this->f3->set('SESSION.timezone', $zone);
 	    $this->f3->set('bpid',$user->bp_id);
 	    $this->f3->set('stat','success');
-	    $this->f3->set('msg','Welcome!!');
+	    $this->f3->set('msg','Welcome!');
             $this->f3->set('view','main.htm');
         } else {
             $this->f3->reroute('/login');
