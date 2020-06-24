@@ -1,0 +1,79 @@
+<!--<input type="button" id="btnExport" value="Export"><br> //-->
+<input type="text" id="search" onkeyup="searchTable()" placeholder="Product name">
+<p>
+<div id="dvData">
+        <table id="tabledata" class="table table-hover">
+           <thead class="thead-light">
+           <tr>
+               <th scope="col">ID</th>
+               <th scope="col">Modification Date</th>
+               <th scope="col">Transation Date</th>
+               <th scope="col">Name</th>
+               
+               <th scope="col">Admin</th>
+               <th scope="col"></th>
+               <th scope="col">Action</th>
+           </tr>
+           </thead>
+       
+           <tbody>
+           <repeat group="{{ @machines }}" value="{{ @rows }}">
+               <tr>
+                   <td>{{ trim(@rows.id) }}</td>
+                   <td>{{ substr(trim(@rows.timestamp),0,16) }}</td>
+                   <td>{{ substr(trim(@rows.transdate),0,10) }}</td>
+                   <td>{{ trim(@rows.title) }}</td>
+         
+                   <td>{{ trim(@rows.username) }}</td>
+                   <td></td>
+                   <td>
+                       <a href="{{ @BASE.'/machines/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15"></a> &nbsp;
+                       <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15"></a> 
+                   </td>
+       
+               </tr>
+           </repeat>
+           </tbody>
+       
+        </table>
+       </div>
+<script>
+
+$(document).ready(function(){
+  
+});
+
+function searchTable() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("search");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("dvData");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td1 = tr[i].getElementsByTagName("td")[3];
+    td2 = tr[i].getElementsByTagName("td")[3];
+    if (td1 || td2) {
+      txtValue1 = td1.textContent || td1.innerText;
+      txtValue2 = td2.textContent || td2.innerText;
+      if (txtValue1.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        if (txtValue2.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }       
+  }
+}
+
+function confirmDelete(rid) {
+	if(confirm("Delete record:"+rid+" ?")){
+		window.open("/expenses/delete/"+rid,"_self");
+	}
+}
+</script>
+
+
+

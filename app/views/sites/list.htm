@@ -1,0 +1,74 @@
+<!--<input type="button" id="btnExport" value="Export"><br> //-->
+<input type="text" id="search" onkeyup="searchTable()" placeholder="City or State">
+<p>
+<div id="dvData">
+        <table id="sites" class="table table-hover">
+           <thead class="thead-light">
+           <tr>
+               <th scope="col">ID</th>
+               <th scope="col">Modification Date</th>
+               <th scope="col">Transation Date</th>
+               <th scope="col">City/State</th>
+               <th scope="col">Country</th>
+               <th scope="col">Admin</th>
+               <th scope="col"></th>
+               <th scope="col">Action</th>
+           </tr>
+           </thead>
+       
+           <tbody>
+           <repeat group="{{ @sites }}" value="{{ @rows }}">
+               <tr>
+                   <td>{{ trim(@rows.id) }}</td>
+                   <td>{{ substr(trim(@rows.timestamp),0,16) }}</td>
+                   <td>{{ substr(trim(@rows.transdate),0,10) }}</td>
+                   <td>{{ trim(@rows.city) }},  {{ trim(@rows.state) }}</td>
+                   <td>{{ trim(@rows.country) }}</td>
+                   <td>{{ trim(@rows.username) }}</td>
+                   <td></td>
+                   <td>
+                       <a href="{{ @BASE.'/sites/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15"></a> &nbsp;
+                       <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15"></a> 
+                   </td>
+       
+               </tr>
+           </repeat>
+           </tbody>
+       
+        </table>
+       </div>
+<script>
+
+$(document).ready(function(){
+  
+});
+
+function searchTable() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("search");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("dvData");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[3];
+    console.log(tr[i]);
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+
+function confirmDelete(rid) {
+	if(confirm("Delete record:"+rid+" ?")){
+		window.open("/expenses/delete/"+rid,"_self");
+	}
+}
+</script>
+
+
+
