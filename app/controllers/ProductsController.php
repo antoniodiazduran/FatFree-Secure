@@ -19,6 +19,14 @@ class ProductsController extends Controller {
         $this->f3->set('view',$this->getViewFolder().'/list.htm');
     }
 
+    public function apiproducts()
+    {
+        $classvar = new Products($this->db);
+        $usr =  $this->f3->get('SESSION.user');
+        $this->f3->set('ups',$classvar->apiproducts($usr) );
+	    exit;    	// API Call to get data for popup
+    }
+
     public function chart()
     {
 	    $this->f3->set('page_head','Chart');

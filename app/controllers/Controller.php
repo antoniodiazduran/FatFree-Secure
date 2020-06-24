@@ -16,9 +16,10 @@ class Controller {
            $this->f3->set('SESSION.user', null);
            $this->f3->set('SESSION.bp_id', null);
            $this->f3->reroute('/login');
-	   exit;
+	         exit;
         }
-	$this->f3->set('SESSION.timeout', time()+$this->f3->get('expire'));
+          // Refresh timer on every click
+          $this->f3->set('SESSION.timeout', time()+$this->f3->get('expire'));
       }
     }
 

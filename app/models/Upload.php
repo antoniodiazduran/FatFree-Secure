@@ -17,15 +17,15 @@ class Upload extends DB\SQL\Mapper {
     public function receipts($user) {
         $sql  = 'SELECT id,area,filename FROM upfiles WHERE username = ? AND (isnull(expense) or expense = 0 )  ORDER BY transdate DESC';
         $result = $this->db->exec($sql, $user);
-	//var_dump( json_encode($result) );
-	echo json_encode($result);
+	    //var_dump( json_encode($result) );
+	    echo json_encode($result);
     }
     public function receiptsedit($id,$user) {
         $sql  = 'SELECT id,area,filename FROM upfiles WHERE (isnull(expense) OR expense = 0 or expense = '.$id.')  ';
-	$sql .= ' AND username = "'.$user.'"' ;
+	    $sql .= ' AND username = "'.$user.'"' ;
         $result = $this->db->exec($sql);
-	//var_dump( json_encode($result) );
-	echo json_encode($result);
+	    //var_dump( json_encode($result) );
+	    echo json_encode($result);
     }
 
     public function delete($id) {

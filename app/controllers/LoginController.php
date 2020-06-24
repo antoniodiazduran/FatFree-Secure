@@ -49,6 +49,8 @@
     }
 
     function beforeroute(){
+        // refresh timer on every click
+        //$this->f3->set('SESSION.timeout', time()+$this->f3->get('expire'));
     }
 
     function logout() {
@@ -76,7 +78,8 @@
         //exit;
 
         if(password_verify($password, $user->password)) {
-	    $datetime = new DateTime();
+        $datetime = new DateTime();
+    
 	    $zone = $datetime->format('T');
             $this->f3->set('SESSION.user', $user->username);
             $this->f3->set('SESSION.roles', $user->roles);

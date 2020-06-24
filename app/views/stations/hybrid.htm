@@ -1,0 +1,136 @@
+<form action="/stations/{{ @mode }}" method="post" class="form-horizontal">
+<div class="row">
+  <div class="col-lg-4">
+    <label class="control-label" for="transdate">Transaction Date:</label>
+      <input type="text" class="form-control" id="transdate" name="transdate" placeholder="mm/dd/yyyy">
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-4">
+    <label class="control-label" for="title">Station:</label>
+      <input type="text" class="form-control" id="title" name="title" <check if="{{ @mode == 'update' }}">value="{{ @POST.title }}" </check> placeholder="Station Name">
+  </div>
+</div>
+<div class="row">
+	<div class="col-lg-4">
+	  <label class="control-label" for="site">Site:</label>
+		  <select id="site" name="site" value="" class="browser-default custom-select">
+		  </select>
+	</div>
+</div>
+<div class="row">
+  <div class="col-lg-4">
+    <label class="control-label" for="product">Product:</label>
+        <select id="product" name="product" value="" class="browser-default custom-select">
+        </select>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-4">
+    <label class="control-label" for="machine">Machine:</label>
+        <select id="machine" name="machine" value="" class="browser-default custom-select">
+	</select>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-lg-6">
+    <label class="control-label" for="description">Description:</label>
+      <textarea class="form-control" id="description" name="description" rows="3"><check if="{{ @mode == 'update' }}">{{ @POST.description }}</check></textarea>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col">
+   <check if="{{ @mode == 'update' }}">
+    <input type="hidden" name="id" value="{{ @POST.id }}">
+   </check>
+    <input type="hidden" id="timestamp" name="timestamp">
+    <input type="hidden" name="username" value="{{ @SESSION.user }}"/>
+    <input type="hidden" name="{{ @mode }}" value="{{ @mode }}" />
+    <button type="submit" class="btn btn-warning" >Submit</button>
+  </div>
+</div>
+</form>
+<script>
+
+ $(document).ready(function(){  
+	//Getting time stamp for record
+	$("#timestamp").val(formatNow());
+	<check if="{{ @mode == 'update' }}">
+	document.getElementById('transdate').value = formatDBDate('{{ @POST.transdate }}');
+	</check>
+	<check if="{{ @mode == 'create' }}">
+	document.getElementById('transdate').value = formatDates();
+	</check>
+        
+	// ajax {{ @mode }}
+	<check if="{{ @mode == 'update' }}">
+	$.get( "/productlist"  )
+  		.done(function( data ) {
+		var datx = JSON.parse(data);
+		$('#product').append($('<option>').text("Select...").attr('value',0));
+		$.each(datx, function(index,value) {
+			if (value.id == {{ @POST.product }}  ) {
+				$('#product').append($('<option>').text(value.title).attr('value',value.id).attr('selected','selected'));
+			} else {
+   				$('#product').append($('<option>').text(value.title).attr('value',value.id));
+			}
+		});
+	});
+	$.get( "/machinelist"  )
+  		.done(function( data ) {
+		var datx = JSON.parse(data);
+		$('#machine').append($('<option>').text("Select...").attr('value',0));
+		$.each(datx, function(index,value) {
+			if (value.id == {{ @POST.machine }}  ) {
+				$('#machine').append($('<option>').text(value.title).attr('value',value.id).attr('selected','selected'));
+			} else {
+   				$('#machine').append($('<option>').text(value.title).attr('value',value.id));
+			}
+		});
+	  });  
+	  $.get( "/sitelist"  )
+  		.done(function( data ) {
+		var datx = JSON.parse(data);
+		$('#site').append($('<option>').text("Select...").attr('value',0));
+		$.each(datx, function(index,value) {
+			if (value.id == {{ @POST.site }}  ) {
+				$('#site').append($('<option>').text(value.city).attr('value',value.id).attr('selected','selected'));
+			} else {
+   				$('#site').append($('<option>').text(value.city).attr('value',value.id));
+			}
+		});
+  	});  
+	</check>
+	<check if="{{ @mode == 'create' }}">
+	$.get( "/productlist"  )
+                .done(function( data ) {
+				var datx = JSON.parse(data);
+				$('#product').append($('<option>').text('Select...').attr('value',0));
+                $.each(datx, function(index,value) {
+                        $('#product').append($('<option>').text(value.title).attr('value',value.id));
+                });
+		});
+	$.get( "/machinelist"  )
+                .done(function( data ) {
+				var datx = JSON.parse(data);
+				$('#machine').append($('<option>').text('Select...').attr('value',0));
+                $.each(datx, function(index,value) {
+                        $('#machine').append($('<option>').text(value.title).attr('value',value.id));
+                });
+		});
+	$.get( "/sitelist"  )
+                .done(function( data ) {
+				var datx = JSON.parse(data);
+				$('#site').append($('<option>').text('Select...').attr('value',0));
+                $.each(datx, function(index,value) {
+                        $('#site').append($('<option>').text(value.city).attr('value',value.id));
+                });
+        });
+	</check>
+
+ });
+      
+
+</script>
