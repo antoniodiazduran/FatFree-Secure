@@ -1,0 +1,82 @@
+<form action="/instructions/{{ @mode }}" method="post" class="form-horizontal" onkeyup="lettersLeft()">
+    <div class="row">
+      <div class="col-lg-4">
+        <a href="/instructions/{{ @relation }}"><img src="/ui/images/left.png" width="18"></a><br><br>
+        <label class="control-label" for="transdate">Transaction Date:</label>
+          <input type="text" class="form-control" id="transdate" name="transdate" placeholder="mm/dd/yyyy">
+      </div>
+      <div class="col-lg-4">
+       <br><br>
+       <label class="control-label" for="transdate">Sequence:</label>
+         <input type="text" class="form-control" id="sequence" name="sequence" value="{{ @POST.sequence }}">
+     </div>
+    </div>
+    <br>
+    <div class="row">
+      
+      <div class="col-lg-4">
+        <label class="control-label" for="whats">What:</label> 
+            <textarea class="form-control" rows="5" id="whats" name="whats" placeholder="What to do">{{ @POST.whats }}</textarea>
+            <input type="text" id="whatleft" style="text-align:right;color:silver; border:0; width:40px;" readonly tabindex="90">
+      </div>
+      <div class="col-lg-4">
+        <label class="control-label" for="hows">How:</label>
+            <textarea class="form-control" rows="5" id="hows" name="hows" placeholder="How to do it">{{ @POST.hows }}</textarea>
+            <input type="text" width="5" id="howleft" style="text-align:right;color:silver; border:0; width:40px;" readonly tabindex="91">
+      </div>
+      <div class="col-lg-4">
+        <label class="control-label" for="whys">Why:</label>
+            <textarea class="form-control" rows="5" id="whys" name="whys" placeholder="Why it's important">{{ @POST.whys }}</textarea>
+            <input type="text" width="5" id="whyleft" style="text-align:right;color:silver; border:0; width:40px;" readonly tabindex="92">
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col">
+       <check if="{{ @mode == 'update' }}">
+        <input type="hidden" name="id" value="{{ @POST.id }}">
+       </check>
+        <input type="hidden" name="timestamp" id="timestamp">
+        <input type="hidden" name="relation" id="relation" value="{{ @relation }}">
+        <input type="hidden" name="username" value="{{ @SESSION.user }}"/>
+        <input type="hidden" name="{{ @mode }}" value="{{ @mode }}" />
+        <button type="submit" class="btn btn-warning">{{ @mode }}</button>
+      </div>
+    </div>
+    </form>
+    <script>
+    
+     $(document).ready(function(){  
+        // Updating the record 
+        $("#timestamp").val(formatNow());
+
+        <check if="{{ @mode == 'update' }}">
+        document.getElementById('transdate').value = formatDBDate('{{ @POST.transdate }}');
+        </check>
+        <check if="{{ @mode == 'create' }}">
+        document.getElementById('transdate').value = formatDates();
+        </check>
+
+        document.getElementById("whatleft").value = 500-document.getElementById("whats").textLength;
+        document.getElementById("howleft").value = 500-document.getElementById("hows").textLength;
+        document.getElementById("whyleft").value = 500-document.getElementById("whys").textLength;
+
+        <check if="{{ @mode == 'update' }}">
+        </check>
+        <check if="{{ @mode == 'create' }}">
+        </check>
+    
+     });
+     function lettersLeft() {
+       
+        document.getElementById("whatleft").value = 500-document.getElementById("whats").textLength;
+        document.getElementById("howleft").value = 500-document.getElementById("hows").textLength;
+        document.getElementById("whyleft").value = 500-document.getElementById("whys").textLength;
+        document.getElementById("whats").value = document.getElementById("whats").value.substr(0,499);
+        document.getElementById("hows").value = document.getElementById("hows").value.substr(0,499);
+        document.getElementById("whys").value = document.getElementById("whys").value.substr(0,499);
+     }
+          
+    
+    </script>
+    

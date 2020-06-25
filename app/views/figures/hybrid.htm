@@ -1,0 +1,57 @@
+<!--<input type="button" id="btnExport" value="Export"><br> //-->
+<a href="/instructions/{{ @instructions }}"><img src="/ui/images/left.png" width="18"></a>
+<div id="errors" style="color:red;"></div>
+<p> 
+<div id="dvData">
+    <form method="post" id="figform" action="/figures/create" enctype="multipart/form-data">
+        <div class="row">
+            <input type="hidden" id="relation" name="relation" value="{{ @relation }}">
+            <input type="hidden" name="upload" value="upload" />
+            <input type="hidden" id="username" name="username" value="{{ @SESSION.user }}">   
+            <div class="col-lg-2"><input type="text" id="name" name="name" class="form-control" placeholder="Figure #"></div>
+            <div class="col-lg-8"><input type="file" id="filetoupload" name="filetoupload" placeholder="Browse your file"></div>
+            <div class="col-lg-2"><input type="submit" id="mode" name="mode" value="Submit" class="btn btn-warning"></div>
+        </div>
+    </form>   
+    <br>
+        <table id="invoices" class="table ">
+           <thead class="thead-light">
+           <tr>
+               <th scope="col">Name</th>
+               <th scope="col">Filename</th>
+               <th scope="col">Internal FN</th>
+               <th scope="col"></th>
+	           <th scope="col">Action</th>
+           </tr>
+           </thead>
+       
+           <tbody>
+		   <repeat group="{{ @figures }}" value="{{ @rows }}">
+               <tr>
+                   <td>{{ @rows.name }}</td>
+                   <td>{{ @rows.filename }}</td>
+                   <td>{{ substr(@rows.internalfn,8,200) }}</td>
+                   <td></td> 
+                   <td width="10%">
+                    <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15"></a> 
+                </td>      
+               </tr>
+           </repeat>
+           </tbody>
+        </table>
+</div>
+
+<script>
+   $(document).ready(function(){
+        
+   });
+
+   function confirmDelete(rid) {
+	if(confirm("Delete record # "+rid+" ?")){
+		window.open("/figures/delete/"+rid,"_self");
+	}
+   }
+</script>
+
+
+

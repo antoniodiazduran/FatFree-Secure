@@ -22,7 +22,7 @@
                    <td><a href="{{ trim(@rows.internalfn) }}">{{ trim(@rows.filename) }}</a></td>
                    <td>{{ trim(@rows.expense) }}</td>
                    <td>
-                      <a href="{{ @BASE.'/upload/delete/'. @rows.id }}">Delete</span></a> 
+                      <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15"></a>
                    </td>
        
                </tr>
@@ -39,6 +39,12 @@ $(document).ready(function(){
     e.preventDefault();
   })
 });
+
+function confirmDelete(rid) {
+	if(confirm("Delete record:"+rid+" ?")){
+		window.open("/upload/delete/"+rid,"_self");
+	}
+}
 
 function searchTable() {
   var input, filter, table, tr, td, i, txtValue;

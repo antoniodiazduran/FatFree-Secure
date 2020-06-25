@@ -6,13 +6,14 @@
            <thead class="thead-light">
            <tr>
                <th scope="col">ID</th>
-               <th scope="col">Creation Date</th>
                <th scope="col">Modification Date</th>
+               <th scope="col">Transaction Date</th>
                <th scope="col">Station</th>
                <th scope="col">Site</th>
 	             <th scope="col">Product</th>
                <th scope="col">Machine</th>
-               <th scope="col"></th>
+               <th scope="col">Admin</th>
+               <th scope="col">Detail</th>
                <th scope="col">Action</th>
            </tr>
            </thead>
@@ -27,7 +28,8 @@
                    <td>{{ trim(@rows.sites) }}</td>
                    <td>{{ trim(@rows.product) }}</td>
                    <td>{{ trim(@rows.machine) }}</td>
-                   <td></td>
+                   <td>{{ trim(@rows.username) }}</td>
+                    <td align="center"><a href="instructions/{{ trim(@rows.id) }}"><img src="/ui/images/page.gif" width="15"></a></td>
                    <td>
                        <a href="{{ @BASE.'/stations/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15"></a> &nbsp;
                        <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15"></a> 
@@ -48,6 +50,12 @@ $(document).ready(function(){
     e.preventDefault();
   })
 });
+
+function confirmDelete(rid) {
+	if(confirm("Delete record:"+rid+" ?")){
+		window.open("/stations/delete/"+rid,"_self");
+	}
+}
 
 function searchTable() {
   var input, filter, table, tr, td, i, txtValue;
@@ -74,11 +82,7 @@ function searchTable() {
   }
 }
 
-function confirmDelete(rid) {
-	if(confirm("Delete record:"+rid+" ?")){
-		window.open("/stations/delete/"+rid,"_self");
-	}
-}
+
 </script>
 
 
