@@ -54,7 +54,11 @@
 </form>
 <script>
  $(document).ready(function(){  
-        $("#transdate").val(formatDates());
-        $("#timestamp").val(formatNow());
+   // Highlight the menu link
+  $("#invoices-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
+
+  // Setting date time
+  $("#transdate").val(formatDates());
+  $("#timestamp").val(formatNow());
  });
 </script>

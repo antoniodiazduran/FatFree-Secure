@@ -76,7 +76,9 @@
 <script>
 
  $(document).ready(function(){  
-        //$("#transdate").val(formatDates());
+	// Highlight the menu link
+	$("#expenses-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
+	// Check the mode
 	<check if="{{ @mode == 'update' }}">
 	document.getElementById('transdate').value = formatDBDate('{{ @POST.transdate }}');
 	</check>

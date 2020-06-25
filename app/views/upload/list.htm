@@ -34,6 +34,9 @@
 <script>
 
 $(document).ready(function(){
+  // Highlight the menu link
+  $("#upload-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
+
   $("#btnExport").click(function(e) {
     window.open('data:application/vnd.ms-excel,' + encodeURIComponent($('#dvData').html()) );
     e.preventDefault();

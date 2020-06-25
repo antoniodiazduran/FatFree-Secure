@@ -46,6 +46,9 @@
        </div>
 <script>
 
+// Highlight the menu link
+$("#invoices-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
+
 function searchTable() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("search");

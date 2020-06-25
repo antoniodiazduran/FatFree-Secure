@@ -63,7 +63,10 @@
 </form>
 <script>
  $(document).ready(function(){  
-        $("#timestamp").val(formatNow());
+  // Highlight the menu link
+  $("#invoices-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
+  
+   $("#timestamp").val(formatNow());
 	$.each(statusFields, function(index, value){
 	if(value == '{{ @POST.invoicestatus }}') {
                 $('#invoicestatus').append($('<option>').text(value).attr('value',value).attr('selected','selected'));

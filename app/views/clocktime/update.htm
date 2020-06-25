@@ -46,6 +46,9 @@
   const submitButton = document.getElementById('mode');
   submitButton.disabled = false;
 
+  // Highlight the menu link
+  $("#clock-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
+  
   // without jQuery (doesn't work in older IEs)
   document.addEventListener('DOMContentLoaded', function(){ 
 	document.getElementById('startdate').value = formatDBDate('{{ @POST.startdate }}');

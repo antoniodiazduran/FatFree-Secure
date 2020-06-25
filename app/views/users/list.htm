@@ -37,6 +37,9 @@
 </check>
 
 <script>
+// Highlight the menu link
+$("#user-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
+
 function confirmDelete(rid) {
 	if(confirm("Delete record:"+rid+" ?")){
 		window.open("/users/delete/"+rid,"_self");

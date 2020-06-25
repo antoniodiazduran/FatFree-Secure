@@ -11,7 +11,7 @@
     
    <check if="{{ @SESSION.roles=='Data' }}">
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" id="interruptions-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Interuptions
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -20,7 +20,7 @@
         </div>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" id="pareto-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Pareto
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -29,7 +29,7 @@
         </div>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" id="trends-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Trends
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -38,7 +38,7 @@
         </div>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" id="stations-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Stations
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -49,7 +49,7 @@
    </check>
    <check if="{{ @SESSION.roles=='User' }}">
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" id="expenses-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Expenses
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -58,7 +58,7 @@
         </div>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" id="clock-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Clock
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -67,7 +67,7 @@
         </div>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" id="invoices-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Invoices
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -76,7 +76,7 @@
         </div>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" id="upload-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Upload
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -90,7 +90,7 @@
     <check if="{{ @SESSION.roles=='Admin' }}">
 	    <true>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="#" id="create-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Create
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -101,7 +101,7 @@
             </div>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="#" id="ist-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               List
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -114,7 +114,7 @@
 	    </true>
     </check>
       <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="user-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             User
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">

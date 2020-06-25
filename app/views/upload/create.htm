@@ -53,6 +53,9 @@
 </form>
 <script>
  $(document).ready(function(){  
+  // Highlight the menu link
+  $("#upload-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
+
 	$("#create").hide();
         $("#transdate").val(formatDates());
         $("#timestamp").val(formatNow());

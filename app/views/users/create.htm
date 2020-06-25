@@ -53,7 +53,9 @@
 </form>
 <script>
 $(document).ready(function(){
-        $("#create").hide();
+  // Highlight the menu link
+  $("#user-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
+  $("#create").hide();
  });
 
   function validate(){

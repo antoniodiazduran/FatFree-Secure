@@ -5,9 +5,6 @@
         <table id="expenses" class="table table-hover">
            <thead class="thead-light">
            <tr>
-               <th scope="col">ID</th>
-               <th scope="col">Modification Date</th>
-               <th scope="col">Transaction Date</th>
                <th scope="col">Station</th>
                <th scope="col">Site</th>
 	             <th scope="col">Product</th>
@@ -21,9 +18,6 @@
            <tbody>
            <repeat group="{{ @stations }}" value="{{ @rows }}">
                <tr>
-                   <td>{{ trim(@rows.id) }}</td>
-                   <td>{{ substr(trim(@rows.timestamp),0,16) }}</td>
-                   <td>{{ substr(trim(@rows.transdate),0,10) }}</td>
                    <td>{{ trim(@rows.title) }}</td>
                    <td>{{ trim(@rows.sites) }}</td>
                    <td>{{ trim(@rows.product) }}</td>
@@ -44,6 +38,7 @@
 <script>
 
 $(document).ready(function(){
+  $("#stations-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
   $("#btnExport").click(function(e) {
 //    window.open('data:application/vnd.ms-excel,' + encodeURIComponent($('#dvData').html()) );
     window.open('data:application/csv,' + encodeURIComponent($('#dvData').html()) );
@@ -64,8 +59,8 @@ function searchTable() {
   table = document.getElementById("dvData");
   tr = table.getElementsByTagName("tr");
   for (i = 0; i < tr.length; i++) {
-    td1 = tr[i].getElementsByTagName("td")[4];
-    td2 = tr[i].getElementsByTagName("td")[5];
+    td1 = tr[i].getElementsByTagName("td")[1];
+    td2 = tr[i].getElementsByTagName("td")[2];
     if (td1 || td2) {
       txtValue1 = td1.textContent || td1.innerText;
       txtValue2 = td2.textContent || td2.innerText;

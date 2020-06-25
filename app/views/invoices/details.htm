@@ -67,6 +67,9 @@
 
 <script>
    $(document).ready(function(){
+        // Highlight the menu link
+        $("#invoices-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
+        
         $("#qty").change( function() {
                 tot = $("#qty").val()*1*$("#price").val()*1;
                 $("#total").val( tot.toFixed(2) );
