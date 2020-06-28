@@ -7,7 +7,7 @@ class Controller {
     protected $d1;
 
     function beforeroute() {
-      if ($this->f3->get('secure')) {
+      if ($this->f3->get('SECURE')) {
         if($this->f3->get('SESSION.user') === null ) {
            $this->f3->reroute('/login');
            exit;
@@ -19,12 +19,14 @@ class Controller {
 	         exit;
         }
           // Refresh timer on every click
+          date_default_timezone_set('America/New_York');
           $this->f3->set('SESSION.timeout', time()+$this->f3->get('expire'));
+          $this->f3->set('SESSION.timeoutdate',date('Y.m.d h:i:s',time()+$this->f3->get('expire')) );
       }
     }
 
     function afterroute() {
-      if ($this->f3->get('secure')) {
+      if ($this->f3->get('SECURE')) {
         if($this->f3->get('SESSION.user') != null ) {
           if ( $this->f3->get('SESSION.ip') === $this->f3->ip() ) {
              echo Template::instance()->render('layout.htm');

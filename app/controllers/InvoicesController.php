@@ -15,7 +15,7 @@ class InvoicesController extends Controller {
         $classvar = new Invoices($this->db);
         $this->f3->set('details',$classvar->allid($this->f3->get('PARAMS.id')));
         $this->f3->set('invoicesd',$classvar->details($this->f3->get('PARAMS.id')));
-	$this->f3->set('guid',$classvar->guid());
+	    $this->f3->set('guid',$classvar->guid());
         $this->f3->set('page_head','print');
         $this->f3->set('view',$this->getViewFolder().'/print.htm');
     }
@@ -33,7 +33,7 @@ class InvoicesController extends Controller {
     public function index()
     {
         $classvar = new Invoices($this->db);
-        $this->f3->set('invoices',$classvar->all($this->f3->get('SESSION.user')));
+        $this->f3->set('invoices',$classvar->all($this->f3->get('SESSION.company')));
         $this->f3->set('page_head','List');
         $this->f3->set('view',$this->getViewFolder().'/list.htm');
     }

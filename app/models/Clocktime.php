@@ -6,9 +6,9 @@ class Clocktime extends DB\SQL\Mapper {
         parent::__construct($db,'clocktime');
     }
 
-    public function all($user) {
-        $sql  = 'SELECT * FROM clocktime WHERE username = ? ORDER BY id DESC';
-        $result = $this->db->exec($sql,$user);
+    public function all($company) {
+        $sql  = 'SELECT * FROM clocktime WHERE company = ? ORDER BY id DESC';
+        $result = $this->db->exec($sql,$company);
         return $result;
     }
 
@@ -28,8 +28,8 @@ class Clocktime extends DB\SQL\Mapper {
         $this->update();
     }
 
-    public function delete($id) {
-        $this->load(array('id=?',$id));
+    public function delete($rid) {
+        $this->load(array('id=?',$rid));
         $this->erase();
     }
 

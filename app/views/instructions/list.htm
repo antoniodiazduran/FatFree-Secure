@@ -22,10 +22,10 @@
                    <td width="25%">{{ trim(@rows.hows) }}</td>
                    <td width="25%">{{ trim(@rows.whats) }}</td>
                    <td width="25%">{{ trim(@rows.whys) }}</td>
-                   <td width="10%">
-                       <a href="/figures/{{ trim(@rows.id) }}"><img src="/ui/images/image.png" width="22"></a> &nbsp;
-                       <a href="{{ @BASE.'/instructions/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15"></a> &nbsp;
-                       <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15"></a> 
+                   <td width="15%">
+                      <a href="/figures/{{ trim(@rows.id) }}"><img src="/ui/images/image.png" width="22"></a> &nbsp;
+                      <a href="{{ @BASE.'/instructions/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15"></a> &nbsp;
+                      <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15"></a> 
                    </td>
   
                </tr>

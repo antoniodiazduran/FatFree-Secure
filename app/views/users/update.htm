@@ -1,22 +1,30 @@
 
 <check if="{{ @SESSION.roles=='Admin' }}">
- <form action="{{ @BASE.'/users/update' }}" method="post" class="form-horizontal">
+ <form action="{{ @BASE.'/users/'}}{{ @mode }}" method="post" class="form-horizontal">
     
   <div class="row">
     <div class="col-sm-4">
     <label class="control-label" for="username">Username:</label>
-        <input readonly type="text" id="username" name="username" value="{{ @POST.username }}" class="form-control"/>
+        <input  readonly type="text" id="username" name="username" value="{{ @POST.username }}" class="form-control" />
     </div>
+
   </div>
   <div class="row">
     <div class="col-sm-4">
     <label class="control-label" for="roles">User role:</label>
-        <select id="roles" name="roles" class="form-control">
+        <select id="roles" name="roles" class="form-control" onChange="validate()">
                 <option>
-                <option {{ @POST.roles=='User'?' selected':'' }}>User
+                <option {{ @POST.roles=='Finance'?' selected':'' }}>Finance
+                <option {{ @POST.roles=='Operations'?' selected':'' }}>Operations
                 <option {{ @POST.roles=='Admin'?' selected':'' }}>Admin
-                <option {{ @POST.roles=='Data'?' selected':'' }}>Data
         </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+    <label class="control-label" for="company">Company:</label>
+    <select id="company" name="company" class="form-control">
+    </select>
     </div>
   </div>
   <div class="row">
@@ -25,26 +33,41 @@
         <input type="text" id="email" name="email" value="{{ @POST.email}}" class="form-control"/>
     </div>
   </div>
-  <div class="row">
-    <div class="col-sm-4">
-    <label class="control-label" for="bp_id">Business Partner:</label>
-        <input type="text" id="bp_id" name="bp_id" value="{{ @POST.bp_id}}" class="form-control"/>
-    </div>
-  </div>
 <br>
   <div class="row"> 
     <div class="col-sm-4">
-      <button type="submit" name="update" id="update" class="form-control btn btn-warning">update</button>
+      <button type="submit" name="mode" id="mode" class="form-control btn btn-warning">{{ @mode }}</button>
     </div>
   </div>
-  <input type="hidden" name="update" id="update" value="update" />
+  <input type="hidden" name="{{ @mode }}" id="{{ @mode }}" value="{{ @mode }}" />
   <input type="hidden" name="id" id="id" value="{{ @POST.id }}" />
 
  </form>
 </check>
 
 <script>
+
+  $(document).ready(function(){
   // Highlight the menu link
-  $("#invoices-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
+  $("#create-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
+  $("#create").hide();
+  <check if="{{ @mode == 'update' }}">
+	$.get( "/companylist"  )
+  		.done(function( data ) {
+		var datx = JSON.parse(data);
+		$('#company').append($('<option>').text("Select...").attr('value',0));
+		$.each(datx, function(index,value) {
+			if (value.id == {{ @POST.company }}  ) {
+				$('#company').append($('<option>').text(value.name).attr('value',value.id).attr('selected','selected'));
+			} else {
+   			$('#company').append($('<option>').text(value.name).attr('value',value.id));
+			}
+		});
+  });
+  </check>
+ });
+
+
+
 </script>
 

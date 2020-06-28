@@ -6,9 +6,9 @@ class Upload extends DB\SQL\Mapper {
         parent::__construct($d1,'upfiles');
     }
 
-    public function all($roles,$user) {
+    public function all($roles,$company) {
         if ($roles!='Admin') {
-            $this->load(array('username=?',$user),array('order'=>'id DESC'));
+            $this->load(array('company=?',$company),array('order'=>'id DESC'));
         } else {
             $this->load(array('order'=>'transdate DESC'));
         }
@@ -33,7 +33,7 @@ class Upload extends DB\SQL\Mapper {
         $this->erase();
     }
 
-    public function upload($fn,$user) {
+    public function upload($fn) {
 	$errors = [];
 	$extension = end(explode('.',$_FILES['filetoupload']['name']));
 	$_FILES['filetoupload']['name'] = $fn['internal'].".".$extension; 	// Changing the original file to UUID + .pics
@@ -61,10 +61,10 @@ class Upload extends DB\SQL\Mapper {
 		//echo "k:".$k;
 		if($k) {
   	  		// Adding data to the database
-	  		$sql  = 'INSERT INTO upfiles (transdate,filename,customer,area,internalfn,username) ';
- 	  		$sql .= 'VALUES (?,?,?,?,?,?) ';
+	  		$sql  = 'INSERT INTO upfiles (transdate,filename,customer,area,internalfn,username,company) ';
+ 	  		$sql .= 'VALUES (?,?,?,?,?,?,?) ';
 	  		//$this->db->exec($sql,array( $fn['transdate'],$fn['filename'],$fn['customer'],$fn['area'],$this->getGUID(),$user ) );
-	  		$this->db->exec($sql,array( $fn['transdate'],$fn['filename'],$fn['customer'],$fn['area'],$f,$user ) );
+	  		$this->db->exec($sql,array( $fn['transdate'],$fn['filename'],$fn['customer'],$fn['area'],substr($f,8,200),$fn['username'],$fn['company'] ) );
         	} else {
 			$errors[] = $fn['filename']. ' file not uploaded!';
 		}

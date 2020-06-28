@@ -6,13 +6,10 @@ class Users extends DB\SQL\Mapper {
         parent::__construct($d1,'bpuser');
     }
 
-    public function all($crit) {
-        //if ($crit=='') {
-            $this->load(array(),array('order'=>'username ASC'));
-        //} else {
-        //    $this->load(array('order'=>'timestamp DESC'));
-        //}
-        return $this->query;
+    public function all() {
+        $sql = "SELECT  u.id, username, roles, email, c.name FROM bpuser u LEFT JOIN company c ON u.company = c.id ORDER BY username";
+        $result = $this->db->exec($sql);
+        return $result;
     }
 
     public function getPass($id) {

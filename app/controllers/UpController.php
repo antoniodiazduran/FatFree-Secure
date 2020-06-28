@@ -6,8 +6,8 @@ class UpController extends Controller {
     {
         $ups = new Upload($this->d1);
         $ses =  $this->f3->get('SESSION.roles');
-        $usr =  $this->f3->get('SESSION.user');
-        $this->f3->set('ups',$ups->all($ses,$usr) );
+        $company =  $this->f3->get('SESSION.company');
+        $this->f3->set('ups',$ups->all($ses,$company) );
         $this->f3->set('page_head','List');
         $this->f3->set('view','upload/list.htm');
     }
@@ -32,7 +32,7 @@ class UpController extends Controller {
         if($this->f3->exists('POST.upload'))
         {
             $ups = new Upload($this->d1);
-            $result = $ups->upload($this->f3->get('POST'),$this->f3->get('SESSION.user'));
+            $result = $ups->upload($this->f3->get('POST'));
 		if($result!='[]') {
 			$this->f3->set('msg',$result);
 			$this->f3->set('view','/auth/internalerror.htm');

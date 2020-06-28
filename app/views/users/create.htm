@@ -1,4 +1,4 @@
-<form action="{{ @BASE.'/users/create' }}" method="post" class="form-horizontal" onkeyup="validate()">
+<form action="{{ @BASE.'/users/'.@mode }}" method="post" class="form-horizontal" onkeyup="validate()">
   <div class="row">
     <div class="col-sm-4">
       <label class="control-label" for="username">Username:</label>
@@ -25,10 +25,17 @@
       <label class="control-label" for="roles">User role:</label>
         <select id="roles" name="roles" class="form-control" onChange="validate()">
                 <option>
-                <option>User
-                <option>Data
+                <option>Finance
+                <option>Operations
                 <option>Admin
         </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <label class="control-label" for="company">Company:</label>
+       <select id="company" name="company" class="form-control">
+       </select>
     </div>
   </div>
   <div class="row">
@@ -37,25 +44,33 @@
         <input type="text" id="email" name="email" class="form-control"/>
     </div>
   </div>
-  <div class="row">
-    <div class="col-sm-4">
-      <label class="control-label" for="bp_id">Business Code:</label>
-        <input type="text" id="bp_id" name="bp_id" class="form-control"/>
-    </div>
-  </div>
 <br>
   <div class="row">
     <div class="col-sm-4">
-      <button id="create" type="submit" class="form-control btn btn-warning">create</button>
+      <button id="create" type="submit" class="form-control btn btn-warning">{{ @mode }}</button>
     </div>
   </div>
-  <input type="hidden" name="create" value="create" />
+  <input type="hidden" name="{{ @mode }}" value="{{ @mode }}" />
 </form>
 <script>
 $(document).ready(function(){
   // Highlight the menu link
-  $("#user-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
+  $("#create-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
+  
+  
   $("#create").hide();
+
+  <check if="{{ @mode == 'create' }}">
+	$.get( "/companylist"  )
+                .done(function( data ) {
+				var datx = JSON.parse(data);
+				$('#company').append($('<option>').text('Select...').attr('value',0));
+                $.each(datx, function(index,value) {
+                        $('#company').append($('<option>').text(value.name).attr('value',value.id));
+                });
+    });
+  </check>
+
  });
 
   function validate(){
@@ -64,8 +79,9 @@ $(document).ready(function(){
         if ($("#password_error").html() == '<br><br>') { ok_count++; }
         if ($("#retype_error").html() == '<br><br>') { ok_count++; }
         if ($("#roles").val() != '') { ok_count++; }
+        if ($("#company").val() !='') { ok_count++; }
         if ($("#email").val() != '') { ok_count++; }
-        if (ok_count == 5){
+        if (ok_count == 6){
                 $("#create").show();
         } else {
                 $("#create").hide();

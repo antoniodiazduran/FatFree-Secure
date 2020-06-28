@@ -5,40 +5,39 @@
         <table id="expenses" class="table table-hover">
            <thead class="thead-light">
            <tr>
-               <th scope="col">ID</th>
-               <th scope="col">Date</th>
-               <th scope="col">Customer</th>
-	       <th scope="col">Area</th>
-               <th scope="col">Qty</th>
-               <th scope="col">Tax</th>
-               <th scope="col">VAT </th>
-               <th scope="col">Total </th>
-               <th scope="col">Country</th>
-               <th scope="col">Receipt</th>
-               <th scope="col"></th>
-               <th scope="col">Action</th>
+              <th scope="col">ID</th>
+              <th scope="col">Date</th>
+              <th scope="col">Customer</th>
+	            <th scope="col">Area</th>
+              <th scope="col">Qty</th>
+              <th scope="col">Tax</th>
+              <th scope="col">VAT </th>
+              <th scope="col">Total </th>
+              <th scope="col">Country</th>
+              <th scope="col">Receipt</th>
+              <th scope="col"></th>
+              <th scope="col">Action</th>
            </tr>
            </thead>
        
            <tbody>
            <repeat group="{{ @expenses }}" value="{{ @rows }}">
                <tr>
-                   <td>{{ trim(@rows.id) }}</td>
-                   <td>{{ substr(trim(@rows.transdate),0,10) }}</td>
-                   <td>{{ trim(@rows.customer) }}</td>
-                   <td>{{ trim(@rows.area) }}</td>
-                   <td align="right">{{ number_format(@rows.qty,2) }}</td>
-                   <td align="right">{{ number_format(@rows.taxes,2) }}</td>
-                   <td align="right">{{ number_format(@rows.vat,2) }}</td>
-                   <td align="right">{{ number_format(@rows.vat+@rows.taxes+@rows.qty,2) }}</td>
-                   <td>{{ trim(@rows.country) }}</td>
-                   <td align="center"><check if="trim(@rows.filename)!=''"><a href="uploads/{{ trim(@rows.filename) }}"><img src="/ui/images/page.gif" width="15"></a></check></td>
-                   <td></td>
-                   <td>
-                       <a href="{{ @BASE.'/expenses/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15"></a> &nbsp;
-                       <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15"></a> 
-                   </td>
-       
+                  <td>{{ trim(@rows.id) }}</td>
+                  <td>{{ substr(trim(@rows.transdate),0,10) }}</td>
+                  <td>{{ trim(@rows.customer) }}</td>
+                  <td>{{ trim(@rows.area) }}</td>
+                  <td align="right">{{ number_format(@rows.qty,2) }}</td>
+                  <td align="right">{{ number_format(@rows.taxes,2) }}</td>
+                  <td align="right">{{ number_format(@rows.vat,2) }}</td>
+                  <td align="right">{{ number_format(@rows.vat+@rows.taxes+@rows.qty,2) }}</td>
+                  <td>{{ trim(@rows.country) }}</td>
+                  <td align="center"><check if="trim(@rows.filename)!=''"><a href="uploads/{{ trim(@rows.filename) }}"><img src="/ui/images/page.gif" width="15"></a></check></td>
+                  <td></td>
+                  <td>
+                      <a href="{{ @BASE.'/expenses/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15"></a> &nbsp;
+                      <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15"></a> 
+                  </td>
                </tr>
            </repeat>
            </tbody>

@@ -3,7 +3,7 @@
   class LoginController extends Controller{
     function render(){
         $this->f3->set('SESSION.user', null);
-        $this->f3->set('SESSION.bp_id', null);
+        $this->f3->set('SESSION.company', null);
 	    $this->f3->set('msg','Diaz Consulting, LLC');
 	    $this->f3->set('stat','dark');
         $template=new Template;
@@ -22,8 +22,8 @@
     }
 
     function signin() {
-	$this->f3->set('SESSION.user', null);
-        $this->f3->set('SESSION.bp_id', null);
+	    $this->f3->set('SESSION.user', null);
+        $this->f3->set('SESSION.company', null);
         $template=new Template;
         echo $template->render('auth/create.htm');
     }
@@ -55,7 +55,7 @@
 
     function logout() {
             $this->f3->set('SESSION.user', null);
-            $this->f3->set('SESSION.bp_id', null);
+            $this->f3->set('SESSION.company', null);
             $this->f3->reroute('/login');
     }
 
@@ -78,16 +78,22 @@
         //exit;
 
         if(password_verify($password, $user->password)) {
-        $datetime = new DateTime();
-    
-	    $zone = $datetime->format('T');
+        
+            date_default_timezone_set('America/New_York');
+            $datetime = new DateTime();
+            $timezone = new DateTimeZone('America/New_York');
+            $datetime->setTimezone($timezone);
+            $zone = $datetime->format('T');
+        
+
             $this->f3->set('SESSION.user', $user->username);
             $this->f3->set('SESSION.roles', $user->roles);
-            $this->f3->set('SESSION.bp_id', $user->bp_id);
+            $this->f3->set('SESSION.company', $user->company);
             $this->f3->set('SESSION.ip', $this->f3->ip());
             $this->f3->set('SESSION.timeout', time()+$this->f3->get('expire'));
+            $this->f3->set('SESSION.timeoutdate',date('Y.m.d h:i:s',time()+$this->f3->get('expire')) );
             $this->f3->set('SESSION.timezone', $zone);
-            $this->f3->set('bpid',$user->bp_id);
+            $this->f3->set('company',$user->company);
             $this->f3->set('stat','success');
             $this->f3->set('msg','Welcome!');
             $this->f3->set('view','main.htm');

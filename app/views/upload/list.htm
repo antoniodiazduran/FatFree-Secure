@@ -19,7 +19,7 @@
                    <td>{{ substr(trim(@rows.transdate),0,10) }}</td>
                    <td>{{ trim(@rows.customer) }}</td>
                    <td>{{ trim(@rows.area) }}</td>
-                   <td><a href="{{ trim(@rows.internalfn) }}">{{ trim(@rows.filename) }}</a></td>
+                   <td><a href="/uploads/{{ trim(@rows.internalfn) }}">{{ trim(@rows.filename) }}</a></td>
                    <td>{{ trim(@rows.expense) }}</td>
                    <td>
                       <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15"></a>

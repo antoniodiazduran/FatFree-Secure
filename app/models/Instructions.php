@@ -20,6 +20,12 @@ class Instructions extends DB\SQL\Mapper {
         return $result[0]['relation']; // Getting the relation number from the instructions
     }
 
+    public function images($id,$user) {
+        $sql = "select @row:=@row+1 AS seq , f.relation, f.name, f.filename, f.internalfn from figures f, (select @row:=0) r where relation in (select id from instructions where relation = ?)";
+        $result = $this->db->exec($sql,$id);
+        return $result;
+    }
+
     public function breadcrumbs($id,$user) {
         // Selecting data
         $sql  = 'SELECT title,product,machine FROM stations_view1 WHERE id = ? ';

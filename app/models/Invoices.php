@@ -6,9 +6,9 @@ class Invoices extends DB\SQL\Mapper {
         parent::__construct($db,'invoices');
     }
 
-    public function all($user) {
-        $sql  = 'SELECT *, (select sum(total) from invoicesd where relation = invoices.id) as total FROM invoices WHERE username = ? ORDER BY transdate DESC';
-        $result = $this->db->exec($sql,$user);
+    public function all($company) {
+        $sql  = 'SELECT *, (select sum(total) from invoicesd where relation = invoices.id) as total FROM invoices WHERE company = ? ORDER BY transdate DESC';
+        $result = $this->db->exec($sql,$company);
         return $result;
     }
     public function allid($id) {

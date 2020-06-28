@@ -1,5 +1,5 @@
 <!--<input type="button" id="btnExport" value="Export"><br> //-->
-<input type="text" id="search" onkeyup="searchTable()" placeholder="Compamy, City or State">
+<input type="text" id="search" onkeyup="searchTable()" placeholder="Name">
 <p>
 <div id="dvData">
         <table id="sites" class="table table-hover">
@@ -7,11 +7,8 @@
            <tr>
                <th scope="col">ID</th>
                <th scope="col">Modification Date</th>
-               <th scope="col">Transation Date</th>
-               <th scope="col">Company</th>
-               <th scope="col">City/State</th>
-               <th scope="col">Country</th>
-               <th scope="col">Admin</th>
+               <th scope="col">Name</th>
+               <th scope="col">Description</th>
                <th scope="col"></th>
                <th scope="col">Action</th>
            </tr>
@@ -22,14 +19,11 @@
                <tr>
                    <td>{{ trim(@rows.id) }}</td>
                    <td>{{ substr(trim(@rows.timestamp),0,16) }}</td>
-                   <td>{{ substr(trim(@rows.transdate),0,10) }}</td>
-                   <td>{{ trim(@rows.company) }}</td>
-                   <td>{{ trim(@rows.city) }},  {{ trim(@rows.state) }}</td>
-                   <td>{{ trim(@rows.country) }}</td>
-                   <td>{{ trim(@rows.username) }}</td>
+                   <td>{{ trim(@rows.name) }}</td>
+                   <td>{{ trim(@rows.description) }}</td>
                    <td></td>
                    <td>
-                       <a href="{{ @BASE.'/sites/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15"></a> &nbsp;
+                       <a href="{{ @BASE.'/company/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15"></a> &nbsp;
                        <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15"></a> 
                    </td>
        
@@ -48,10 +42,9 @@ $("#list-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropd
 
 function confirmDelete(rid) {
 	if(confirm("Delete record:"+rid+" ?")){
-		window.open("/sites/delete/"+rid,"_self");
+		window.open("/company/delete/"+rid,"_self");
 	}
 }
-
 function searchTable() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("search");
@@ -59,19 +52,14 @@ function searchTable() {
   table = document.getElementById("dvData");
   tr = table.getElementsByTagName("tr");
   for (i = 0; i < tr.length; i++) {
-    td1 = tr[i].getElementsByTagName("td")[3];
-    td2 = tr[i].getElementsByTagName("td")[4];
-    if (td1 || td2) {
-      txtValue1 = td1.textContent || td1.innerText;
-      txtValue2 = td2.textContent || td2.innerText;
-      if (txtValue1.toUpperCase().indexOf(filter) > -1) {
+    td = tr[i].getElementsByTagName("td")[2];
+    console.log(tr[i]);
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
         tr[i].style.display = "";
       } else {
-        if (txtValue2.toUpperCase().indexOf(filter) > -1) {
-          tr[i].style.display = "";
-        } else {
-          tr[i].style.display = "none";
-        }
+        tr[i].style.display = "none";
       }
     }       
   }

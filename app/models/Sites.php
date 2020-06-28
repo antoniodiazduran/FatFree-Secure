@@ -6,9 +6,10 @@ class Sites extends DB\SQL\Mapper {
         parent::__construct($db,'sites');
     }
 
-    public function all($user) {
+    public function all() {
         // Selecting data
-        $sql  = 'SELECT * FROM sites  ORDER BY timestamp DESC';
+        $sql  = "SELECT s.id, c.name as company, s.username, s.city, s.state, s.country, s.description, s.transdate, s.timestamp ";
+        $sql .= "FROM sites s LEFT JOIN company c ON s.company = c.id ORDER BY c.name";
         $result = $this->db->exec($sql);
         return $result;
     }

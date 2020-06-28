@@ -14,9 +14,20 @@ class ClockController extends Controller {
     public function index()
     {
         $clocktime = new Clocktime($this->db);
-        $this->f3->set('clocktime',$clocktime->all($this->f3->get('SESSION.user')));
+        $this->f3->set('clocktime',$clocktime->all($this->f3->get('SESSION.company')));
         $this->f3->set('page_head','List');
         $this->f3->set('view',$this->getViewFolder().'/list.htm');
+    }
+
+    public function delete()
+    {       
+        if($this->f3->exists('PARAMS.rid'))
+        {
+            $clocktime = new Clocktime($this->db);
+            $clocktime->delete($this->f3->get('PARAMS.rid'));
+        }
+
+        $this->f3->reroute('/'.$this->getViewFolder());
     }
 
     public function chart()
@@ -56,17 +67,6 @@ class ClockController extends Controller {
             $this->f3->set('page_head','clock');
             $this->f3->set('view',$this->getViewFolder().'/update.htm');
         }
-    }
-
-    public function delete()
-    {
-        if($this->f3->exists('PARAMS.id'))
-        {
-            $clocktime = new Clocktime($this->db);
-            $clocktime->delete($this->f3->get('PARAMS.id'));
-        }
-
-        $this->f3->reroute('/'.$this->getViewFolder());
     }
 
 } // main class

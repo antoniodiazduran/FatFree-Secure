@@ -14,13 +14,14 @@ class UsersController extends Controller {
         if($this->f3->exists('POST.create'))
         {
             $ints = new Users($this->d1);
-	    $hash = password_hash($this->f3->get('POST.password'),PASSWORD_DEFAULT);
-	    $this->f3->set('POST.password',$hash);
+	        $hash = password_hash($this->f3->get('POST.password'),PASSWORD_DEFAULT);
+	        $this->f3->set('POST.password',$hash);
             $ints->add();
             $this->f3->reroute('/users');
         }
         else
         {
+            $this->f3->set('mode','create');
             $this->f3->set('page_head','New');
             $this->f3->set('view','/users/create.htm');
         }
@@ -68,8 +69,9 @@ class UsersController extends Controller {
         else
         {
             $ints->getById($this->f3->get('PARAMS.id'));
-	    $hash = password_hash($this->f3->get('POST.password'),PASSWORD_DEFAULT);
-	    $this->f3->set('hash',$hash);
+	        $hash = password_hash($this->f3->get('POST.password'),PASSWORD_DEFAULT);
+            $this->f3->set('hash',$hash);
+            $this->f3->set('mode','update');
             $this->f3->set('page_head','Update');
             $this->f3->set('view','users/update.htm');
         }

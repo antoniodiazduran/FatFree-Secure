@@ -28,7 +28,7 @@
                    <td></td>
                    <td>
                        <a href="{{ @BASE.'/clocktime/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15"></a> &nbsp; 
-                       <a href="" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15"></a> 
+                       <a href="#" onClick="confirmDelete({{ @rows.id }})"><img src="/ui/images/trash.gif" width="15"></a> 
                    </td>
        
                </tr>
@@ -50,6 +50,14 @@ $(document).ready(function(){
   })
 });
 
+function confirmDelete(rid) {
+  console.log(rid);
+        if(confirm("Delete record:"+rid+" ?")) 
+        {
+           window.open("{{ @BASE }}/clocktime/delete/"+rid,"_top");
+        }
+}
+
 function searchTable() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("search");
@@ -68,11 +76,7 @@ function searchTable() {
     }
   }
 }
-function confirmDelete(rid) {
-        if(confirm("Delete record:"+rid+" ?")){
-                window.open("/clocktime/delete/"+rid,"_self");
-        }
-}
+
 </script>
 
 

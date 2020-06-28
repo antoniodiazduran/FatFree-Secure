@@ -46,6 +46,8 @@
 <div class="row">
   <div class="col-lg-4">
     <input type="hidden" name="internal" id="internal"/>
+    <input type="hidden" name="username" value="{{ @SESSION.user }}"/>
+    <input type="hidden" name="company" value="{{ @SESSION.company }}"/>
     <input type="hidden" name="upload" value="upload" />
     <button type="submit" id="create" class="btn btn-warning">create</button>
   </div>

@@ -1,22 +1,21 @@
 <?php
 
-class Products extends DB\SQL\Mapper {
+class Company extends DB\SQL\Mapper {
 
     public function __construct(DB\SQL $db) {
-        parent::__construct($db,'products');
+        parent::__construct($db,'company');
     }
 
     public function all($user) {
         // Selecting data
-        $sql  = "SELECT s.id, c.name as company, s.username, s.title, s.customer, s.description, s.transdate, s.timestamp ";
-        $sql .= "FROM products s LEFT JOIN company c ON s.company = c.id ORDER BY c.name";
+        $sql  = 'SELECT * FROM company  ORDER BY name DESC';
         $result = $this->db->exec($sql);
         return $result;
     }
 
-    public function apiproducts($user) {
+    public function apicompany() {
         // Selecting data
-        $sql  = 'SELECT id,title FROM products ORDER BY title';
+        $sql  = 'SELECT id,name FROM company ORDER BY name';
         $result = $this->db->exec($sql);
         echo json_encode($result);
     }

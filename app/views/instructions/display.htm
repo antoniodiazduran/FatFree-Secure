@@ -1,0 +1,82 @@
+<!--<input type="button" id="btnExport" value="Export"><br> //-->
+<a href="/stations"><img src="/ui/images/left.png" width="18"></a> 
+<p>
+  <h3>{{ @breadcrumbs }}</h3>
+  <div id="dvData">
+          <table id="tabledata" class="table" border="1">
+             <thead class="thead-light">
+             <tr>
+                 <th scope="col">#</th>
+                 <th scope="col">How</th>
+                 <th scope="col">What</th>
+                 <th scope="col">Why</th>
+                 <th scope="col">Figures</th>
+             </tr>
+             </thead>
+         
+             <tbody>
+             <repeat group="{{ @instructions }}" value="{{ @rows }}">
+                 <tr>
+                     <td width="6%">{{ trim(@rows.sequence) }}</td>
+                     <td width="15%">{{ trim(@rows.hows) }}</td>
+                     <td width="15%">{{ trim(@rows.whats) }}</td>
+                     <td width="15%">{{ trim(@rows.whys) }}</td>
+                     <td width="40%" style="text-align:left;">
+                         <span style="color:white;">{{ @count = 1 }}</span>
+                        <repeat group="{{ @images }}" value="{{ @figs }}">
+                            <check if="{{ @rows.id == @figs.relation and @count< 5}}">
+                                <span style="display:inline-block;border-style:solid;text-align:center;">
+                                    <img src="/{{ @figs.internalfn }}" width="100"  title="{{ substr(@figs.name,0,15) }}">
+                                    <h5>{{ substr(@figs.name,0,15) }}</h5>
+                                </span>
+                                <span style="color:white;">{{ @count++}}</span>
+                            </check>
+                        </repeat>
+                     </td>
+                 </tr>
+             </repeat>
+             </tbody>
+         
+          </table>
+         </div>
+  <script>
+  
+  $(document).ready(function(){
+    $("#stations-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
+  });
+  
+  function searchTable() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("search");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("dvData");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+      td1 = tr[i].getElementsByTagName("td")[3];
+      td2 = tr[i].getElementsByTagName("td")[3];
+      if (td1 || td2) {
+        txtValue1 = td1.textContent || td1.innerText;
+        txtValue2 = td2.textContent || td2.innerText;
+        if (txtValue1.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          if (txtValue2.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }       
+    }
+  }
+  
+  function confirmDelete(rid) {
+      if(confirm("Delete record:"+rid+" ?")){
+          window.open("/instructions/delete/"+rid,"_self");
+      }
+  }
+  </script>
+  
+  
+  
+  

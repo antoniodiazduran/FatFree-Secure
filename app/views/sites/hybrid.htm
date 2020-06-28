@@ -6,6 +6,13 @@
       </div>
     </div>
     <div class="row">
+      <div class="col-sm-4">
+      <label class="control-label" for="company">Company:</label>
+      <select id="company" name="company" class="form-control">
+      </select>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-lg-4">
         <label class="control-label" for="city">City:</label>
             <input type="text" class="form-control" id="city" name="city" value="{{ @POST.city }}">
@@ -48,18 +55,39 @@
     <script>
     
      $(document).ready(function(){  
-        // Updating the record 
-        $("#timestamp").val(formatNow());
+      // Highlight the menu link
+      $("#create-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
+      // Updating the record 
+      $("#timestamp").val(formatNow());
 
         <check if="{{ @mode == 'update' }}">
         document.getElementById('transdate').value = formatDBDate('{{ @POST.transdate }}');
+        $.get( "/companylist"  )
+  		    .done(function( data ) {
+          var datx = JSON.parse(data);
+          $('#company').append($('<option>').text("Select...").attr('value',0));
+          $.each(datx, function(index,value) {
+            if (value.id == {{ @POST.company }}  ) {
+              $('#company').append($('<option>').text(value.name).attr('value',value.id).attr('selected','selected'));
+            } else {
+              $('#company').append($('<option>').text(value.name).attr('value',value.id));
+            }
+          });
+        });
         </check>
+
         <check if="{{ @mode == 'create' }}">
         document.getElementById('transdate').value = formatDates();
+        $.get( "/companylist"  )
+          .done(function( data ) {
+          var datx = JSON.parse(data);
+          $('#company').append($('<option>').text('Select...').attr('value',0));
+              $.each(datx, function(index,value) {
+                      $('#company').append($('<option>').text(value.name).attr('value',value.id));
+              });
+        });
         </check>
-        
-        
-
+  
     
         $.each(countryFields, function(index, value){
         if(value == '{{ @POST.country }}') {

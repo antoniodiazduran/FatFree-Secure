@@ -1,5 +1,5 @@
 <!--<input type="button" id="btnExport" value="Export"><br> //-->
-<input type="text" id="search" onkeyup="searchTable()" placeholder="Product name">
+<input type="text" id="search" onkeyup="searchTable()" placeholder="Comp, Prod, or Customer">
 <p>
 <div id="dvData">
         <table id="tabledata" class="table table-hover">
@@ -8,7 +8,8 @@
                <th scope="col">ID</th>
                <th scope="col">Modification Date</th>
                <th scope="col">Transation Date</th>
-               <th scope="col">Name</th>
+               <th scope="col">Company</th>
+               <th scope="col">Product</th>
                <th scope="col">Customer</th>
                <th scope="col">Admin</th>
                <th scope="col"></th>
@@ -22,6 +23,7 @@
                    <td>{{ trim(@rows.id) }}</td>
                    <td>{{ substr(trim(@rows.timestamp),0,16) }}</td>
                    <td>{{ substr(trim(@rows.transdate),0,10) }}</td>
+                   <td>{{ trim(@rows.company) }}</td>
                    <td>{{ trim(@rows.title) }}</td>
                    <td>{{ trim(@rows.customer) }}</td>
                    <td>{{ trim(@rows.username) }}</td>
@@ -40,7 +42,8 @@
 <script>
 
 $(document).ready(function(){
-  
+  // Highlight the menu link
+$("#list-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
 });
 
 function searchTable() {
@@ -52,16 +55,22 @@ function searchTable() {
   for (i = 0; i < tr.length; i++) {
     td1 = tr[i].getElementsByTagName("td")[3];
     td2 = tr[i].getElementsByTagName("td")[4];
+    td3 = tr[i].getElementsByTagName("td")[5];
     if (td1 || td2) {
       txtValue1 = td1.textContent || td1.innerText;
       txtValue2 = td2.textContent || td2.innerText;
+      txtValue3 = td3.textContent || td3.innerText;
       if (txtValue1.toUpperCase().indexOf(filter) > -1) {
         tr[i].style.display = "";
       } else {
         if (txtValue2.toUpperCase().indexOf(filter) > -1) {
           tr[i].style.display = "";
         } else {
-          tr[i].style.display = "none";
+          if (txtValue3.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
         }
       }
     }       

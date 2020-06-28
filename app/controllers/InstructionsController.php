@@ -21,6 +21,19 @@ class InstructionsController extends Controller {
         $this->f3->set('view',$this->getViewFolder().'/list.htm');
     }
 
+    public function display()
+    {
+        $classvar = new Instructions($this->db);
+        $instArray = $classvar->all($this->f3->get('PARAMS.id'),$this->f3->get('SESSION.user'));
+        $instImage = $classvar->images($this->f3->get('PARAMS.id'),$this->f3->get('SESSION.user'));
+        $this->f3->set('instructions',$instArray);
+        $this->f3->set('images',$instImage);
+        $this->f3->set('breadcrumbs',$classvar->breadcrumbs($this->f3->get('PARAMS.id'),$this->f3->get('SESSION.user')));
+        $this->f3->set('page_head','List');
+        $this->f3->set('relation',$this->f3->get('PARAMS.id'));
+        $this->f3->set('view',$this->getViewFolder().'/display.htm');
+    }
+
     public function apiproducts()
     {
         $classvar = new Instructions($this->db);

@@ -1,8 +1,8 @@
 <?php
 
-class SitesController extends Controller {
+class CompanyController extends Controller {
 
-    private $viewFolder = "sites";
+    private $viewFolder = "company";
 
     public function setViewFolder($vf) { 
         $this->viewFolder = $vf; 
@@ -13,15 +13,15 @@ class SitesController extends Controller {
 
     public function index()
     {
-        $classvar = new Sites($this->db);
-        $this->f3->set('sites',$classvar->all());
+        $classvar = new Company($this->db);
+        $this->f3->set('sites',$classvar->all($this->f3->get('SESSION.user')));
         $this->f3->set('page_head','List');
         $this->f3->set('view',$this->getViewFolder().'/list.htm');
     }
 
     public function apisites()
     {
-        $classvar = new Sites($this->db);
+        $classvar = new Company($this->db);
         $usr =  $this->f3->get('SESSION.user');
         $this->f3->set('ups',$classvar->apisites($usr) );
 	    exit;    	// API Call to get data for popup
@@ -34,11 +34,18 @@ class SitesController extends Controller {
 	    $this->f3->set('view',$this->getViewFolder().'/chart.htm');
     }
 
+    public function apicompany()
+    {
+        $classvar = new Company($this->db);
+        $this->f3->set('ups',$classvar->apicompany() );
+	    exit;    	// API Call to get data for popup
+    }
+
     public function create()
     {
         if($this->f3->exists('POST.create'))
         {
-            $classvar = new Sites($this->db);
+            $classvar = new Company($this->db);
             $classvar->add();
             $this->f3->reroute('/'.$this->getViewFolder());
         }
@@ -52,7 +59,7 @@ class SitesController extends Controller {
 
     public function update()
     {
-        $classvar = new Sites($this->db);
+        $classvar = new Company($this->db);
 
         if($this->f3->exists('POST.update'))
         {
@@ -72,7 +79,7 @@ class SitesController extends Controller {
     {
         if($this->f3->exists('PARAMS.id'))
         {
-            $classvar = new Sites($this->db);
+            $classvar = new Company($this->db);
             $classvar->delete($this->f3->get('PARAMS.id'));
         }
 

@@ -6,9 +6,9 @@ class Expenses extends DB\SQL\Mapper {
         parent::__construct($db,'expenses');
     }
 
-    public function all($user) {
-        $sql  = 'SELECT * FROM expenses_view1 WHERE username = ? ORDER BY transdate DESC';
-        $result = $this->db->exec($sql,$user);
+    public function all($company) {
+        $sql  = 'SELECT * FROM expenses_view2 WHERE company = ? ORDER BY transdate DESC';
+        $result = $this->db->exec($sql,$company);
         return $result;
     }
 

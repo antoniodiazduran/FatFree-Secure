@@ -29,7 +29,7 @@
 		   <repeat group="{{ @figures }}" value="{{ @rows }}">
                <tr>
                    <td>{{ @rows.name }}</td>
-                   <td>{{ @rows.filename }}</td>
+                   <td><a href="/{{ @rows.internalfn }}">{{ @rows.filename }}</a></td>
                    <td>{{ substr(@rows.internalfn,8,200) }}</td>
                    <td></td> 
                    <td width="10%">

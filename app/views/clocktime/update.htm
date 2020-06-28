@@ -37,8 +37,13 @@
   <div class="col">
     <input type="hidden" name="id" value="{{ @POST.id }}">
     <input type="hidden" name="username" value="{{ @SESSION.user }}"/>
+    <input type="hidden" name="company" value="{{ @SESSION.company }}"/>
     <input type="hidden" name="update" value="update" />
     <button type="submit" id="mode" class="btn btn-warning">update</button>
+  </div>
+  <div class="col"></div>
+  <div class="col">
+    <a href="/clocktime/delete/{{ @POST.id }}"><button id="mode" class="btn btn-warning">delete</button></a>
   </div>
 </div>
 </form>
