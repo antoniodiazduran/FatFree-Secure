@@ -6,17 +6,17 @@ class Machines extends DB\SQL\Mapper {
         parent::__construct($db,'machines');
     }
 
-    public function all($user) {
+    public function all($company) {
         // Selecting data
         $sql  = 'SELECT * FROM machines ORDER BY timestamp DESC';
-        $result = $this->db->exec($sql);
+        $result = $this->db->exec($sql,$company);
         return $result;
     }
 
-    public function apimachines($user) {
+    public function apimachines() {
         // Selecting data
         $sql  = 'SELECT id,title FROM machines ORDER BY title';
-        $result = $this->db->exec($sql);
+        $result = $this->db->exec($sql,$company);
         echo json_encode($result);
     }
 

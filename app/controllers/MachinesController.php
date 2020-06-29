@@ -14,7 +14,7 @@ class MachinesController extends Controller {
     public function index()
     {
         $classvar = new Machines($this->db);
-        $this->f3->set('machines',$classvar->all($this->f3->get('SESSION.user')));
+        $this->f3->set('machines',$classvar->all($this->f3->get('SESSION.company')));
         $this->f3->set('page_head','List');
         $this->f3->set('view',$this->getViewFolder().'/list.htm');
     }
@@ -22,8 +22,7 @@ class MachinesController extends Controller {
     public function apimachines()
     {
         $classvar = new Machines($this->db);
-        $usr =  $this->f3->get('SESSION.user');
-        $this->f3->set('ups',$classvar->apimachines($usr) );
+        $this->f3->set('ups',$classvar->apimachines() );
 	    exit;    	// API Call to get data for popup
     }
 

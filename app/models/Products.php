@@ -6,18 +6,23 @@ class Products extends DB\SQL\Mapper {
         parent::__construct($db,'products');
     }
 
-    public function all($user) {
+    public function all($company) {
         // Selecting data
-        $sql  = "SELECT s.id, c.name as company, s.username, s.title, s.customer, s.description, s.transdate, s.timestamp ";
-        $sql .= "FROM products s LEFT JOIN company c ON s.company = c.id ORDER BY c.name";
+        $sql  = "SELECT * FROM products_view1 ORDER BY company";
         $result = $this->db->exec($sql);
         return $result;
     }
 
-    public function apiproducts($user) {
+    public function apiproducts($company) {
         // Selecting data
-        $sql  = 'SELECT id,title FROM products ORDER BY title';
-        $result = $this->db->exec($sql);
+        $sql  = 'SELECT id,title FROM products WHERE company = ? ORDER BY title';
+        $result = $this->db->exec($sql,$company);
+        echo json_encode($result);
+    }
+    public function apiproductsfilter($filter,$id) {
+        // Selecting data
+        $sql  = 'SELECT id,title FROM products WHERE '.$filter.' = ? ORDER BY title';
+        $result = $this->db->exec($sql,$id);
         echo json_encode($result);
     }
 

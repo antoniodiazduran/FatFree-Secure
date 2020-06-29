@@ -1,19 +1,19 @@
 <form action="/machines/{{ @mode }}" method="post" class="form-horizontal">
     <div class="row">
-      <div class="col-lg-4">
+      <div class="col-sm-4">
         <label class="control-label" for="transdate">Transaction Date:</label>
           <input type="text" class="form-control" id="transdate" name="transdate" placeholder="mm/dd/yyyy">
       </div>
     </div>
     <div class="row">
-      <div class="col-lg-4">
+      <div class="col-sm-4">
         <label class="control-label" for="title">Title:</label>
             <input type="text" class="form-control" id="title" name="title" value="{{ @POST.title }}">
       </div>
     </div>
     <br>
     <div class="row">
-      <div class="col-lg-6">
+      <div class="col-sm-6">
         <label class="control-label" for="description">Description:</label>
           <textarea class="form-control" id="description" name="description" rows="3"><check if="{{ @mode == 'update' }}">{{ @POST.description }}</check></textarea>
       </div>
@@ -43,16 +43,11 @@
         document.getElementById('transdate').value = formatDBDate('{{ @POST.transdate }}');
         </check>
         <check if="{{ @mode == 'create' }}">
-        document.getElementById('transdate').value = formatDates();
+          document.getElementById('transdate').value = formatDates();
+          
         </check>
-      
-        <check if="{{ @mode == 'update' }}">
-        </check>
-        <check if="{{ @mode == 'create' }}">
-        </check>
-    
      });
           
     
-    </script>
+  </script>
     

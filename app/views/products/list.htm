@@ -1,5 +1,5 @@
 <!--<input type="button" id="btnExport" value="Export"><br> //-->
-<input type="text" id="search" onkeyup="searchTable()" placeholder="Comp, Prod, or Customer">
+<input type="text" id="search" class="form-control col-sm-6" onkeyup="searchTable()" placeholder="Comp, Site, Prod, or Customer">
 <p>
 <div id="dvData">
         <table id="tabledata" class="table table-hover">
@@ -52,27 +52,33 @@ function searchTable() {
   filter = input.value.toUpperCase();
   table = document.getElementById("dvData");
   tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td1 = tr[i].getElementsByTagName("td")[3];
-    td2 = tr[i].getElementsByTagName("td")[4];
-    td3 = tr[i].getElementsByTagName("td")[5];
-    if (td1 || td2) {
+  for (i = 1; i < tr.length; i++) {
+    td0 = tr[i].getElementsByTagName("td")[3];
+    td1 = tr[i].getElementsByTagName("td")[4];
+    td2 = tr[i].getElementsByTagName("td")[5];
+    td3 = tr[i].getElementsByTagName("td")[6];
+    if (td0 || td1 || td2 || td3) {
+      txtValue0 = td0.textContent || td0.innerText;
       txtValue1 = td1.textContent || td1.innerText;
       txtValue2 = td2.textContent || td2.innerText;
       txtValue3 = td3.textContent || td3.innerText;
-      if (txtValue1.toUpperCase().indexOf(filter) > -1) {
+      if (txtValue0.toUpperCase().indexOf(filter) > -1) {
         tr[i].style.display = "";
       } else {
-        if (txtValue2.toUpperCase().indexOf(filter) > -1) {
+        if (txtValue1.toUpperCase().indexOf(filter) > -1) {
           tr[i].style.display = "";
         } else {
-          if (txtValue3.toUpperCase().indexOf(filter) > -1) {
+          if (txtValue2.toUpperCase().indexOf(filter) > -1) {
             tr[i].style.display = "";
           } else {
-            tr[i].style.display = "none";
+            if (txtValue3.toUpperCase().indexOf(filter) > -1) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
           }
         }
-      }
+      }  
     }       
   }
 }

@@ -14,7 +14,7 @@ class StationsController extends Controller {
     public function index()
     {
         $classvar = new Stations($this->db);
-        $this->f3->set('stations',$classvar->all($this->f3->get('SESSION.user')));
+        $this->f3->set('stations',$classvar->all($this->f3->get('SESSION.company')));
         $this->f3->set('page_head','List');
         $this->f3->set('view',$this->getViewFolder().'/list.htm');
     }

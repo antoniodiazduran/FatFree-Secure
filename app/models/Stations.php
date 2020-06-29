@@ -6,10 +6,10 @@ class Stations extends DB\SQL\Mapper {
         parent::__construct($db,'stations');
     }
 
-    public function all($user) {
+    public function all($company) {
         // Selecting data
-        $sql  = 'SELECT * FROM stations_view1 ORDER BY timestamp DESC';
-        $result = $this->db->exec($sql);
+        $sql  = 'SELECT * FROM stations_view2 WHERE company = ? ORDER BY timestamp DESC';
+        $result = $this->db->exec($sql,$company);
         return $result;
     }
 

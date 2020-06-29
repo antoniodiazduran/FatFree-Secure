@@ -1,3 +1,6 @@
+<check if="{{ @mode == 'update'}}">
+  <p><a href="/stations"><img src="/ui/images/left.png" width="18"></a> </p>
+</check>
 <form action="/stations/{{ @mode }}" method="post" class="form-horizontal">
 <div class="row">
   <div class="col-lg-4">
@@ -6,17 +9,17 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-lg-4">
-    <label class="control-label" for="title">Station:</label>
-      <input type="text" class="form-control" id="title" name="title" <check if="{{ @mode == 'update' }}">value="{{ @POST.title }}" </check> placeholder="Station Name">
-  </div>
-</div>
-<div class="row">
 	<div class="col-lg-4">
 	  <label class="control-label" for="site">Site:</label>
 		  <select id="site" name="site" value="" class="browser-default custom-select">
 		  </select>
 	</div>
+</div>
+<div class="row">
+  <div class="col-lg-4">
+    <label class="control-label" for="title">Station:</label>
+      <input type="text" class="form-control" id="title" name="title" <check if="{{ @mode == 'update' }}">value="{{ @POST.title }}" </check> placeholder="Station Name">
+  </div>
 </div>
 <div class="row">
   <div class="col-lg-4">
@@ -104,6 +107,14 @@
   	});  
 	</check>
 	<check if="{{ @mode == 'create' }}">
+		productCList();
+		machineCList();
+		siteCList();
+	</check>
+
+ });
+      
+function productCList() {
 	$.get( "/productlist"  )
                 .done(function( data ) {
 				var datx = JSON.parse(data);
@@ -112,6 +123,8 @@
                         $('#product').append($('<option>').text(value.title).attr('value',value.id));
                 });
 		});
+}
+function machineCList() {
 	$.get( "/machinelist"  )
                 .done(function( data ) {
 				var datx = JSON.parse(data);
@@ -120,6 +133,8 @@
                         $('#machine').append($('<option>').text(value.title).attr('value',value.id));
                 });
 		});
+}
+function siteCList() {
 	$.get( "/sitelist"  )
                 .done(function( data ) {
 				var datx = JSON.parse(data);
@@ -128,9 +143,5 @@
                         $('#site').append($('<option>').text(value.city).attr('value',value.id));
                 });
         });
-	</check>
-
- });
-      
-
+}
 </script>

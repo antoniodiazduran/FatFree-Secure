@@ -6,9 +6,9 @@
            <thead class="thead-light">
            <tr>
               <th scope="col">Site</th>
-              <th scope="col">Station</th> 
 	            <th scope="col">Product</th>
               <th scope="col">Machine</th>
+              <th scope="col">Station</th>
               <th scope="col">Action</th>
            </tr>
            </thead>
@@ -17,11 +17,12 @@
            <repeat group="{{ @stations }}" value="{{ @rows }}">
                <tr>
                   <td>{{ trim(@rows.sites) }}</td>
-                  <td>{{ trim(@rows.title) }}</td>
                   <td>{{ trim(@rows.product) }}</td>
                   <td>{{ trim(@rows.machine) }}</td>
+                  <td>{{ trim(@rows.title) }}</td>
                   <td>
-                    <a href="/instructions/display/{{ trim(@rows.id) }}"><img src="/ui/images/print.gif" width="22"></a> &nbsp;
+                    <a href="/instructions/create/{{ trim(@rows.id) }}"><img src="/ui/images/newpaget.png" width="20"></a> &nbsp;
+                    <a href="/instructions/display/{{ trim(@rows.id) }}"><img src="/ui/images/tv.png" width="42"></a> &nbsp;
                     <a href="/instructions/{{ trim(@rows.id) }}"><img src="/ui/images/page.gif" width="15"></a> &nbsp;
                     <a href="{{ @BASE.'/stations/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15"></a> &nbsp;
                     <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15"></a> 

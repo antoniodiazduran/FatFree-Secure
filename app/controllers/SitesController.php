@@ -22,8 +22,15 @@ class SitesController extends Controller {
     public function apisites()
     {
         $classvar = new Sites($this->db);
-        $usr =  $this->f3->get('SESSION.user');
-        $this->f3->set('ups',$classvar->apisites($usr) );
+        $this->f3->set('ups',$classvar->apisites() );
+	    exit;    	// API Call to get data for popup
+    }
+    public function apisitesfilter()
+    {
+        $classvar = new Sites($this->db);
+        $filter = $this->f3->get('PARAMS.filter');
+        $id = $this->f3->get('PARAMS.id');
+        $this->f3->set('ups',$classvar->apisitesfilter($filter,$id) );
 	    exit;    	// API Call to get data for popup
     }
 

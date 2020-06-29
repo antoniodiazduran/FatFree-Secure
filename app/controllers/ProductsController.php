@@ -14,7 +14,7 @@ class ProductsController extends Controller {
     public function index()
     {
         $classvar = new Products($this->db);
-        $this->f3->set('products',$classvar->all($this->f3->get('SESSION.user')));
+        $this->f3->set('products',$classvar->all($this->f3->get('SESSION.company')));
         $this->f3->set('page_head','List');
         $this->f3->set('view',$this->getViewFolder().'/list.htm');
     }
@@ -22,8 +22,17 @@ class ProductsController extends Controller {
     public function apiproducts()
     {
         $classvar = new Products($this->db);
-        $usr =  $this->f3->get('SESSION.user');
-        $this->f3->set('ups',$classvar->apiproducts($usr) );
+        $filter =  $this->f3->get('SESSION.company');
+        $this->f3->set('ups',$classvar->apiproducts($filter) );
+	    exit;    	// API Call to get data for popup
+    }
+
+    public function apiproductsfilter()
+    {
+        $classvar = new Products($this->db);
+        $filter = $this->f3->get('PARAMS.filter');
+        $id = $this->f3->get('PARAMS.id');
+        $this->f3->set('ups',$classvar->apiproductsfilter($filter,$id) );
 	    exit;    	// API Call to get data for popup
     }
 

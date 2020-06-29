@@ -14,10 +14,17 @@ class Sites extends DB\SQL\Mapper {
         return $result;
     }
 
-    public function apisites($user) {
+    public function apisites() {
         // Selecting data
         $sql  = 'SELECT id,city FROM sites ORDER BY city';
         $result = $this->db->exec($sql);
+        echo json_encode($result);
+    }
+
+    public function apisitesfilter($filter,$id) {
+        // Selecting data
+        $sql  = 'SELECT id,city FROM sites WHERE '.$filter.' = ? ORDER BY city';
+        $result = $this->db->exec($sql,$id);
         echo json_encode($result);
     }
 

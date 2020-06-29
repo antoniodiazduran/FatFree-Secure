@@ -6,10 +6,10 @@ class Instructions extends DB\SQL\Mapper {
         parent::__construct($db,'instructions');
     }
 
-    public function all($id,$user) {
+    public function all($id,$company) {
         // Selecting data
-        $sql  = 'SELECT * FROM instructions WHERE relation = ? AND username = ? ORDER BY sequence';
-        $result = $this->db->exec($sql,array($id,$user));
+        $sql  = 'SELECT * FROM instructions WHERE relation = ?  ORDER BY sequence';
+        $result = $this->db->exec($sql,$id);
         return $result;
     }
 

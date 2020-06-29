@@ -1,12 +1,12 @@
 <form action="/products/{{ @mode }}" method="post" class="form-horizontal">
     <div class="row">
-      <div class="col-lg-4">
+      <div class="col-sm-4">
         <label class="control-label" for="transdate">Transaction Date:</label>
           <input type="text" class="form-control" id="transdate" name="transdate" placeholder="mm/dd/yyyy">
       </div>
     </div>
     <div class="row">
-      <div class="col-lg-4">
+      <div class="col-sm-8">
         <label class="control-label" for="title">Product:</label>
             <input type="text" class="form-control" id="title" name="title" value="{{ @POST.title }}">
       </div>
@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-lg-4">
+      <div class="col-sm-8">
         <label class="control-label" for="customer">Customer:</label>
             <input type="text" class="form-control" id="customer" name="customer" value="{{ @POST.customer }}">
       </div>
@@ -27,7 +27,7 @@
     </div>
     <br>
     <div class="row">
-      <div class="col-lg-6">
+      <div class="col-sm-8">
         <label class="control-label" for="description">Description:</label>
           <textarea class="form-control" id="description" name="description" rows="3"><check if="{{ @mode == 'update' }}">{{ @POST.description }}</check></textarea>
       </div>
@@ -45,48 +45,81 @@
       </div>
     </div>
     </form>
-    <script>
-    
-     $(document).ready(function(){  
-      // Highlight the menu link
-      $("#create-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active'); 
-      // Updating the record 
-      $("#timestamp").val(formatNow());
+  <script>  
+  $(document).ready(function(){  
+    // Highlight the menu link
+    $("#create-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active'); 
+    // Updating the record 
+    $("#timestamp").val(formatNow());
 
-        <check if="{{ @mode == 'update' }}">
+      <check if="{{ @mode == 'update' }}">
         document.getElementById('transdate').value = formatDBDate('{{ @POST.transdate }}');
-        $.get( "/companylist"  )
-  		    .done(function( data ) {
-          var datx = JSON.parse(data);
-          $('#company').append($('<option>').text("Select...").attr('value',0));
-          $.each(datx, function(index,value) {
-            if (value.id == {{ @POST.company }}  ) {
-              $('#company').append($('<option>').text(value.name).attr('value',value.id).attr('selected','selected'));
-            } else {
-              $('#company').append($('<option>').text(value.name).attr('value',value.id));
-            }
-          });
-        });
-        </check>
-        <check if="{{ @mode == 'create' }}">
+        companyUList();
+      </check>
+
+      <check if="{{ @mode == 'create' }}">
         document.getElementById('transdate').value = formatDates();
-        $.get( "/companylist"  )
+        companyCList();
+      </check>
+  });
+   
+  function siteUList() {
+    $cid = {{ @POST.company*1 }};
+    $filter = 'company';
+    $("#site").text('');
+    $.get( "/sitelist/"+$filter+"/"+ $cid)
+        .done(function( data ) {
+        var datx = JSON.parse(data);
+        $('#site').append($('<option>').text("Select...").attr('value',0));
+        $.each(datx, function(index,value) {
+          if (value.id == {{ @POST.site*1 }}  ) {
+            $('#site').append($('<option>').text(value.city).attr('value',value.id).attr('selected','selected'));
+          } else {
+            $('#site').append($('<option>').text(value.city).attr('value',value.id));
+          }
+        });
+    });
+  }
+
+  function companyUList() {
+    $.get( "/companylist"  )
+        .done(function( data ) {
+        var datx = JSON.parse(data);
+        $('#company').append($('<option>').text("Select...").attr('value',0));
+        $.each(datx, function(index,value) {
+          if (value.id == {{ @POST.company*1 }}  ) {
+            $('#company').append($('<option>').text(value.name).attr('value',value.id).attr('selected','selected'));
+          } else {
+            $('#company').append($('<option>').text(value.name).attr('value',value.id));
+          }
+        });
+    });
+  }
+
+  function companyCList() {
+    $.get( "/companylist"  )
           .done(function( data ) {
           var datx = JSON.parse(data);
           $('#company').append($('<option>').text('Select...').attr('value',0));
               $.each(datx, function(index,value) {
                       $('#company').append($('<option>').text(value.name).attr('value',value.id));
               });
+    });
+  }
+  function siteCList() {
+    $cid = $("#company").val();
+    $filter = 'company';
+    $("#site").text('');
+    console.log($cid);
+    $.get( "/sitelist/"+$filter+"/"+ $cid)
+         .done(function( data ) {
+      var datx = JSON.parse(data);
+      $('#site').append($('<option>').text('Select...').attr('value',0));
+        $.each(datx, function(index,value) {
+            $('#site').append($('<option>').text(value.city).attr('value',value.id));
         });
-        </check>
-      
-        <check if="{{ @mode == 'update' }}">
-        </check>
-        <check if="{{ @mode == 'create' }}">
-        </check>
-    
-     });
-          
+      });
+    }
     
     </script>
     
