@@ -8,7 +8,12 @@ class Machines extends DB\SQL\Mapper {
 
     public function all($company) {
         // Selecting data
-        $sql  = 'SELECT * FROM machines ORDER BY timestamp DESC';
+        if ($company == 0) {
+            $sql  = 'SELECT * FROM machines_view1 ORDER BY timestamp DESC';
+        } else {
+            $sql  = 'SELECT * FROM machines_view1 WHERE cid = ? ORDER BY timestamp DESC';
+        }
+        
         $result = $this->db->exec($sql,$company);
         return $result;
     }

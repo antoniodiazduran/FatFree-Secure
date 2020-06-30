@@ -6,9 +6,14 @@ class Users extends DB\SQL\Mapper {
         parent::__construct($d1,'bpuser');
     }
 
-    public function all() {
-        $sql = "SELECT  u.id, username, roles, email, c.name FROM bpuser u LEFT JOIN company c ON u.company = c.id ORDER BY username";
-        $result = $this->db->exec($sql);
+    public function all($company) {
+        if($company == 0){
+            $sql = "SELECT  u.id, username, roles, email, c.name FROM bpuser u LEFT JOIN company c ON u.company = c.id ORDER BY username";
+        } else {
+            $sql = "SELECT  u.id, username, roles, email, c.name FROM bpuser u LEFT JOIN company c ON u.company = c.id WHERE u.company = ? ORDER BY username";
+        }
+        
+        $result = $this->db->exec($sql,$company);
         return $result;
     }
 

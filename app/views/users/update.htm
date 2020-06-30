@@ -54,13 +54,16 @@
   <check if="{{ @mode == 'update' }}">
 	$.get( "/companylist"  )
   		.done(function( data ) {
-		var datx = JSON.parse(data);
+    var datx = JSON.parse(data);
+    $company = {{ @SESSION.company*1 }};
 		$('#company').append($('<option>').text("Select...").attr('value',0));
 		$.each(datx, function(index,value) {
-			if (value.id == {{ @POST.company }}  ) {
+			if (value.id == {{ @POST.company*1 }} ) {
 				$('#company').append($('<option>').text(value.name).attr('value',value.id).attr('selected','selected'));
 			} else {
-   			$('#company').append($('<option>').text(value.name).attr('value',value.id));
+        if ($company == 0 ) {
+          $('#company').append($('<option>').text(value.name).attr('value',value.id));
+        }
 			}
 		});
   });

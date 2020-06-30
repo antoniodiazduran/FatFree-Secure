@@ -85,12 +85,15 @@
     $.get( "/companylist"  )
         .done(function( data ) {
         var datx = JSON.parse(data);
+        $company = {{ @SESSION.company*1 }};
         $('#company').append($('<option>').text("Select...").attr('value',0));
         $.each(datx, function(index,value) {
-          if (value.id == {{ @POST.company*1 }}  ) {
+          if (value.id == {{ @POST.company*1 }} ) {
             $('#company').append($('<option>').text(value.name).attr('value',value.id).attr('selected','selected'));
           } else {
-            $('#company').append($('<option>').text(value.name).attr('value',value.id));
+            if ($company == 0) {
+              $('#company').append($('<option>').text(value.name).attr('value',value.id));
+            }
           }
         });
     });
@@ -100,12 +103,20 @@
     $.get( "/companylist"  )
           .done(function( data ) {
           var datx = JSON.parse(data);
-          $('#company').append($('<option>').text('Select...').attr('value',0));
-              $.each(datx, function(index,value) {
+          $company = {{ @SESSION.company*1 }};
+				  $('#company').append($('<option>').text('Select...').attr('value',0));
+                $.each(datx, function(index,value) {
+                    if ($company == 0) {
                       $('#company').append($('<option>').text(value.name).attr('value',value.id));
-              });
+                    } else {
+                      if($company == value.id){
+                         $('#company').append($('<option>').text(value.name).attr('value',value.id));
+                      }
+                    }
+                });
     });
   }
+  
   function siteCList() {
     $cid = $("#company").val();
     $filter = 'company';

@@ -7,6 +7,13 @@
     </div>
     <div class="row">
       <div class="col-sm-4">
+      <label class="control-label" for="company">Company:</label>
+      <select id="company" name="company" class="form-control">
+      </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
         <label class="control-label" for="title">Title:</label>
             <input type="text" class="form-control" id="title" name="title" value="{{ @POST.title }}">
       </div>
@@ -40,14 +47,49 @@
       $("#timestamp").val(formatNow());
 
         <check if="{{ @mode == 'update' }}">
-        document.getElementById('transdate').value = formatDBDate('{{ @POST.transdate }}');
+          document.getElementById('transdate').value = formatDBDate('{{ @POST.transdate }}');
+          companyUList();
         </check>
         <check if="{{ @mode == 'create' }}">
           document.getElementById('transdate').value = formatDates();
-          
+          companyCList();
         </check>
      });
           
-    
+     function companyUList() {
+    $.get( "/companylist"  )
+        .done(function( data ) {
+        var datx = JSON.parse(data);
+        $company = {{ @SESSION.company*1 }};
+        $('#company').append($('<option>').text("Select...").attr('value',0));
+        $.each(datx, function(index,value) {
+          if (value.id == {{ @POST.company*1 }} ) {
+            $('#company').append($('<option>').text(value.name).attr('value',value.id).attr('selected','selected'));
+          } else {
+            if ($company == 0) {
+              $('#company').append($('<option>').text(value.name).attr('value',value.id));
+            }
+          }
+        });
+    });
+  }
+
+  function companyCList() {
+    $.get( "/companylist"  )
+          .done(function( data ) {
+          var datx = JSON.parse(data);
+          $company = {{ @SESSION.company*1 }};
+				  $('#company').append($('<option>').text('Select...').attr('value',0));
+                $.each(datx, function(index,value) {
+                    if ($company == 0) {
+                      $('#company').append($('<option>').text(value.name).attr('value',value.id));
+                    } else {
+                      if($company == value.id){
+                         $('#company').append($('<option>').text(value.name).attr('value',value.id));
+                      }
+                    }
+                });
+    });
+  }
   </script>
     

@@ -8,8 +8,13 @@ class Products extends DB\SQL\Mapper {
 
     public function all($company) {
         // Selecting data
-        $sql  = "SELECT * FROM products_view1 ORDER BY company";
-        $result = $this->db->exec($sql);
+        if ($company == 0) {
+            $sql  = "SELECT * FROM products_view1 ORDER BY company";
+        } else {
+            $sql  = "SELECT * FROM products_view2 WHERE cid = ? ORDER BY company";
+        }
+        
+        $result = $this->db->exec($sql,$company);
         return $result;
     }
 

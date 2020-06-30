@@ -14,7 +14,7 @@ class SitesController extends Controller {
     public function index()
     {
         $classvar = new Sites($this->db);
-        $this->f3->set('sites',$classvar->all());
+        $this->f3->set('sites',$classvar->all($this->f3->get('SESSION.company')));
         $this->f3->set('page_head','List');
         $this->f3->set('view',$this->getViewFolder().'/list.htm');
     }

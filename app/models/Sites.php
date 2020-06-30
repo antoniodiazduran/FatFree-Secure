@@ -6,11 +6,16 @@ class Sites extends DB\SQL\Mapper {
         parent::__construct($db,'sites');
     }
 
-    public function all() {
+    public function all($company) {
         // Selecting data
-        $sql  = "SELECT s.id, c.name as company, s.username, s.city, s.state, s.country, s.description, s.transdate, s.timestamp ";
-        $sql .= "FROM sites s LEFT JOIN company c ON s.company = c.id ORDER BY c.name";
-        $result = $this->db->exec($sql);
+        if ($company == 0) {
+            $sql  = "SELECT s.id, c.name as company, s.username, s.city, s.state, s.country, s.description, s.transdate, s.timestamp ";
+            $sql .= "FROM sites s LEFT JOIN company c ON s.company = c.id ORDER BY c.name";    
+        } else {
+            $sql  = "SELECT s.id, c.name as company, s.username, s.city, s.state, s.country, s.description, s.transdate, s.timestamp ";
+            $sql .= "FROM sites s LEFT JOIN company c ON s.company = c.id WHERE s.company = ? ORDER BY c.name";
+        }
+        $result = $this->db->exec($sql,$company);
         return $result;
     }
 

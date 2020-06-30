@@ -5,7 +5,7 @@ class UsersController extends Controller {
     public function index()
     {
         $ints = new Users($this->d1);
-        $this->f3->set('users',$ints->all(''));
+        $this->f3->set('users',$ints->all($this->f3->get('SESSION.company')));
         $this->f3->set('page_head','List');
         $this->f3->set('view','users/list.htm');
     }

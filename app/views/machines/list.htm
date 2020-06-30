@@ -9,7 +9,7 @@
                <th scope="col">Modification Date</th>
                <th scope="col">Transation Date</th>
                <th scope="col">Name</th>
-               
+               <th scope="col">Company</th>
                <th scope="col">Admin</th>
                <th scope="col"></th>
                <th scope="col">Action</th>
@@ -23,7 +23,7 @@
                    <td>{{ substr(trim(@rows.timestamp),0,16) }}</td>
                    <td>{{ substr(trim(@rows.transdate),0,10) }}</td>
                    <td>{{ trim(@rows.title) }}</td>
-         
+                   <td>{{ trim(@rows.company) }}</td>
                    <td>{{ trim(@rows.username) }}</td>
                    <td></td>
                    <td>
