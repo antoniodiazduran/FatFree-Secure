@@ -1,6 +1,6 @@
 <!--<input type="button" id="btnExport" value="Export"><br> //-->
-<a href="/stations"><img src="/ui/images/left.png" width="18"></a> &nbsp; &nbsp; <a href="/instructions/create/{{ @relation }}">
-  <input type="button" class="btn btn-warning" value="Create"></a>
+<a href="/stations"><img src="/ui/images/left.png" width="18"></a> &nbsp; &nbsp; 
+<a href="/instructions/create/{{ @relation }}"><img src="/ui/images/newpaget.png" width="25"></a>
 <p>
 <h3>{{ @breadcrumbs }}</h3>
 <div id="dvData">
@@ -23,9 +23,9 @@
                    <td width="25%">{{ trim(@rows.whats) }}</td>
                    <td width="25%">{{ trim(@rows.whys) }}</td>
                    <td width="15%">
-                      <a href="/figures/{{ trim(@rows.id) }}"><img src="/ui/images/image.png" width="22"></a> &nbsp;
-                      <a href="{{ @BASE.'/instructions/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15"></a> &nbsp;
-                      <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15"></a> 
+                      <a href="/figures/{{ trim(@rows.id) }}"><img src="/ui/images/image.png" width="22" title="Edit/Add pictures"></a> &nbsp;
+                      <a href="{{ @BASE.'/instructions/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15" title="Edit task"></a> &nbsp;
+                      <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15" title="Delete task"></a> 
                    </td>
   
                </tr>

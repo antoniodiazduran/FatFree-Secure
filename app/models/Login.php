@@ -22,6 +22,12 @@ class Login extends DB\SQL\Mapper{
         return $this->query;
     }
 
+    function companyName($id){
+        $sql = "SELECT name FROM company WHERE id = ?";
+        $result = $this->db->exec($sql,$id);
+        return $result;
+    }
+
     public function getByName($name) {
         $this->load(array('username=?', $name));
     }

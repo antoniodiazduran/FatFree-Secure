@@ -63,7 +63,12 @@
         $username = $this->f3->get('POST.username');
         $password = $this->f3->get('POST.password');
         $user = new Login($this->d1);
+        $company = new Login($this->d1);
+        // Getting user information
         $user->getByName($username);
+
+        // Getting company name
+        $cid = $company->companyName($user->company);
 
         if($user->dry()) {
             //$this->f3->set('msg','Username & Password not matching');
@@ -89,6 +94,7 @@
             $this->f3->set('SESSION.user', $user->username);
             $this->f3->set('SESSION.roles', $user->roles);
             $this->f3->set('SESSION.company', $user->company);
+            $this->f3->set('SESSION.companyname', $cid[0]['name']);
             $this->f3->set('SESSION.ip', $this->f3->ip());
             $this->f3->set('SESSION.timeout', time()+$this->f3->get('expire'));
             $this->f3->set('SESSION.timeoutdate',date('Y.m.d h:i:s',time()+$this->f3->get('expire')) );

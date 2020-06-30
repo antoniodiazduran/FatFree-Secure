@@ -21,11 +21,11 @@
                   <td>{{ trim(@rows.machine) }}</td>
                   <td>{{ trim(@rows.title) }}</td>
                   <td>
-                    <a href="/instructions/create/{{ trim(@rows.id) }}"><img src="/ui/images/newpaget.png" width="20"></a> &nbsp;
-                    <a href="/instructions/display/{{ trim(@rows.id) }}"><img src="/ui/images/tv.png" width="42"></a> &nbsp;
-                    <a href="/instructions/{{ trim(@rows.id) }}"><img src="/ui/images/page.gif" width="15"></a> &nbsp;
-                    <a href="{{ @BASE.'/stations/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15"></a> &nbsp;
-                    <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15"></a> 
+                    <a href="/instructions/display/{{ trim(@rows.id) }}"><img src="/ui/images/tv.png" width="42" title="Display"></a>&nbsp;
+                    <a href="/instructions/{{ trim(@rows.id) }}"><img src="/ui/images/page.gif" width="15" title="Edit Instructions"></a> &nbsp;
+                    <a href="/instructions/create/{{ trim(@rows.id) }}"><img src="/ui/images/newpaget.png" width="20" title="Add tasks"></a> &nbsp;
+                    <a href="{{ @BASE.'/stations/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15" title="Edit Station"></a> &nbsp;
+                    <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15" title="Delete Station"></a> 
                   </td>
                </tr>
            </repeat>
