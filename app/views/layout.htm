@@ -4,6 +4,9 @@
 		<check if="{{ @page_head!='form' }}">
   		  	<true><include href="nav.htm"></true>
 		</check>
+		<check if="{{ @subnav=='true'}}">
+			<true><include href="subnav.htm"></true>
+		</check>
 		<include href="{{ @view }}"/>
 		<include href="footer.htm"/>
 	</true>

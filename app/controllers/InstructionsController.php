@@ -15,8 +15,12 @@ class InstructionsController extends Controller {
     {
         $classvar = new Instructions($this->db);
         $this->f3->set('instructions',$classvar->all($this->f3->get('PARAMS.id'),$this->f3->get('SESSION.company')));
+        $this->f3->set('section','instructions');
         $this->f3->set('breadcrumbs',$classvar->breadcrumbs($this->f3->get('PARAMS.id'),$this->f3->get('SESSION.company')));
         $this->f3->set('page_head','List');
+        $this->f3->set('subnav','true');
+        $this->f3->set('back','yes');
+        $this->f3->set('columns','[0,1,2,3]');
         $this->f3->set('relation',$this->f3->get('PARAMS.id'));
         $this->f3->set('view',$this->getViewFolder().'/list.htm');
     }

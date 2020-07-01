@@ -1,7 +1,5 @@
 <!--<input type="button" id="btnExport" value="Export"><br> //-->
-<a href="/stations"><img src="/ui/images/left.png" width="18"></a> &nbsp; &nbsp; 
-<a href="/instructions/create/{{ @relation }}"><img src="/ui/images/newpaget.png" width="25"></a>
-<p>
+
 <h3>{{ @breadcrumbs }}</h3>
 <div id="dvData">
         <table id="tabledata" class="table table-hover">
@@ -24,8 +22,8 @@
                    <td width="25%">{{ trim(@rows.whys) }}</td>
                    <td width="15%">
                       <a href="/figures/{{ trim(@rows.id) }}"><img src="/ui/images/image.png" width="22" title="Edit/Add pictures"></a> &nbsp;
-                      <a href="{{ @BASE.'/instructions/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15" title="Edit task"></a> &nbsp;
-                      <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15" title="Delete task"></a> 
+                      <a href="{{ @BASE.'/'. @section .'/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15" title="Edit task"></a> &nbsp;
+                      <a href="#" onClick="confirmDelete('{{ @section }}',{{ @rows.id }})"><img src="/ui/images/trash.gif" width="15" title="Delete task"></a> 
                    </td>
   
                </tr>
@@ -35,39 +33,16 @@
         </table>
        </div>
 <script>
+// Number of columns to filter data  
+var columns = {{ @columns }};
 
 $(document).ready(function(){
   $("#stations-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
 });
 
-function searchTable() {
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("search");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("dvData");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td1 = tr[i].getElementsByTagName("td")[3];
-    td2 = tr[i].getElementsByTagName("td")[3];
-    if (td1 || td2) {
-      txtValue1 = td1.textContent || td1.innerText;
-      txtValue2 = td2.textContent || td2.innerText;
-      if (txtValue1.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        if (txtValue2.toUpperCase().indexOf(filter) > -1) {
-          tr[i].style.display = "";
-        } else {
-          tr[i].style.display = "none";
-        }
-      }
-    }       
-  }
-}
-
-function confirmDelete(rid) {
+function confirmDelete(section,rid) {
 	if(confirm("Delete record:"+rid+" ?")){
-		window.open("/instructions/delete/"+rid,"_self");
+		window.open("/"+section+"/delete/"+rid,"_self");
 	}
 }
 </script>

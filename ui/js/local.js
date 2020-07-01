@@ -4,6 +4,30 @@
   var detailFields = ["","Kaizen","Training","Couching","Support","Analyzing","Expenses","Programming"];
   var statusFields = ["","not ready","sent","errors","paid"];
 
+    // Used on every list.htm file to filter "dvdata" table object
+    function searchTable() {
+        var input, filter, table, tr, td, i, txtValue;
+        // Columns to inspect
+        //columns = {{ @columns }};
+        filter = document.getElementById("search").value.toUpperCase();
+        table = document.getElementById("dvData");
+        tr = table.getElementsByTagName("tr");
+        td = [];
+        for (i = 1; i < tr.length; i++) {
+        for (var j of columns) {
+            td[j] = tr[i].getElementsByTagName("td")[j];
+            if (td[j].innerText != '') {
+                if (td[j].innerText.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    break;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }       
+        }
+        
+        }
+    }
     function formatNow(){
         var yy = new Date().getFullYear();
         var mm = new Date().getMonth()+1;
