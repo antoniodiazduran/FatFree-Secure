@@ -1,4 +1,10 @@
 <?php
+// Sending emails via mstmp 
+// Configuration for PHP is on php.ini on CLI and APACHE directory in /etc
+// Main configuration file for mstmp is /etc/mstmprc
+// Disabled the 2-verification method on gmail and created a password for it
+// Gmail account joeycamanei
+//
 // The message
 $message = "Line 1\r\nLine 2\r\nLine 3".time();
 
