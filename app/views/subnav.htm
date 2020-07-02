@@ -1,0 +1,15 @@
+<div class="row">
+    <div class="col-sm-4">
+      <check if="{{ @back=='yes'}}">
+        <a href="/stations"><img src="/ui/images/left.png" width="18" title="Back"></a> &nbsp; &nbsp; 
+      </check>
+      <a href="/{{ @section }}/create/{{ @relation }}"><img src="/ui/images/newpaget.png" width="25" title="New Record"></a>
+    </div>
+    <div class="col-sm-4">
+        &nbsp;
+    </div>
+    <div class="col-sm-4">
+      <input type="text" id="search" onkeyup="searchTable()" class="form-control" placeholder="Search">    
+    </div>
+</div>
+  <p>

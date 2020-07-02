@@ -15,6 +15,10 @@ class StationsController extends Controller {
     {
         $classvar = new Stations($this->db);
         $this->f3->set('stations',$classvar->all($this->f3->get('SESSION.company')));
+        $this->f3->set('section','stations');
+        $this->f3->set('subnav','true');
+        $this->f3->set('back','no');
+        $this->f3->set('columns','[0,1,2,3]');
         $this->f3->set('page_head','List');
         $this->f3->set('view',$this->getViewFolder().'/list.htm');
     }
