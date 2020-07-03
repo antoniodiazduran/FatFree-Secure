@@ -66,49 +66,49 @@
         $company = new Login($this->d1);
         // Getting user information
         $user->getByName($username);
-
-        // Getting company name
-        $cid = $company->companyName($user->company);
-
-        if($user->dry()) {
-            //$this->f3->set('msg','Username & Password not matching');
-            //$this->f3->set('stat','warning');
-            //$this->f3->set('view','login.htm');
-        } 
-
-        //echo $user->username;
-        //echo $user->roles;
-        //$pass = password_hash($password,PASSWORD_DEFAULT);
-        //echo $pass;
-        //exit;
-
-        if(password_verify($password, $user->password)) {
-        
-            date_default_timezone_set('America/New_York');
-            $datetime = new DateTime();
-            $timezone = new DateTimeZone('America/New_York');
-            $datetime->setTimezone($timezone);
-            $zone = $datetime->format('T');
-        
-
-            $this->f3->set('SESSION.user', $user->username);
-            $this->f3->set('SESSION.roles', $user->roles);
-            $this->f3->set('SESSION.company', $user->company);
-            $this->f3->set('SESSION.companyname', $cid[0]['name']);
-            $this->f3->set('SESSION.ip', $this->f3->ip());
-            $this->f3->set('SESSION.timeout', time()+$this->f3->get('expire'));
-            $this->f3->set('SESSION.timeoutdate',date('Y.m.d h:i:s',time()+$this->f3->get('expire')) );
-            $this->f3->set('SESSION.timezone', $zone);
-            $this->f3->set('company',$user->company);
-            $this->f3->set('stat','success');
-            $this->f3->set('msg','Welcome!');
-            $this->f3->set('view','main.htm');
-        } else {
-            $this->f3->set('stat','danger');
-	        $this->f3->set('msg','Incorrect Username & Password');
-            //$this->f3->reroute('/login');
+    
+        if($user->dry()==1) {
+            // Username not founf
+            $this->f3->set('msg','Username not found');
+            $this->f3->set('stat','warning');
             $template=new Template;
             echo $template->render('auth/login.htm');
+        } else {
+            // Getting company name
+            $cid = $company->companyName($user->company);
+                    //echo $user->username;
+                    //echo $user->roles;
+                    //$pass = password_hash($password,PASSWORD_DEFAULT);
+                    //echo $pass;
+                    //exit;
+            if(password_verify($password, $user->password)) {
+            
+                date_default_timezone_set('America/New_York');
+                $datetime = new DateTime();
+                $timezone = new DateTimeZone('America/New_York');
+                $datetime->setTimezone($timezone);
+                $zone = $datetime->format('T');
+            
+
+                $this->f3->set('SESSION.user', $user->username);
+                $this->f3->set('SESSION.roles', $user->roles);
+                $this->f3->set('SESSION.company', $user->company);
+                $this->f3->set('SESSION.companyname', $cid[0]['name']);
+                $this->f3->set('SESSION.ip', $this->f3->ip());
+                $this->f3->set('SESSION.timeout', time()+$this->f3->get('expire'));
+                $this->f3->set('SESSION.timeoutdate',date('Y.m.d h:i:s',time()+$this->f3->get('expire')) );
+                $this->f3->set('SESSION.timezone', $zone);
+                $this->f3->set('company',$user->company);
+                $this->f3->set('stat','success');
+                $this->f3->set('msg','Welcome!');
+                $this->f3->set('view','main.htm');
+            } else {
+                $this->f3->set('stat','danger');
+                $this->f3->set('msg','Incorrect Username & Password');
+                // Rendering 
+                $template=new Template;
+                echo $template->render('auth/login.htm');    
+            }
         }
     }
   }

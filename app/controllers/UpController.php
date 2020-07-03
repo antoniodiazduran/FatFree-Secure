@@ -7,7 +7,11 @@ class UpController extends Controller {
         $ups = new Upload($this->d1);
         $ses =  $this->f3->get('SESSION.roles');
         $company =  $this->f3->get('SESSION.company');
-        $this->f3->set('ups',$ups->all($ses,$company) );
+        $this->f3->set('sqldata',$ups->all($ses,$company) );
+        $this->f3->set('section','upload');
+        $this->f3->set('subnav','true');
+        $this->f3->set('back','no');
+        $this->f3->set('columns','[1,2,3]');
         $this->f3->set('page_head','List');
         $this->f3->set('view','upload/list.htm');
     }

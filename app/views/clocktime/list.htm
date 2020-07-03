@@ -1,6 +1,4 @@
 <!--<input type="button" id="btnExport" value="Export"><br> //-->
-<input type="text" id="search" onkeyup="searchTable()" class="form-control col-sm-4" placeholder="Customer or Zipcode">
-<p>
 <div id="dvData">
         <table  class="table table-hover">
            <thead class="thead-light">
@@ -17,7 +15,7 @@
            </thead>
        
            <tbody>
-           <repeat group="{{ @clocktime }}" value="{{ @rows }}">
+           <repeat group="{{ @sqldata }}" value="{{ @rows }}">
                <tr>
                    <td>{{ trim(@rows.id) }}</td>
                    <td>{{ substr(trim(@rows.startdate),0,16) }}</td>
@@ -27,8 +25,8 @@
                    <td align="right">{{ trim(@rows.hours) }}</td>
                    <td></td>
                    <td>
-                       <a href="{{ @BASE.'/clocktime/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15"></a> &nbsp; 
-                       <a href="#" onClick="confirmDelete({{ @rows.id }})"><img src="/ui/images/trash.gif" width="15"></a> 
+                       <a href="{{ @BASE.'/'.@section.'/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15"></a> &nbsp; 
+                       <a href="#" onClick="confirmDelete('{{ @section }}',{{ @rows.id }})"><img src="/ui/images/trash.gif" width="15"></a> 
                    </td>
        
                </tr>
@@ -38,6 +36,8 @@
         </table>
        </div>
 <script>
+// Number of columns filtering
+var columns = [3,4];
 
 $(document).ready(function(){
   // Highlight the menu link
@@ -50,32 +50,14 @@ $(document).ready(function(){
   })
 });
 
-function confirmDelete(rid) {
+function confirmDelete(section,rid) {
   console.log(rid);
         if(confirm("Delete record:"+rid+" ?")) 
         {
-           window.open("{{ @BASE }}/clocktime/delete/"+rid,"_top");
+           window.open("/"+section+"/delete/"+rid,"_top");
         }
 }
 
-function searchTable() {
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("search");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("dvData");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[3];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }
-  }
-}
 
 </script>
 

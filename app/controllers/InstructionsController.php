@@ -14,7 +14,7 @@ class InstructionsController extends Controller {
     public function index()
     {
         $classvar = new Instructions($this->db);
-        $this->f3->set('instructions',$classvar->all($this->f3->get('PARAMS.id'),$this->f3->get('SESSION.company')));
+        $this->f3->set('sqldata',$classvar->all($this->f3->get('PARAMS.id'),$this->f3->get('SESSION.company')));
         $this->f3->set('section','instructions');
         $this->f3->set('breadcrumbs',$classvar->breadcrumbs($this->f3->get('PARAMS.id'),$this->f3->get('SESSION.company')));
         $this->f3->set('page_head','List');

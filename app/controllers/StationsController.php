@@ -14,7 +14,7 @@ class StationsController extends Controller {
     public function index()
     {
         $classvar = new Stations($this->db);
-        $this->f3->set('stations',$classvar->all($this->f3->get('SESSION.company')));
+        $this->f3->set('sqldata',$classvar->all($this->f3->get('SESSION.company')));
         $this->f3->set('section','stations');
         $this->f3->set('subnav','true');
         $this->f3->set('back','no');

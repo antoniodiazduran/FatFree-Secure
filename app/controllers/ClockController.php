@@ -14,7 +14,11 @@ class ClockController extends Controller {
     public function index()
     {
         $clocktime = new Clocktime($this->db);
-        $this->f3->set('clocktime',$clocktime->all($this->f3->get('SESSION.company')));
+        $this->f3->set('sqldata',$clocktime->all($this->f3->get('SESSION.company')));
+        $this->f3->set('section','clocktime');
+        $this->f3->set('subnav','true');
+        $this->f3->set('back','no');
+        $this->f3->set('columns','[3,4]');
         $this->f3->set('page_head','List');
         $this->f3->set('view',$this->getViewFolder().'/list.htm');
     }

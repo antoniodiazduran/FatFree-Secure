@@ -1,6 +1,4 @@
 <!--<input type="button" id="btnExport" value="Export"><br> //-->
-<input type="text" id="search" onkeyup="searchTable()" class="form-control col-sm-4" placeholder="Customer or Zipcode">
-<p>
 <div id="dvData">
         <table id="invoices" class="table table-hover">
            <thead class="thead-light">
@@ -19,7 +17,7 @@
            </thead>
        
            <tbody>
-           <repeat group="{{ @invoices }}" value="{{ @rows }}">
+           <repeat group="{{ @sqldata }}" value="{{ @rows }}">
                <tr>
                    <td>{{ trim(@rows.id) }}</td>
                    <td>{{ substr(trim(@rows.transdate),0,10) }}</td>
@@ -30,12 +28,12 @@
                    <td>{{ trim(@rows.invoicenumber) }}</td>
                    <td align="right">{{ number_format(@rows.total,2) }}</td>
                    <td align="center">
-			<a href="{{ @BASE. '/invoices/details/'. @rows.id}}"><img src="/ui/images/page.gif" width="15"></a>&nbsp;
-			<a href="{{ @BASE. '/invoices/print/'. @rows.id}}"><img src="/ui/images/print.gif" width="20"></a>
-		   </td>
+                    <a href="{{ @BASE. '/'.@section.'/details/'. @rows.id}}"><img src="/ui/images/page.gif" width="15"></a>&nbsp;
+                    <a href="{{ @BASE. '/'.@section.'/print/'. @rows.id}}"><img src="/ui/images/print.gif" width="20"></a>
+                   </td>
                    <td>
-                       <a href="{{ @BASE.'/invoices/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15"></a>&nbsp;
-                       <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15"></a> 
+                       <a href="{{ @BASE.'/'.@section.'/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15"></a>&nbsp;
+                       <a href="#" onClick="confirmDelete('{{ @section }}',{{ @rows.id }})"><img src="/ui/images/trash.gif" width="15"></a> 
                    </td>
        
                </tr>
@@ -45,32 +43,15 @@
         </table>
        </div>
 <script>
+// Number of columns filtering
+var columns = {{ @columns }};
 
 // Highlight the menu link
 $("#invoices-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
 
-function searchTable() {
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("search");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("dvData");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[2];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }       
-  }
-}
-
-function confirmDelete(rid) {
+function confirmDelete(section,rid) {
 	if(confirm("Delete record:"+rid+" ?")){
-		window.open("/invoices/delete/"+rid,"_self");
+		window.open("/"+section+"/delete/"+rid,"_self");
 	}
 }
 </script>
