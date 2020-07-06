@@ -5,18 +5,19 @@
         <table id="tabledata" class="table table-hover">
            <thead class="thead-light">
            <tr>
-               <th scope="col">#</th>
-               <th scope="col">How</th>
-               <th scope="col">What</th>
-               <th scope="col">Why</th>
-               <th scope="col">Action</th>
+            
+            <th scope="col">#</th>
+            <th scope="col">How</th>
+            <th scope="col">What</th>
+            <th scope="col">Why</th>
+            <th scope="col">Action</th>
            </tr>
            </thead>
        
            <tbody>
            <repeat group="{{ @sqldata }}" value="{{ @rows }}">
                <tr>
-                   <td width="8%">{{ trim(@rows.sequence) }}</td>
+                   <td width="8%">{{ trim(@rows.seq) }}</td>
                    <td width="25%">{{ trim(@rows.hows) }}</td>
                    <td width="25%">{{ trim(@rows.whats) }}</td>
                    <td width="25%">{{ trim(@rows.whys) }}</td>

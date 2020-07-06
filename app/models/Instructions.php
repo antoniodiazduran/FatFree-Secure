@@ -8,7 +8,7 @@ class Instructions extends DB\SQL\Mapper {
 
     public function all($id,$company) {
         // Selecting data
-        $sql  = 'SELECT * FROM instructions WHERE relation = ?  ORDER BY sequence';
+        $sql  = "SELECT @row:=@row+1 AS seq ,i.id, i.hows, i.whats, i.whys, i.sequence FROM instructions i, (SELECT @row:=0) r WHERE relation = ?  ORDER BY sequence";
         $result = $this->db->exec($sql,$id);
         return $result;
     }
@@ -21,7 +21,7 @@ class Instructions extends DB\SQL\Mapper {
     }
 
     public function images($id,$user) {
-        $sql = "select @row:=@row+1 AS seq , f.relation, f.name, f.filename, f.internalfn from figures f, (select @row:=0) r where relation in (select id from instructions where relation = ?)";
+        $sql = "SELECT @row:=@row+1 AS seq , f.relation, f.name, f.filename, f.internalfn FROM figures f, (SELECT @row:=0) r WHERE relation IN (SELECT id FROM instructions WHERE relation = ?)";
         $result = $this->db->exec($sql,$id);
         return $result;
     }

@@ -21,7 +21,7 @@ class InstructionsController extends Controller {
         $this->f3->set('subnav','true');
         $this->f3->set('back','yes');
         $this->f3->set('preview','yes');
-        $this->f3->set('columns','[0,1,2,3]');
+        $this->f3->set('columns','[1,2,3,4]');
         $this->f3->set('relation',$this->f3->get('PARAMS.id'));
         $this->f3->set('view',$this->getViewFolder().'/list.htm');
     }
@@ -32,6 +32,7 @@ class InstructionsController extends Controller {
         $instArray = $classvar->all($this->f3->get('PARAMS.id'),$this->f3->get('SESSION.company'));
         $instImage = $classvar->images($this->f3->get('PARAMS.id'),$this->f3->get('SESSION.company'));
         $this->f3->set('instructions',$instArray);
+        $this->f3->set('section','instructions');
         $this->f3->set('subnav','true');
         $this->f3->set('back','one');
         $this->f3->set('columns','[0,1,2,3]');
