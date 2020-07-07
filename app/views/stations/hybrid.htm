@@ -69,8 +69,11 @@
         
 	// ajax {{ @mode }}
 	<check if="{{ @mode == 'update' }}">
-	$.get( "/productlist"  )
-  		.done(function( data ) {
+	var cid = {{ @SESSION.company*1 }};
+	var filter = 'company';
+    console.log(cid);
+	$.get( "/productlist/"+filter+"/"+cid  )	
+		.done(function( data ) {
 		var datx = JSON.parse(data);
 		$('#product').append($('<option>').text("Select...").attr('value',0));
 		$.each(datx, function(index,value) {
@@ -81,7 +84,10 @@
 			}
 		});
 	});
-	$.get( "/machinelist"  )
+	var cid = {{ @SESSION.company*1 }};
+	var filter = 'company';
+    console.log(cid);
+	$.get( "/machinelist/"+filter+"/"+cid  )
   		.done(function( data ) {
 		var datx = JSON.parse(data);
 		$('#machine').append($('<option>').text("Select...").attr('value',0));
@@ -93,7 +99,10 @@
 			}
 		});
 	  });  
-	  $.get( "/sitelist"  )
+	var cid = {{ @SESSION.company*1 }}; 
+	var filter = 'company';
+    console.log(cid);
+	$.get( "/sitelist/"+filter+"/"+cid  )
   		.done(function( data ) {
 		var datx = JSON.parse(data);
 		$('#site').append($('<option>').text("Select...").attr('value',0));
