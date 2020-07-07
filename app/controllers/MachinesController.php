@@ -26,6 +26,15 @@ class MachinesController extends Controller {
 	    exit;    	// API Call to get data for popup
     }
 
+    public function apimachinesfilter()
+    {
+        $classvar = new Machines($this->db);
+        $filter = $this->f3->get('PARAMS.filter');
+        $id = $this->f3->get('PARAMS.id');
+        $this->f3->set('ups',$classvar->apimachinesfilter($filter,$id) );
+	    exit;    	// API Call to get data for popup
+    }
+
     public function chart()
     {
 	    $this->f3->set('page_head','Chart');

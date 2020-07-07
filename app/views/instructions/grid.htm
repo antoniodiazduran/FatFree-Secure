@@ -1,0 +1,33 @@
+<!--<input type="button" id="btnExport" value="Export"><br> //-->
+<link href="/ui/css/local.css" rel="stylesheet" type="text/css">
+<p>
+  <h3>{{ @breadcrumbs }}</h3>
+  <div id="dvData">
+
+    <repeat group="{{ @instructions }}" value="{{ @rows }}">    
+        <div class="grid">
+            <img src="/{{ @rows.internalfn }}">
+            <p class="whats">{{ substr(@rows.whats,0,50) }}</p>
+            <p class="hows">{{ @rows.hows }}</p>
+            <p class="detail">Sequence: {{ @rows.sequence }} :: Images: {{ @rows.figcount}} </p>
+        </div>
+        &nbsp;
+    </repeat>
+  </div>
+  <script>
+ var columns = {{ @columns }};
+  
+  $(document).ready(function(){
+    $("#stations-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
+  });
+  
+  function confirmDelete(rid) {
+      if(confirm("Delete record:"+rid+" ?")){
+          window.open("/instructions/delete/"+rid,"_self");
+      }
+  }
+  </script>
+  
+  
+  
+  

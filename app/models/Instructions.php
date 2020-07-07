@@ -13,6 +13,15 @@ class Instructions extends DB\SQL\Mapper {
         return $result;
     }
 
+    public function grid($id,$company) {
+        // Selecting data
+        $sql  = "SELECT i.id, i.hows, i.whats, i.whys, i.sequence, (SELECT internalfn FROM figures f ";
+        $sql .= "WHERE i.id = f.relation ORDER BY f.id LIMIT 1) as internalfn, ";
+        $sql .= "(SELECT COUNT(id) FROM figures f WHERE i.id = f.relation) AS figcount ";
+        $sql .= "FROM instructions i   WHERE relation = ?";
+        $result = $this->db->exec($sql,$id);
+        return $result;
+    }
     public function relation($id) {
         // Selecting data
         $sql  = 'SELECT relation FROM instructions WHERE id = ? ';
@@ -21,7 +30,7 @@ class Instructions extends DB\SQL\Mapper {
     }
 
     public function images($id,$user) {
-        $sql = "SELECT @row:=@row+1 AS seq , f.relation, f.name, f.filename, f.internalfn FROM figures f, (SELECT @row:=0) r WHERE relation IN (SELECT id FROM instructions WHERE relation = ?)";
+        $sql = "SELECT @row:=@row+1 AS seq , f.relation, f.name, f.filename, f.internalfn FROM figures f, (SELECT @row:=0) r WHERE relation IN (SELECT id FROM instructions WHERE relation = ?) ORDER BY relation";
         $result = $this->db->exec($sql,$id);
         return $result;
     }

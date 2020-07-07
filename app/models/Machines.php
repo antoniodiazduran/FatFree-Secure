@@ -25,6 +25,13 @@ class Machines extends DB\SQL\Mapper {
         echo json_encode($result);
     }
 
+    public function apimachinesfilter($filter,$id) {
+        // Selecting data
+        $sql  = 'SELECT id,title FROM machines WHERE '.$filter.' = ? ORDER BY title';
+        $result = $this->db->exec($sql,$id);
+        echo json_encode($result);
+    }
+
     public function add() {
         // Add data
         $this->copyFrom('POST');

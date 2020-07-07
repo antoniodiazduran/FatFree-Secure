@@ -26,7 +26,7 @@ class InstructionsController extends Controller {
         $this->f3->set('view',$this->getViewFolder().'/list.htm');
     }
 
-    public function display()
+    public function fdisplay()
     {
         $classvar = new Instructions($this->db);
         $instArray = $classvar->all($this->f3->get('PARAMS.id'),$this->f3->get('SESSION.company'));
@@ -34,13 +34,32 @@ class InstructionsController extends Controller {
         $this->f3->set('instructions',$instArray);
         $this->f3->set('section','instructions');
         $this->f3->set('subnav','true');
+        $this->f3->set('preview','yes');
         $this->f3->set('back','one');
         $this->f3->set('columns','[0,1,2,3]');
         $this->f3->set('images',$instImage);
         $this->f3->set('breadcrumbs',$classvar->breadcrumbs($this->f3->get('PARAMS.id'),$this->f3->get('SESSION.company')));
         $this->f3->set('page_head','List');
         $this->f3->set('relation',$this->f3->get('PARAMS.id'));
-        $this->f3->set('view',$this->getViewFolder().'/display.htm');
+        $this->f3->set('view',$this->getViewFolder().'/full.htm');
+    }
+
+    public function gdisplay()
+    {
+        $classvar = new Instructions($this->db);
+        $instArray = $classvar->grid($this->f3->get('PARAMS.id'),$this->f3->get('SESSION.company'));
+        //$instImage = $classvar->images($this->f3->get('PARAMS.id'),$this->f3->get('SESSION.company'));
+        $this->f3->set('instructions',$instArray);
+        $this->f3->set('section','instructions');
+        $this->f3->set('subnav','true');
+        $this->f3->set('back','one');
+        $this->f3->set('preview','yes');
+        $this->f3->set('columns','[0,1,2,3]');
+        //$this->f3->set('images',$instImage);
+        $this->f3->set('breadcrumbs',$classvar->breadcrumbs($this->f3->get('PARAMS.id'),$this->f3->get('SESSION.company')));
+        $this->f3->set('page_head','List');
+        $this->f3->set('relation',$this->f3->get('PARAMS.id'));
+        $this->f3->set('view',$this->getViewFolder().'/grid.htm');
     }
 
     public function apiproducts()

@@ -1,0 +1,46 @@
+.grid {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    width:200px;
+    vertical-align:top;
+    text-align: center;
+    font-family:tahoma;
+    margin:auto;
+    height: 290px;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.grid img {
+   width: 170px;
+   height: 100px;
+   object-fit: cover;
+   object-position: 50% 10px;
+
+}
+
+.detail {
+    width:90%;
+    color:gray;
+    font-size:12px;
+    font-style:italic;
+}
+
+.whats {
+    text-align:center;
+    width:90%;
+    margin-left:7px;
+    color:black;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.hows {
+    text-align:center;
+    margin-left:7px;
+    width:90%;
+    color:black;
+    font-size:10px;
+}
+.grid:hover {
+    background: #dddddd;
+}

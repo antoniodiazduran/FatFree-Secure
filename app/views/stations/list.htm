@@ -19,9 +19,7 @@
                   <td>{{ trim(@rows.machine) }}</td>
                   <td>{{ trim(@rows.title) }}</td>
                   <td>
-                    <a href="/instructions/display/{{ trim(@rows.id) }}"><img src="/ui/images/filelist.png" width="23" title="Full view"></a>&nbsp;
                     <a href="/instructions/{{ trim(@rows.id) }}"><img src="/ui/images/page.gif" width="15" title="Edit Instructions"></a> &nbsp;
-                    <a href="/instructions/create/{{ trim(@rows.id) }}"><img src="/ui/images/newpaget.png" width="20" title="Add tasks"></a> &nbsp;
                     <a href="{{ @BASE.'/'.@section.'/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15" title="Edit Station"></a> &nbsp;
                     <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15" title="Delete Station"></a> 
                   </td>
