@@ -63,23 +63,6 @@
       </check>
   });
    
-  function siteUList() {
-    $cid = {{ @POST.company*1 }};
-    $filter = 'company';
-    $("#site").text('');
-    $.get( "/sitelist/"+$filter+"/"+ $cid)
-        .done(function( data ) {
-        var datx = JSON.parse(data);
-        $('#site').append($('<option>').text("Select...").attr('value',0));
-        $.each(datx, function(index,value) {
-          if (value.id == {{ @POST.site*1 }}  ) {
-            $('#site').append($('<option>').text(value.city).attr('value',value.id).attr('selected','selected'));
-          } else {
-            $('#site').append($('<option>').text(value.city).attr('value',value.id));
-          }
-        });
-    });
-  }
 
   function companyUList() {
     $.get( "/companylist"  )
@@ -117,20 +100,6 @@
     });
   }
   
-  function siteCList() {
-    $cid = $("#company").val();
-    $filter = 'company';
-    $("#site").text('');
-    console.log($cid);
-    $.get( "/sitelist/"+$filter+"/"+ $cid)
-         .done(function( data ) {
-      var datx = JSON.parse(data);
-      $('#site').append($('<option>').text('Select...').attr('value',0));
-        $.each(datx, function(index,value) {
-            $('#site').append($('<option>').text(value.city).attr('value',value.id));
-        });
-      });
-    }
-    
-    </script>
+  
+</script>
     
