@@ -1,0 +1,51 @@
+<!--<input type="button" id="btnExport" value="Export"><br> //-->
+<p>
+<div id="dvData">
+        <table id="tabledata" class="table table-hover">
+           <thead class="thead-light">
+           <tr>
+            
+            <th scope="col">#</th>
+            <th scope="col">Product</th>
+            <th scope="col">Machine</th>
+            <th scope="col">Title</th>
+            <th scope="col">Action</th>
+           </tr>
+           </thead>
+       
+           <tbody>
+           <repeat group="{{ @sqldata }}" value="{{ @rows }}">
+               <tr>
+                   <td width="8%">{{ trim(@rows.id) }}</td>
+                   <td width="25%">{{ trim(@rows.product) }}</td>
+                   <td width="25%">{{ trim(@rows.machine) }}</td>
+                   <td width="25%">{{ trim(@rows.title) }}</td>
+                   <td width="15%">
+                      <a href="/instructions/{{ trim(@rows.id) }}"><img src="/ui/images/page.gif" width="20" title="List"></a> &nbsp;
+                      <a href="/instructions/full/{{ trim(@rows.id) }}"><img src="/ui/images/filelist.png" width="25" title="Full View"></a> &nbsp;
+                      <a href="/instructions/grid/{{ trim(@rows.id) }}"><img src="/ui/images/nines.png" width="25" title="Grid View"></a> &nbsp;
+                    </td>
+  
+               </tr>
+           </repeat>
+           </tbody>
+       
+        </table>
+       </div>
+<script>
+// Number of columns to filter data  
+var columns = {{ @columns }};
+
+$(document).ready(function(){
+  $("#instructions-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
+});
+
+function confirmDelete(section,rid) {
+	if(confirm("Delete record:"+rid+" ?")){
+		window.open("/"+section+"/delete/"+rid,"_self");
+	}
+}
+</script>
+
+
+

@@ -38,13 +38,12 @@
         </div>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="stations-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <img src="/ui/images/stations.png" width="20" title="Stations">
-          <check if="{{@icons == 0 }}">Stations</check>
+        <a class="nav-link dropdown-toggle" href="#" id="instructions-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <img src="/ui/images/stations.png" width="20" title="Instructions">
+          <check if="{{@icons == 0 }}">Instructions</check>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/stations/create">Create</a>
-          <a class="dropdown-item" href="/stations">List</a>
+          <a class="dropdown-item" href="/instructions">List</a>
         </div>
       </li>
    </check>
@@ -106,6 +105,8 @@
               <a class="dropdown-item" href="/sites/create">Sites</a>
               <a class="dropdown-item" href="/products/create">Products</a>
               <a class="dropdown-item" href="/machines/create">Machines</a>
+              <a class="dropdown-item" href="/stations/create">Stations</a>
+              
             </div>
           </li>
           <li class="nav-item dropdown">
@@ -120,14 +121,15 @@
               <a class="dropdown-item" href="/sites">Sites</a>
               <a class="dropdown-item" href="/products">Products</a>
               <a class="dropdown-item" href="/machines">Machines</a>
+              <a class="dropdown-item" href="/stations">Stations <img src="/ui/images/r_arrow.png" width="20"></a>
+             
             </div>
           </li>
 	    </true>
     </check>
       <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="info-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img src="/ui/images/profile.png" width="20" title="Profile">  
-            <check if="{{@icons == 0 }}">Profile</check>
+            Profile
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="/users/password">Change Password</a>

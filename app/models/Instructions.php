@@ -13,6 +13,13 @@ class Instructions extends DB\SQL\Mapper {
         return $result;
     }
 
+    public function list($company) {
+        // Selecting data
+        $sql  = 'SELECT * FROM stations_view2 WHERE company = ? ORDER BY timestamp DESC';
+        $result = $this->db->exec($sql,$company);
+        return $result;
+    }
+
     public function grid($id,$company) {
         // Selecting data
         $sql  = "SELECT i.id, i.hows, i.whats, i.whys, i.sequence, (SELECT internalfn FROM figures f ";

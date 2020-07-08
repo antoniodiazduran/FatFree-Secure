@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-sm-4">
       <check if="{{ @back=='yes'}}">
-	      <a href="/stations"><img src="/ui/images/left.png" width="18" title="Back"></a> &nbsp; 
+	      <a href="/{{ @backto }}"><img src="/ui/images/left.png" width="18" title="Back"></a> &nbsp; 
       </check>
       <check if="{{ @back=='one'}}">
 	      <a href="/instructions/{{ @relation }}"><img src="/ui/images/left.png" width="18" title="Back"></a> &nbsp; 
@@ -10,7 +10,9 @@
         <a href="/instructions/full/{{ @relation}}"><img src="/ui/images/filelist.png" width="25" title="Full View"></a> &nbsp; 
         <a href="/instructions/grid/{{ @relation}}"><img src="/ui/images/nines.png" width="25" title="Grid"></a> &nbsp; 
       </check>
-      <a href="/{{ @section }}/create/{{ @relation }}"><img src="/ui/images/newpaget.png" width="25" title="New Record"></a>
+      <check if="{{ @create==''}}"></check>
+        <a href="/{{ @section }}/create/{{ @relation }}"><img src="/ui/images/newpaget.png" width="25" title="New Record"></a>
+      </check> 
     </div>
     <div class="col-sm-4">
         &nbsp;

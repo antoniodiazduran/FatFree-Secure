@@ -7,6 +7,9 @@
 	            <th scope="col">Product</th>
               <th scope="col">Machine</th>
               <th scope="col">Station</th>
+              <th scope="col">Defects</th>
+              <th scope="col">Delays</th>
+              <th scope="col">Rework</th>
               <th scope="col">Action</th>
            </tr>
            </thead>
@@ -18,10 +21,15 @@
                   <td>{{ trim(@rows.product) }}</td>
                   <td>{{ trim(@rows.machine) }}</td>
                   <td>{{ trim(@rows.title) }}</td>
+                  <td>{{ trim(@rows.defect) }}</td>
+                  <td>{{ trim(@rows.delay) }}</td>
+                  <td>{{ trim(@rows.rework) }}</td>
                   <td>
-                    <a href="/instructions/{{ trim(@rows.id) }}"><img src="/ui/images/page.gif" width="15" title="Edit Instructions"></a> &nbsp;
-                    <a href="{{ @BASE.'/'.@section.'/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15" title="Edit Station"></a> &nbsp;
-                    <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15" title="Delete Station"></a> 
+                    <a href="{{ @BASE.'/scrap/'.@rows.id }}"><img src="/ui/images/defect.png" width="25" title="{{ @rows.defect }} Defects"></a> &nbsp;
+                    <a href="{{ @BASE.'/downtime/'.@rows.id }}"><img src="/ui/images/delay.png" width="20" title="{{ @rows.delay }} Delays"></a> &nbsp;
+                    <a href="{{ @BASE.'/rework/'.@rows.id }}"><img src="/ui/images/rework.png" width="20" title="{{ @rows.rework }} Rework"></a> &nbsp;
+                    <a href="{{ @BASE.'/'.@section.'/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15" title="Edit"></a> &nbsp;
+                    <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15" title="Delete"></a> 
                   </td>
                </tr>
            </repeat>
@@ -34,7 +42,7 @@
 var columns = {{ @columns }};
 
 $(document).ready(function(){
-  $("#stations-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
+  $("#list-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
   $("#btnExport").click(function(e) {
 //    window.open('data:application/vnd.ms-excel,' + encodeURIComponent($('#dvData').html()) );
     window.open('data:application/csv,' + encodeURIComponent($('#dvData').html()) );

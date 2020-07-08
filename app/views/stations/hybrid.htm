@@ -58,6 +58,7 @@
 <script>
 
  $(document).ready(function(){  
+	$("#create-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
 	//Getting time stamp for record
 	$("#timestamp").val(formatNow());
 	<check if="{{ @mode == 'update' }}">

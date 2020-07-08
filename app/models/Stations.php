@@ -8,7 +8,11 @@ class Stations extends DB\SQL\Mapper {
 
     public function all($company) {
         // Selecting data
-        $sql  = 'SELECT * FROM stations_view2 WHERE company = ? ORDER BY timestamp DESC';
+        $sql  = 'SELECT *, ';
+        $sql .= '(select count(id) from scrap s where s.relation = v.id) as defect, ';
+        $sql .= '(select count(id) from downtime d where d.relation = v.id) as delay, ';
+        $sql .= '(select count(id) from rework d where d.relation = v.id) as rework ';
+        $sql .= 'FROM stations_view2 v WHERE company = ? ORDER BY timestamp DESC';
         $result = $this->db->exec($sql,$company);
         return $result;
     }

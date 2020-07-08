@@ -4,7 +4,7 @@
     function render(){
         $this->f3->set('SESSION.user', null);
         $this->f3->set('SESSION.company', null);
-	    $this->f3->set('msg','Diaz Consulting, LLC');
+	    $this->f3->set('msg','Weather in SC is HOT!');
 	    $this->f3->set('stat','dark');
         $template=new Template;
         echo $template->render('auth/login.htm');
@@ -41,6 +41,10 @@
         echo $template->render('auth/login.htm');
     }
 
+    function validate() {
+        echo "validate";
+        exit;
+    }
     function checkusername() {
     	$user = new Login($this->d1);
 	    $user->checkusername($this->f3->get('PARAMS.id'));

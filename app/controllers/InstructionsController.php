@@ -11,6 +11,22 @@ class InstructionsController extends Controller {
         return $this->viewFolder; 
     }
 
+    public function list()
+    {
+        $classvar = new Instructions($this->db);
+        $this->f3->set('sqldata',$classvar->list($this->f3->get('SESSION.company')));
+        $this->f3->set('section','instructions');
+        //$this->f3->set('breadcrumbs',$classvar->breadcrumbs($this->f3->get('PARAMS.id'),$this->f3->get('SESSION.company')));
+        $this->f3->set('page_head','List');
+        $this->f3->set('subnav','true');
+        $this->f3->set('back','yes');
+        $this->f3->set('backto','instructions');
+        $this->f3->set('create','no');
+        $this->f3->set('columns','[1,2,3]');
+        $this->f3->set('relation',$this->f3->get('PARAMS.id'));
+        $this->f3->set('view',$this->getViewFolder().'/stations.htm');
+    }
+
     public function index()
     {
         $classvar = new Instructions($this->db);
@@ -20,6 +36,7 @@ class InstructionsController extends Controller {
         $this->f3->set('page_head','List');
         $this->f3->set('subnav','true');
         $this->f3->set('back','yes');
+        $this->f3->set('backto','instructions');
         $this->f3->set('preview','yes');
         $this->f3->set('columns','[1,2,3,4]');
         $this->f3->set('relation',$this->f3->get('PARAMS.id'));
@@ -35,7 +52,8 @@ class InstructionsController extends Controller {
         $this->f3->set('section','instructions');
         $this->f3->set('subnav','true');
         $this->f3->set('preview','yes');
-        $this->f3->set('back','one');
+        $this->f3->set('back','yes');
+        $this->f3->set('backto','instructions');
         $this->f3->set('columns','[0,1,2,3]');
         $this->f3->set('images',$instImage);
         $this->f3->set('breadcrumbs',$classvar->breadcrumbs($this->f3->get('PARAMS.id'),$this->f3->get('SESSION.company')));
@@ -52,7 +70,8 @@ class InstructionsController extends Controller {
         $this->f3->set('instructions',$instArray);
         $this->f3->set('section','instructions');
         $this->f3->set('subnav','true');
-        $this->f3->set('back','one');
+        $this->f3->set('back','yes');
+        $this->f3->set('backto','instructions');
         $this->f3->set('preview','yes');
         $this->f3->set('columns','[0,1,2,3]');
         //$this->f3->set('images',$instImage);

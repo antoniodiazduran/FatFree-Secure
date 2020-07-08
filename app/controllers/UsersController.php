@@ -6,6 +6,9 @@ class UsersController extends Controller {
     {
         $ints = new Users($this->d1);
         $this->f3->set('users',$ints->all($this->f3->get('SESSION.company')));
+        $this->f3->set('section','users');
+        $this->f3->set('columns','[1,3,4,5]');
+        $this->f3->set('subnav','true');
         $this->f3->set('page_head','List');
         $this->f3->set('view','users/list.htm');
     }
