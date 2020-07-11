@@ -4,7 +4,6 @@
         <table id="tabledata" class="table table-hover">
            <thead class="thead-light">
            <tr>
-            
             <th scope="col">#</th>
             <th scope="col">Product</th>
             <th scope="col">Machine</th>
@@ -18,19 +17,19 @@
        
            <tbody>
            <repeat group="{{ @sqldata }}" value="{{ @rows }}">
-               <tr>
-                   <td width="5%">{{ trim(@rows.id) }}</td>
-                   <td width="15%">{{ trim(@rows.product) }}</td>
-                   <td width="15%">{{ trim(@rows.machine) }}</td>
-                   <td width="15%">{{ trim(@rows.title) }}</td>
-                   <td width="10%">{{ trim(@rows.inst_version) }}</td>
-                   <td width="10%">{{ trim(@rows.inst_refresh) }}</td>
-                   <td width="10%">{{ trim(@rows.tasks) }}</td>
-                   <td width="15%">
-                      <a href="/instructions/{{ trim(@rows.id) }}"><img src="/ui/images/filelist.png" width="25" title="List"></a> &nbsp;
-                    </td>
-  
-               </tr>
+            <tr>
+              <td width="5%">{{ trim(@rows.id) }}</td>
+              <td width="15%">{{ trim(@rows.product) }}</td>
+              <td width="15%">{{ trim(@rows.machine) }}</td>
+              <td width="15%">{{ trim(@rows.title) }}</td>
+              <td width="10%">{{ trim(@rows.inst_version) }}</td>
+              <td width="10%">{{ trim(@rows.inst_refresh) }}</td>
+              <td width="10%">{{ trim(@rows.tasks) }}::{{ @rows.figcount }}</td>
+              <td width="15%">
+                <a href="/instructions/full/{{ trim(@rows.id) }}"><img src="/ui/images/inst.png" width="30" title="Full View"></a> &nbsp;
+                <a href="/instructions/grid/{{ trim(@rows.id) }}"><img src="/ui/images/nines.png" width="25" title="Grid View"></a> &nbsp;
+              </td>
+            </tr>
            </repeat>
            </tbody>
        

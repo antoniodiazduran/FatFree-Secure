@@ -60,6 +60,7 @@ class StationsController extends Controller {
         {
             $classvar->getById($this->f3->get('PARAMS.id'));
             $this->f3->set('page_head','Update');
+            $this->f3->set('backto','stations');
 	        $this->f3->set('mode','update');
             $this->f3->set('view',$this->getViewFolder().'/hybrid.htm');
         }

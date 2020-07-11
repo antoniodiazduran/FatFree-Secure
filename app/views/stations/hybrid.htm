@@ -1,11 +1,11 @@
 <check if="{{ @mode == 'update'}}">
-  <p><a href="/stations"><img src="/ui/images/left.png" width="18"></a> </p>
+  <p><a href="/{{ @backto }}"><img src="/ui/images/left.png" width="18"></a> </p>
 </check>
 <form action="/stations/{{ @mode }}" method="post" class="form-horizontal">
 <div class="row">
   <div class="col-lg-4">
     <label class="control-label" for="transdate">Transaction Date:</label>
-      <input type="text" class="form-control" id="transdate" name="transdate" placeholder="mm/dd/yyyy">
+      <input type="text" class="form-control" id="transdate" name="transdate" placeholder="mm/dd/yyyy" <check if="{{ @mode == 'update' }}">value="{{ substr(@POST.transdate,0,10) }}" </check>>
   </div>
 </div>
 <div class="row">
@@ -35,7 +35,18 @@
 	</select>
   </div>
 </div>
-<br>
+<div class="row">
+	<div class="col-lg-4">
+	  <label class="control-label" for="description">Version:</label>
+		<input type="text" class="form-control" id="inst_version" name="inst_version" <check if="{{ @mode == 'update' }}">value="{{ @POST.inst_version }}"</check> placeholder="Instruction's Version"/>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-4">
+	  <label class="control-label" for="description">Training Refresh:</label>
+		<input type="number" class="form-control" id="inst_refresh" name="inst_refresh" min="30" <check if="{{ @mode == 'update' }}">value="{{ @POST.inst_refresh }}"</check> placeholder="Refresh period (days)"/>
+	</div>
+</div>
 <div class="row">
   <div class="col-lg-6">
     <label class="control-label" for="description">Description:</label>
@@ -72,7 +83,7 @@
 	<check if="{{ @mode == 'update' }}">
 	var cid = {{ @SESSION.company*1 }};
 	var filter = 'company';
-    console.log(cid);
+    //console.log(cid);
 	$.get( "/productlist/"+filter+"/"+cid  )	
 		.done(function( data ) {
 		var datx = JSON.parse(data);
@@ -87,7 +98,7 @@
 	});
 	var cid = {{ @SESSION.company*1 }};
 	var filter = 'company';
-    console.log(cid);
+    //console.log(cid);
 	$.get( "/machinelist/"+filter+"/"+cid  )
   		.done(function( data ) {
 		var datx = JSON.parse(data);
@@ -102,7 +113,7 @@
 	  });  
 	var cid = {{ @SESSION.company*1 }}; 
 	var filter = 'company';
-    console.log(cid);
+    //console.log(cid);
 	$.get( "/sitelist/"+filter+"/"+cid  )
   		.done(function( data ) {
 		var datx = JSON.parse(data);
@@ -127,7 +138,7 @@
 function productCList() {
 	var cid = {{ @SESSION.company*1 }};
 	var filter = 'company';
-    console.log(cid);
+    //console.log(cid);
 	$.get( "/productlist/"+filter+"/"+cid  )
                 .done(function( data ) {
 				var datx = JSON.parse(data);
@@ -140,7 +151,7 @@ function productCList() {
 function machineCList() {
 	var cid = {{ @SESSION.company*1 }};
 	var filter = 'company';
-    console.log(cid);
+    //console.log(cid);
 	$.get( "/machinelist/"+filter+"/"+cid  )
                 .done(function( data ) {
 				var datx = JSON.parse(data);
@@ -153,7 +164,7 @@ function machineCList() {
 function siteCList() {
 	var cid = {{ @SESSION.company*1 }};
 	var filter = 'company';
-    console.log(cid);
+    //console.log(cid);
 	$.get( "/sitelist/"+filter+"/"+cid  )
                 .done(function( data ) {
 				var datx = JSON.parse(data);

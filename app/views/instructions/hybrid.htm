@@ -8,7 +8,7 @@
       <div class="col-lg-4">
        <br><br>
        <label class="control-label" for="transdate">Sequence:</label>
-         <input type="text" class="form-control" id="sequence" name="sequence" value="{{ @POST.sequence }}">
+         <input type="text" class="form-control" id="sequence" name="sequence" value="<check if="{{ @mode == 'create'}}">{{ @nextsequence[0]['nextsequence'] }}</check>{{ @POST.sequence }}">
      </div>
     </div>
     <br>

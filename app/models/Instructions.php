@@ -8,22 +8,27 @@ class Instructions extends DB\SQL\Mapper {
 
     public function all($id,$company) {
         // Selecting data
-        $sql  = "SELECT @row:=@row+1 AS seq ,i.id, i.hows, i.whats, i.whys, i.sequence FROM instructions i, (SELECT @row:=0) r WHERE relation = ?  ORDER BY sequence";
+        $sql  = "SELECT @row:=@row+1 AS seq ,i.id, i.hows, i.whats, i.whys, i.sequence, ";
+        $sql .= "(SELECT COUNT(id) FROM figures f WHERE i.id = f.relation) AS figcount ";
+        $sql .= "FROM instructions i, (SELECT @row:=0) r WHERE relation = ?  ORDER BY sequence";
         $result = $this->db->exec($sql,$id);
         return $result;
     }
 
     public function list($company) {
         // Selecting data
-        $sql  = 'SELECT * FROM stations_view2 WHERE company = ? ORDER BY timestamp DESC';
+        $sql  = 'SELECT *, ';
+        $sql .= '(SELECT COUNT(id) FROM instructions i WHERE v.id = i.relation) AS tasks ';
+        $sql .= 'FROM stations_view3 v ';
+        $sql .= 'WHERE company = ? ORDER BY product DESC';
         $result = $this->db->exec($sql,$company);
         return $result;
     }
 
     public function grid($id,$company) {
         // Selecting data
-        $sql  = "SELECT i.id, i.hows, i.whats, i.whys, i.sequence, (SELECT internalfn FROM figures f ";
-        $sql .= "WHERE i.id = f.relation ORDER BY f.id LIMIT 1) as internalfn, ";
+        $sql  = "SELECT i.id, i.hows, i.whats, i.whys, i.sequence, ";
+        $sql .= "(SELECT internalfn FROM figures f WHERE i.id = f.relation ORDER BY f.id LIMIT 1) as internalfn, ";
         $sql .= "(SELECT COUNT(id) FROM figures f WHERE i.id = f.relation) AS figcount ";
         $sql .= "FROM instructions i   WHERE relation = ?";
         $result = $this->db->exec($sql,$id);
@@ -44,9 +49,15 @@ class Instructions extends DB\SQL\Mapper {
 
     public function breadcrumbs($id,$user) {
         // Selecting data
-        $sql  = 'SELECT title,product,machine FROM stations_view1 WHERE id = ? ';
+        $sql  = 'SELECT title,product,machine,inst_version, inst_refresh FROM stations_view3 WHERE id = ? ';
         $result = $this->db->exec($sql,$id);
-        return $result[0]['title'].' :: '.$result[0]['product'].' :: '.$result[0]['machine'];
+        return $result[0]['title'].' > '.$result[0]['product'].' > '.$result[0]['machine'].' :: Ver:'.$result[0]['inst_version'].' - Refresh:'.$result[0]['inst_refresh'];
+    }
+
+    public function lastsequence($id) {
+        $sql  = 'SELECT max(sequence)+10 AS nextsequence FROM instructions WHERE relation = ? ';
+        $result = $this->db->exec($sql,$id);
+        return $result;
     }
 
     public function add() {
