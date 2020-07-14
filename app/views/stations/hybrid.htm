@@ -1,11 +1,9 @@
-<check if="{{ @mode == 'update'}}">
-  <p><a href="/{{ @backto }}"><img src="/ui/images/left.png" width="18"></a> </p>
-</check>
+<p>
 <form action="/stations/{{ @mode }}" method="post" class="form-horizontal">
 <div class="row">
   <div class="col-lg-4">
     <label class="control-label" for="transdate">Transaction Date:</label>
-      <input type="text" class="form-control" id="transdate" name="transdate" placeholder="mm/dd/yyyy" <check if="{{ @mode == 'update' }}">value="{{ substr(@POST.transdate,0,10) }}" </check>>
+      <input type="text" class="form-control" id="transdate" name="transdate" placeholder="mm/dd/yyyy" value="<check if="{{ @mode == 'update' }}">value="{{ substr(@POST.transdate,0,10) }}</check>">
   </div>
 </div>
 <div class="row">
@@ -16,37 +14,39 @@
 	</div>
 </div>
 <div class="row">
-  <div class="col-lg-4">
-    <label class="control-label" for="title">Station:</label>
-      <input type="text" class="form-control" id="title" name="title" <check if="{{ @mode == 'update' }}">value="{{ @POST.title }}" </check> placeholder="Station Name">
-  </div>
+	<div class="col-lg-4">
+	  <label class="control-label" for="product">Product/Area:</label>
+		  <select id="product" name="product" value="" class="browser-default custom-select">
+		  </select>
+	</div>
 </div>
 <div class="row">
-  <div class="col-lg-4">
-    <label class="control-label" for="product">Product:</label>
-        <select id="product" name="product" value="" class="browser-default custom-select">
-        </select>
-  </div>
-</div>
-<div class="row">
-  <div class="col-lg-4">
-    <label class="control-label" for="machine">Machine:</label>
-        <select id="machine" name="machine" value="" class="browser-default custom-select">
+<div class="col-lg-4">
+	<label class="control-label" for="machine">Machine/Department:</label>
+		<select id="machine" name="machine" value="" class="browser-default custom-select">
 	</select>
+</div>
+</div>  
+  <div class="row">
+  <div class="col-lg-4">
+    <label class="control-label" for="title">Station/Topic:</label>
+      <input type="text" class="form-control" id="title" name="title" value="<check if="{{ @mode == 'update' }}">{{ @POST.title }} </check>" placeholder="Station Name">
   </div>
 </div>
+<br>
 <div class="row">
 	<div class="col-lg-4">
-	  <label class="control-label" for="description">Version:</label>
-		<input type="text" class="form-control" id="inst_version" name="inst_version" <check if="{{ @mode == 'update' }}">value="{{ @POST.inst_version }}"</check> placeholder="Instruction's Version"/>
+	  <label class="control-label" for="description">Training Version:</label>
+		<input type="text" class="form-control" id="inst_version" name="inst_version" value="<check if="{{ @mode == 'update' }}">{{ @POST.inst_version }}</check>" placeholder="Instruction's Version"/>
 	</div>
 </div>
 <div class="row">
 	<div class="col-lg-4">
 	  <label class="control-label" for="description">Training Refresh:</label>
-		<input type="number" class="form-control" id="inst_refresh" name="inst_refresh" min="30" <check if="{{ @mode == 'update' }}">value="{{ @POST.inst_refresh }}"</check> placeholder="Refresh period (days)"/>
+		<input type="number" class="form-control" id="inst_refresh" name="inst_refresh" min="30" value="<check if="{{ @mode == 'update' }}">{{ @POST.inst_refresh }}</check>" placeholder="Refresh period (days)"/>
 	</div>
 </div>
+<br>
 <div class="row">
   <div class="col-lg-6">
     <label class="control-label" for="description">Description:</label>

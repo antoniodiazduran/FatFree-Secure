@@ -10,7 +10,7 @@
         <a href="/instructions/full/{{ @relation}}"><img src="/ui/images/inst.png" width="30" title="Full View"></a> &nbsp; 
         <a href="/instructions/grid/{{ @relation}}"><img src="/ui/images/nines.png" width="25" title="Grid"></a> &nbsp; 
       </check>
-      <check if="{{ @create==''}}"></check>
+      <check if="{{ @create==''}}">
         <a href="/{{ @section }}/create/{{ @relation }}"><img src="/ui/images/newpaget.png" width="25" title="New Record"></a>
       </check> 
     </div>
@@ -18,7 +18,9 @@
         &nbsp;
     </div>
     <div class="col-sm-4">
-      <input type="text" id="search" onkeyup="searchTable()" class="form-control" placeholder="Search">    
+      <check if="{{ @search==''}}">
+        <input type="text" id="search" onkeyup="searchTable()" class="form-control" placeholder="Search">    
+      </check>
     </div>
 </div>
   <p>

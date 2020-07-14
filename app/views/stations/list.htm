@@ -12,6 +12,7 @@
               <th scope="col">Defects</th>
               <th scope="col">Delays</th>
               <th scope="col">Rework</th>
+              <th scope="col"></th>
               <th scope="col">Action</th>
            </tr>
            </thead>
@@ -31,7 +32,9 @@
                   <td>
                     <a href="{{ @BASE.'/scrap/'.@rows.id }}"><img src="/ui/images/defect.png" width="25" title="{{ @rows.defect }} Defects"></a> &nbsp;
                     <a href="{{ @BASE.'/downtime/'.@rows.id }}"><img src="/ui/images/delay.png" width="20" title="{{ @rows.delay }} Delays"></a> &nbsp;
-                    <a href="{{ @BASE.'/rework/'.@rows.id }}"><img src="/ui/images/rework.png" width="20" title="{{ @rows.rework }} Rework"></a> &nbsp;
+                    <a href="{{ @BASE.'/rework/'.@rows.id }}"><img src="/ui/images/rework.png" width="20" title="{{ @rows.rework }} Rework"></a> 
+                  </td>
+                  <td>
                     <a href="{{ @BASE.'/'.@section.'/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15" title="Edit"></a> &nbsp;
                     <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15" title="Delete"></a> 
                   </td>

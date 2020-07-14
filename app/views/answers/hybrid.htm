@@ -1,0 +1,73 @@
+<!--<input type="button" id="btnExport" value="Export"><br> //-->
+<p> 
+<div id="dvData">
+<form method="POST" action="/{{ @section }}/{{ @mode }}">
+    <div class="row">
+        <div class="col-sm-6">
+            <label><string>0.</string> &nbsp;Trainee Name</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6" style="color:gray;">
+            <input type="text" name="trainee" class="form-control" value=""/>
+        </div>
+    </div>
+    <repeat group="{{ @sqldata }}" value="{{ @rows }}">
+        <div class="row">
+            <div class="col-sm-6">
+                <label><string>{{ @rows.id}}.</string> &nbsp;{{ @rows.title}}</label>
+            </div>
+        </div>
+        <div class="row">
+            <check if="{{ @rows.field_type == 'text'}}">
+                    <div class="col-sm-6" style="color:gray;">
+                        <input type="text" name="a{{ @rows.id }}" class="form-control" value=""/>
+                    </div>
+            </check>
+            <check if="{{ @rows.field_type == 'radio'}}">
+                <repeat group="{{ explode(',',@rows.field_list) }}" value="{{ @options }}">
+                    <div class="col-sm-2" style="color:gray;">
+                        <input type="radio" name="a{{ @rows.id }}" value="{{ @options}}"/> {{ @options}}
+                    </div>    
+                </repeat>
+            </check>
+            <check if="{{ @rows.field_type == 'checkbox'}}">
+                <repeat group="{{ explode(',',@rows.field_list) }}" value="{{ @options }}">
+                    <div class="col-sm-2" style="color:gray;">
+                        <input type="checkbox" name="a{{ @rows.id }}[]" value="{{ @options}}"/> {{ @options}}
+                    </div>    
+                </repeat>
+            </check>
+            <check if="{{ @rows.field_type == 'select'}}">
+                <div class="col-sm-4" style="color:gray;">
+                <select name="a{{ @rows.id}}" class="form-control">
+                    <option>
+                    <repeat group="{{ explode(',',@rows.field_list) }}" value="{{ @options }}">
+                            <option value="{{ @options }}">{{ @options}}
+                    </repeat>
+                </select>
+                </div>    
+            </check>
+        </div>
+        <br>
+    </repeat>
+    <input type="hidden" id="relation" name="relation" value="{{ @relation }}">
+    <input type="hidden" id="company" name="company" value="{{ @SESSION.company }}">
+    <input type="hidden" id="username" name="username" value="{{ @SESSION.user }}">
+    <input type="hidden" id="{{ @mode }}" name="{{ @mode }}" value="{{ @mode }}">
+    <input type="submit" id="mode" value="{{ @mode }}" class="form-control btn btn-warning col-sm-2">
+</form> 
+
+
+</div>
+
+<script>
+    
+   $(document).ready(function(){
+    $("#instructions-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
+   });
+
+</script>
+
+
+

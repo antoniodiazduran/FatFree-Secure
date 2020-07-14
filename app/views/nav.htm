@@ -44,6 +44,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/instructions/view">List</a>
+          <a class="dropdown-item" href="/audits/list">Audits</a>
         </div>
       </li>
    </check>
@@ -94,24 +95,8 @@
     <check if="{{ @SESSION.roles=='Admin' }}">
 	    <true>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="create-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Create
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="/users/create">Users</a>
-              <check if="{{ @SESSION.company == 0}}">
-                <a class="dropdown-item" href="/company/create">Company</a>
-              </check>
-              <a class="dropdown-item" href="/sites/create">Sites</a>
-              <a class="dropdown-item" href="/products/create">Products</a>
-              <a class="dropdown-item" href="/machines/create">Machines</a>
-              <a class="dropdown-item" href="/stations/create">Stations</a>
-              
-            </div>
-          </li>
-          <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="list-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              List
+              Modify
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="/users">Users</a>
@@ -123,7 +108,7 @@
               <a class="dropdown-item" href="/machines">Machines</a>
               <a class="dropdown-item" href="/stations">Stations <img src="/ui/images/r_arrow.png" width="20"></a>
               <a class="dropdown-item" href="/instructions">Instructions</a>
-             
+              <a class="dropdown-item" href="/audits">Audits</a>
             </div>
           </li>
 	    </true>

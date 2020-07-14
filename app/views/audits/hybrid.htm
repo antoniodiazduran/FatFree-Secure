@@ -1,0 +1,60 @@
+<!--<input type="button" id="btnExport" value="Export"><br> //-->
+<p> 
+<div id="dvData">
+    <form method="post" id="{{ @section }}form" action="/{{ @section }}/{{ @mode }}">
+        <div class="row">
+            <input type="hidden" id="id" name="id" value="{{ @POST.id }}"/>
+            <input type="hidden" id="company" name="company" value="{{ @SESSION.company }}"/>
+            <input type="hidden" name="{{ @mode }}" value="{{ @mode }}"/>
+            <input type="hidden" id="username" name="username" value="{{ @SESSION.user }}"/>   
+            <div class="col-lg-4"><input type="text" id="title" name="title" class="form-control" placeholder="{{ ucfirst(@section) }} title" value="{{ @POST.title }}"></div>
+            <div class="col-lg-6"><input type="text" id="description" name="description" class="form-control" placeholder="Brief Description" value="{{ @POST.description }}"></div>
+            <div class="col-lg-2"><input type="submit" id="mode" name="mode" value="{{ @mode }}" class="btn btn-warning"></div>
+        </div>
+    </form>   
+    <br>
+        <table id="invoices" class="table ">
+           <thead class="thead-light">
+           <tr>
+               <th scope="col">Id</th>
+               <th scope="col">Title</th>
+               <th scope="col">Description</th>
+               <th scope="col"></th>
+	           <th scope="col">Action</th>
+           </tr>
+           </thead>
+       
+           <tbody>
+		   <repeat group="{{ @sqldata }}" value="{{ @rows }}">
+               <tr>
+                <td>{{ @rows.id }}</td>
+                <td>{{ @rows.title }}</td>
+                <td>{{ substr(@rows.description,0,100) }}</td>
+                <td></td> 
+                <td width="10%">
+                    <a href="{{ @BASE.'/questions/'. @rows.id }}"><img src="/ui/images/filelist.png" width="20" title="Detail"></a> &nbsp;
+                    <a href="{{ @BASE.'/'.@section.'/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15" title="Edit"></a> &nbsp;
+                    <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15" title="Delete"></a> 
+                </td>      
+               </tr>
+           </repeat>
+           </tbody>
+        </table>
+</div>
+
+<script>
+   var columns = {{ @columns }};
+    
+   $(document).ready(function(){
+    $("#list-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
+   });
+
+   function confirmDelete(rid) {
+	if(confirm("Delete record # "+rid+" ?")){
+		window.open("/{{ @section }}/delete/"+rid,"_self");
+	}
+   }
+</script>
+
+
+

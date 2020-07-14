@@ -51,7 +51,7 @@ class Instructions extends DB\SQL\Mapper {
         // Selecting data
         $sql  = 'SELECT title,product,machine,inst_version, inst_refresh FROM stations_view3 WHERE id = ? ';
         $result = $this->db->exec($sql,$id);
-        return $result[0]['title'].' > '.$result[0]['product'].' > '.$result[0]['machine'].' :: Ver:'.$result[0]['inst_version'].' - Refresh:'.$result[0]['inst_refresh'];
+        return $result[0]['product'].' > '.$result[0]['machine'].' > '.$result[0]['title'].' :: Ver:'.$result[0]['inst_version'].' - Refresh:'.$result[0]['inst_refresh'];
     }
 
     public function lastsequence($id) {

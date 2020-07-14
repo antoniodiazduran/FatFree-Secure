@@ -1,0 +1,72 @@
+<!--<input type="button" id="btnExport" value="Export"><br> //-->
+<p> 
+<h5>{{ @breadcrumbs }}</h5>
+<div id="dvData">
+    <form method="post" id="{{ @section }}form" action="/{{ @section }}/{{ @mode }}">
+        <div class="row">
+            <input type="hidden" id="id" name="id" value="{{ @POST.id }}"/>
+            <input type="hidden" id="relation" name="relation" value="{{ @relation }}"/>
+            <input type="hidden" id="company" name="company" value="{{ @SESSION.company }}"/>
+            <input type="hidden" name="{{ @mode }}" value="{{ @mode }}"/>
+            <input type="hidden" id="username" name="username" value="{{ @SESSION.user }}"/>   
+            <div class="col-lg-4"><input type="text" id="title" name="title" class="form-control" placeholder="{{ ucfirst(@section) }} title" value="{{ @POST.title }}"></div>
+            <div class="col-lg-2"><select id="field_type" name="field_type" class="form-control"><option>text</option><option>radio</option><option>checkbox</option><option>select</option></select></div>
+            <div class="col-lg-2"><input type="text" id="field_list" name="field_list" class="form-control" placeholder="Field list" value="{{ @POST.field_list }}"></div>
+            <div class="col-lg-2"><input type="text" id="field_default" name="field_default" class="form-control" placeholder="Field default" value="{{ @POST.field_default }}"></div>
+            <div class="col-lg-2"><input type="submit" id="mode" name="mode" value="{{ @mode }}" class="btn btn-warning"></div>
+        </div>
+    </form>   
+    <br>
+        <table id="invoices" class="table ">
+           <thead class="thead-light">
+           <tr>
+               <th scope="col">Id</th>
+               <th scope="col">Title</th>
+               <th scope="col">Field Type</th>
+               <th scope="col">Field List</th>
+               <th scope="col">Field Default</th>
+	           <th scope="col">Action</th>
+           </tr>
+           </thead>
+       
+           <tbody>
+		   <repeat group="{{ @sqldata }}" value="{{ @rows }}">
+               <tr>
+                <td>{{ @rows.id }}</td>
+                <td>{{ @rows.title }}</td>
+                <td>{{ @rows.field_type }}</td>
+                <td>{{ @rows.field_list }}</td>
+                <td>{{ @rows.field_default }}</td>
+                <td width="10%">
+                    <a href="{{ @BASE.'/'.@section.'/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15" title="Edit"></a> &nbsp;
+                    <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15" title="Delete"></a> 
+                </td>      
+               </tr>
+           </repeat>
+           </tbody>
+        </table>
+</div>
+
+<script>
+   var columns = {{ @columns }};
+    
+   $(document).ready(function(){
+    $("#list-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
+    var sel = document.getElementById('field_type');
+    var opt = sel.options;
+    for (var i=0; i< opt.length; i++) {
+        if('{{@POST.field_type}}' == opt[i].text) {
+            document.getElementById('field_type').options[i].selected = 'selected';
+        }
+    }
+   });
+
+   function confirmDelete(rid) {
+	if(confirm("Delete record # "+rid+" ?")){
+		window.open("/{{ @section }}/delete/"+rid,"_self");
+	}
+   }
+</script>
+
+
+

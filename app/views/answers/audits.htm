@@ -1,0 +1,44 @@
+<!--<input type="button" id="btnExport" value="Export"><br> //-->
+<p> 
+<div id="dvData">
+        <table id="answers" class="table ">
+           <thead class="thead-light">
+           <tr>
+               <th scope="col">Id</th>
+               <th scope="col">Title</th>
+               <th scope="col">Description</th>
+               <th scope="col"></th>
+               <th scope="col"></th>
+               <th scope="col"></th>
+	           <th scope="col">Action</th>
+           </tr>
+           </thead>
+       
+           <tbody>
+		   <repeat group="{{ @sqldata }}" value="{{ @rows }}">
+               <tr>
+                <td>{{ @rows.id }}</td>
+
+                <td>{{ @rows.timestamp }}</td>
+                <td>{{ @rows.trainee }}</td>
+                <td>{{ @rows.question }}</td>
+                <td>{{ @rows.answer }}</td>
+                <td></td> 
+                     
+               </tr>
+           </repeat>
+           </tbody>
+        </table>
+</div>
+
+<script>
+   var columns = {{ @columns }};
+   $(document).ready(function(){
+    $("#instructions-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
+   });
+
+
+</script>
+
+
+

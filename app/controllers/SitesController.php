@@ -54,6 +54,11 @@ class SitesController extends Controller {
         }
         else
         {
+            $this->f3->set('subnav','true');
+            $this->f3->set('back','yes');
+            $this->f3->set('backto','sites');
+            $this->f3->set('create','no');
+            $this->f3->set('search','no');   
             $this->f3->set('page_head','New');
 	        $this->f3->set('mode','create');
             $this->f3->set('view','/'.$this->getViewFolder().'/hybrid.htm');
@@ -73,6 +78,11 @@ class SitesController extends Controller {
         {
             $classvar->getById($this->f3->get('PARAMS.id'));
             $this->f3->set('page_head','Update');
+            $this->f3->set('subnav','true');
+            $this->f3->set('back','yes');
+            $this->f3->set('backto','sites');
+            $this->f3->set('create','no');
+            $this->f3->set('search','no');   
 	        $this->f3->set('mode','update');
             $this->f3->set('view',$this->getViewFolder().'/hybrid.htm');
         }
