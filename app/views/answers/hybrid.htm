@@ -26,15 +26,15 @@
             </check>
             <check if="{{ @rows.field_type == 'radio'}}">
                 <repeat group="{{ explode(',',@rows.field_list) }}" value="{{ @options }}">
-                    <div class="col-sm-2" style="color:gray;">
-                        <input type="radio" name="a{{ @rows.id }}" value="{{ @options}}"/> {{ @options}}
+                    <div class="col-sm-1" style="color:gray;">
+                        <input type="radio" name="a{{ @rows.id }}" value="{{ @options}}" <check if="{{ @options == @rows.field_default}}">checked</check>/> {{ @options}}
                     </div>    
                 </repeat>
             </check>
             <check if="{{ @rows.field_type == 'checkbox'}}">
                 <repeat group="{{ explode(',',@rows.field_list) }}" value="{{ @options }}">
-                    <div class="col-sm-2" style="color:gray;">
-                        <input type="checkbox" name="a{{ @rows.id }}[]" value="{{ @options}}"/> {{ @options}}
+                    <div class="col-sm-1" style="color:gray;">
+                        <input type="checkbox" name="a{{ @rows.id }}[]" value="{{ @options}}" <check if="{{ @options == @rows.field_default}}">checked</check>/> {{ @options}}
                     </div>    
                 </repeat>
             </check>
@@ -43,7 +43,7 @@
                 <select name="a{{ @rows.id}}" class="form-control">
                     <option>
                     <repeat group="{{ explode(',',@rows.field_list) }}" value="{{ @options }}">
-                            <option value="{{ @options }}">{{ @options}}
+                            <option value="{{ @options }}" <check if="{{ @options == @rows.field_default}}">selected</check>>{{ @options}}
                     </repeat>
                 </select>
                 </div>    

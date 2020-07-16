@@ -72,6 +72,7 @@ class QuestionsController extends Controller {
             $this->f3->set('relation',$this->f3->get('POST.relation'));
             // Setting List
             $this->f3->set('sqldata',$classvar->all($this->f3->get('POST.relation')));
+            $this->f3->set('breadcrumbs',$classvar->breadcrumbs($this->f3->get('POST.relation')));
             $this->f3->set('section','questions');
             $this->f3->set('columns','[1,2]');
             $this->f3->set('subnav','true');

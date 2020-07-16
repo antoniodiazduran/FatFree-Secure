@@ -9,9 +9,9 @@ class Questions extends DB\SQL\Mapper {
     public function all($relation) {
         // Selecting data
         if ($relation == 0) {
-            $sql  = "SELECT * FROM questions ORDER BY title";
+            $sql  = "SELECT * FROM questions ORDER BY id";
         } else {
-            $sql  = "SELECT * FROM questions WHERE relation = ? ORDER BY title";
+            $sql  = "SELECT * FROM questions WHERE relation = ? ORDER BY id";
         }
         $result = $this->db->exec($sql,$relation);
         return $result;

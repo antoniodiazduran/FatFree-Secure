@@ -13,9 +13,9 @@
             <div class="col-lg-2"><select id="field_type" name="field_type" class="form-control"><option>text</option><option>radio</option><option>checkbox</option><option>select</option></select></div>
             <div class="col-lg-2"><input type="text" id="field_list" name="field_list" class="form-control" placeholder="Field list" value="{{ @POST.field_list }}"></div>
             <div class="col-lg-2"><input type="text" id="field_default" name="field_default" class="form-control" placeholder="Field default" value="{{ @POST.field_default }}"></div>
-            <div class="col-lg-2"><input type="submit" id="mode" name="mode" value="{{ @mode }}" class="btn btn-warning"></div>
+            <div class="col-lg-2"><input type="submit" id="mode" name="mode" value="{{ @mode }}" class="btn btn-warning"/><a href="/{{ @section }}/{{ @relation }}"><button type="button" class="btn">Reset</button></a> </div>         
         </div>
-    </form>   
+    </form> 
     <br>
         <table id="invoices" class="table ">
            <thead class="thead-light">
@@ -35,7 +35,7 @@
                 <td>{{ @rows.id }}</td>
                 <td>{{ @rows.title }}</td>
                 <td>{{ @rows.field_type }}</td>
-                <td>{{ @rows.field_list }}</td>
+                <td>{{ substr(@rows.field_list,0,50) }} <check if="{{ strlen(@rows.field_list)>50 }}"><span style="color:gray;font-size:0.75em;"> more...</span></check></td>
                 <td>{{ @rows.field_default }}</td>
                 <td width="10%">
                     <a href="{{ @BASE.'/'.@section.'/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15" title="Edit"></a> &nbsp;
