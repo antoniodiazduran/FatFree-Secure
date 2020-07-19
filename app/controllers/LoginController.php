@@ -64,12 +64,12 @@
              $userlog->add($user->id,$code,$epoch);
 
              // Checking for empty email
-             $mailsent = 0;
+             $mailsent = 1;
              if($user->email != '') {
                  // Sending email via msmtprc
                  $mailsent = $sMail->sendMail($user->email,$msg);    
              }
-             if ($mailsent == 1) {
+             if ($mailsent == 0) {
                 $this->f3->set('msg','Username and Password Created, please check your email to enable your account');
                 $this->f3->set('stat','success');
              } else {
