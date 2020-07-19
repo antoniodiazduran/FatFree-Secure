@@ -7,19 +7,24 @@ class Userlogs extends DB\SQL\Mapper {
     }
 
     public function userEnable($code){
+        $template=new Template;
         // Getting the relation number and the epoch number
         $sql  = "SELECT relation,epoch FROM bpuserlog WHERE secretcode = ?";
         $relation = $this->db->exec($sql,$code);
         $old = time() - $relation[0]['epoch']*1;
         echo $old;
         if( $old > 400) {
-            echo "message too old";
+            $this->f3->set('msg','Validation code too old');
+            $this->f3->set('stat','warning');
+            echo $template->render('auth/error.htm');
         } else {
+            $sql = "UPDATE bpuser SET verified = 1 WHERE id = ?";
             $update = $this->db->exec($sql,$relation[0]['relation']);
-            var_dump($update); 
+            $this->f3->set('msg','Username enabled');
+            $this->f3->set('stat','success');
+            $this->f3->set('view','/login');
         }
         
-        exit;
     }
 
     public function all($id) {
