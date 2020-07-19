@@ -9,7 +9,7 @@ class Userlogs extends DB\SQL\Mapper {
     public function userEnable($code){
         $sql  = "SELECT relation FROM bpuserlog WHERE secretcode = ?";
         $relation = $this->db->exec($sql,$code);
-        echo $relation;
+        var_dump($relation); 
         exit;
     }
 
