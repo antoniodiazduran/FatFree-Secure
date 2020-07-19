@@ -12,7 +12,6 @@ class Userlogs extends DB\SQL\Mapper {
         $sql  = "SELECT relation,epoch FROM bpuserlog WHERE secretcode = ?";
         $relation = $this->db->exec($sql,$code);
         $old = time() - $relation[0]['epoch']*1;
-        echo $old;
         if( $old > 400) {
             return 0;
         } else {
