@@ -45,10 +45,10 @@ class UsersController extends Controller {
 
                 // Creatign email message
                 $msg  = "<h3>Welcome to Infoman systems</h3>";
-                $msg .= 'The new username ID# is '.$user->id.' and the username is: '.$user->username.'<br/>';
-                $msg .= 'It was granted as user for the '.$user->roles.' area and <br/>';
+                $msg .= 'Your new username is: '.$user->username.'<br/>';
+                $msg .= 'It was granted for the '.$user->roles.' area and <br/>';
                 $msg .= 'assigned under company name : '.$company->name.'<p/>';
-                $msg .= '<hr> Click on the link below to validate your email <br/>';
+                $msg .= '<hr> Click on the link below to enable your account in the system <br/>';
                 $msg .= 'http://34.70.44.101/bpval/'.$code;
 
                 // Saving userlog to verify

@@ -6,6 +6,13 @@ class Userlogs extends DB\SQL\Mapper {
         parent::__construct($d1,'bpuserlog');
     }
 
+    public function enable($code){
+        $sql  = "SELECT relation FROM bpuserlog WHERE secretcode = ?";
+        $relation = $this->db->exec($sql,$code);
+        echo $relation;
+        exit;
+    }
+
     public function all($id) {
         $sql = "SELECT  * FROM bpuserlog u WHERE relation = ?";
         $result = $this->db->exec($sql,$id);
