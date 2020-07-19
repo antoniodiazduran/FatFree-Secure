@@ -44,7 +44,7 @@ class UsersController extends Controller {
                 $company->getByName($user->company);
 
                 // Creatign email message
-                $msg  = "<h3>Welcome to Infoman systems</h3>"
+                $msg  = "<h3>Welcome to Infoman systems</h3>";
                 $msg .= 'The new username ID# is '.$user->id.' and the username is: '.$user->username.'<br/>';
                 $msg .= 'It was granted as user for the '.$user->roles.' area and <br/>';
                 $msg .= 'assigned under company name : '.$company->name.'<p/>';
