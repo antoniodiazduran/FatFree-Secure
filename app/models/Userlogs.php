@@ -10,7 +10,7 @@ class Userlogs extends DB\SQL\Mapper {
         // Getting the relation number and the epoch number
         $sql  = "SELECT relation,epoch FROM bpuserlog WHERE secretcode = ?";
         $relation = $this->db->exec($sql,$code);
-        $old = $relation[0]['epoch']*1 - time();
+        $old = time() - $relation[0]['epoch']*1;
         echo $old;
         if( $old > 400) {
             echo "message too old";
