@@ -112,7 +112,7 @@
                     $msg  = '<i>Username is: </i>'.$user->username.'<br/>';
                     $msg .= '<i>Granted as</i> '.$user->roles.'<br/>';
                     $msg .= '<b> with '.$company->name.'</b><br/>';
-                    $msg .= '<hr> Click <a href="http://34.70.44.101/api/'.$code.'">here</a> to validate your email';
+                    $msg .= '<hr> Click <a href=\"http://34.70.44.101/api/'.$code.'\">here</a> to validate your email';
                     if($user->email != '') {
                         $sMail->sendMail($user->email,$msg);    
                     }
