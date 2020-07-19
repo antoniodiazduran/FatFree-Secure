@@ -22,7 +22,7 @@
         } else {
             $this->f3->set('msg','Username enabled');
             $this->f3->set('stat','success');
-            echo $template->render('auth/error.htm');
+            echo $template->render('auth/login.htm');
         }
     }
 
