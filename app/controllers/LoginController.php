@@ -29,6 +29,60 @@
     }
 
     function create() {
+        if($this->f3->exists('POST.create')) {
+             // Connecting to users to save data
+             $newuser = new Users($this->d1);
+             // Enabling mail function, creating guid code and save epoch time
+             $sMail = new Controller;
+             $code = $sMail->guid();
+             date_default_timezone_set('America/New_York');
+             $epoch = time();
+             // Creating encrypted password
+             $hash = password_hash($this->f3->get('POST.password'),PASSWORD_DEFAULT);
+             $this->f3->set('POST.password',$hash);
+             // Adding data to table bpuser
+             $newuser->add();
+             
+             // Getting username information
+             $user = new Login($this->d1);
+             $company = new Company($this->d1);
+             
+             // Sending email to user
+             $user->getByName($this->f3->get('POST.username'));
+             $company->getByName($user->company);
+
+             // Creatign email message
+             $msg  = "<h3>Welcome to Infoman systems</h3>";
+             $msg .= 'The new username ID# is '.$user->id.' and the username is: '.$user->username.'<br/>';
+             $msg .= 'It was granted as user for the '.$user->roles.' area and <br/>';
+             $msg .= 'assigned under company name : '.$company->name.'<p/>';
+             $msg .= '<hr> Click on the link below to validate your email <br/>';
+             $msg .= 'http://34.70.44.101/bpval/'.$code;
+
+             // Saving userlog to verify
+             $userlog = new Userlogs($this->d1);
+             $userlog->add($user->id,$code,$epoch);
+
+             // Checking for empty email
+             $mailsent = 0;
+             if($user->email != '') {
+                 // Sending email via msmtprc
+                 $mailsent = $sMail->sendMail($user->email,$msg);    
+             }
+             if ($mailsent == 1) {
+                $this->f3->set('msg','Username and Password Created, please check your email to enable your account');
+                $this->f3->set('stat','success');
+             } else {
+                $this->f3->set('msg','Mail not sent, please check with the system administrator');
+                $this->f3->set('stat','danger');
+             }
+            
+        }
+            $template=new Template;
+            echo $template->render('auth/login.htm');
+    }
+
+    function create_old() {
 	if($this->f3->exists('POST.create')) {
         $ints = new Users($this->d1);
         $hash = password_hash($this->f3->get('POST.password'),PASSWORD_DEFAULT);
