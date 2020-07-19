@@ -20,6 +20,11 @@ class Company extends DB\SQL\Mapper {
         echo json_encode($result);
     }
 
+    public function getByName($id) {
+        // Getting data
+        $this->load(array('id=?',$id));
+    }
+
     public function add() {
         // Add data
         $this->copyFrom('POST');

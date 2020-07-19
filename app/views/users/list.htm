@@ -9,6 +9,7 @@
 	            <th scope="col">Roles</th>            
                 <th scope="col">Email</th>
                 <th scope="col">Company</th>
+                <th scope="col">Verified</th>
                 <th scope="col">Action</th>
            </tr>
            </thead>
@@ -22,6 +23,7 @@
                    <td>{{ trim(@rows.roles) }}</td>
                    <td>{{ trim(@rows.email) }}</td>
                    <td>{{ trim(@rows.name) }}</td>
+                   <td>{{ trim(@rows.verified) }}</td>
                    <td>
                     <a href="{{ @BASE.'/users/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15"></a> &nbsp;
                     <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15"></a> 

@@ -39,6 +39,13 @@ class Controller {
       }
     }
 
+    function sendMail($to,$msg) {
+      // In case any of our lines are larger than 70 characters, we should use wordwrap()
+      $msg = wordwrap($msg, 70, "<br/>");
+      // Send - to, subject, message
+      $bool = mail($to,'Infoman communications', $message);
+    }
+
     function __construct() {
 
         $f3=Base::instance();

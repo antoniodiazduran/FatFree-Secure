@@ -67,10 +67,9 @@
         $username = $this->f3->get('POST.username');
         $password = $this->f3->get('POST.password');
         $user = new Login($this->d1);
-        $company = new Login($this->d1);
+        $company = new Company($this->d1);
         // Getting user information
         $user->getByName($username);
-    
         if($user->dry()==1) {
             // Username not founf
             $this->f3->set('msg','Username not found');
@@ -79,39 +78,49 @@
             echo $template->render('auth/login.htm');
         } else {
             // Getting company name
-            $cid = $company->companyName($user->company);
+            $company->getByName($user->company);
+            if($user->verified == 1) {
                     //echo $user->username;
                     //echo $user->roles;
                     //$pass = password_hash($password,PASSWORD_DEFAULT);
                     //echo $pass;
                     //exit;
-            if(password_verify($password, $user->password)) {
-            
-                date_default_timezone_set('America/New_York');
-                $datetime = new DateTime();
-                $timezone = new DateTimeZone('America/New_York');
-                $datetime->setTimezone($timezone);
-                $zone = $datetime->format('T');
-            
+                if(password_verify($password, $user->password)) {
+                
+                    date_default_timezone_set('America/New_York');
+                    $datetime = new DateTime();
+                    $timezone = new DateTimeZone('America/New_York');
+                    $datetime->setTimezone($timezone);
+                    $zone = $datetime->format('T');
+                
 
-                $this->f3->set('SESSION.user', $user->username);
-                $this->f3->set('SESSION.roles', $user->roles);
-                $this->f3->set('SESSION.company', $user->company);
-                $this->f3->set('SESSION.companyname', $cid[0]['name']);
-                $this->f3->set('SESSION.ip', $this->f3->ip());
-                $this->f3->set('SESSION.timeout', time()+$this->f3->get('expire'));
-                $this->f3->set('SESSION.timeoutdate',date('Y.m.d h:i:s',time()+$this->f3->get('expire')) );
-                $this->f3->set('SESSION.timezone', $zone);
-                $this->f3->set('company',$user->company);
-                $this->f3->set('stat','success');
-                $this->f3->set('msg','Welcome!');
-                $this->f3->set('view','main.htm');
+                    $this->f3->set('SESSION.user', $user->username);
+                    $this->f3->set('SESSION.roles', $user->roles);
+                    $this->f3->set('SESSION.company', $user->company);
+                    $this->f3->set('SESSION.companyname', $company->name);
+                    $this->f3->set('SESSION.ip', $this->f3->ip());
+                    $this->f3->set('SESSION.timeout', time()+$this->f3->get('expire'));
+                    $this->f3->set('SESSION.timeoutdate',date('Y.m.d h:i:s',time()+$this->f3->get('expire')) );
+                    $this->f3->set('SESSION.timezone', $zone);
+                    $this->f3->set('company',$user->company);
+                    $this->f3->set('stat','success');
+                    $this->f3->set('msg','Welcome!');
+                    $this->f3->set('view','main.htm');
+                    $msg = 'Username is:'.$this->f3->get('POST.username').' click on the link ';
+                    sendMail('antoniodiazduran@yahoo.com',$msg);
+                } else {
+                    $this->f3->set('stat','danger');
+                    $this->f3->set('msg','Incorrect Username & Password');
+                    // Rendering 
+                    $template=new Template;
+                    echo $template->render('auth/login.htm');    
+                }
             } else {
-                $this->f3->set('stat','danger');
-                $this->f3->set('msg','Incorrect Username & Password');
+                $this->f3->set('stat','warning');
+                $this->f3->set('msg','User not verified!');
                 // Rendering 
                 $template=new Template;
-                echo $template->render('auth/login.htm');    
+                echo $template->render('auth/login.htm'); 
             }
         }
     }
