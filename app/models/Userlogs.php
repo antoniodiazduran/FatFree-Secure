@@ -6,7 +6,7 @@ class Userlogs extends DB\SQL\Mapper {
         parent::__construct($d1,'bpuserlog');
     }
 
-    public function enable($code){
+    public function userEnable($code){
         $sql  = "SELECT relation FROM bpuserlog WHERE secretcode = ?";
         $relation = $this->db->exec($sql,$code);
         echo $relation;
