@@ -108,10 +108,11 @@
                     $this->f3->set('msg','Welcome!');
                     $this->f3->set('view','main.htm');
                     // Sending email to user
-                    $msg  = '<i>Username is: </i>'.$user->username;
-                    $msg .= ' <br/> <i>Granted as</i> '.$user->roles;
-                    $msg .= ' <br/> <b> with '.$company->name.'</b>';
-                    $msg .= '<hr> Click on the link ';
+                    $code = $sMail->guid();
+                    $msg  = '<i>Username is: </i>'.$user->username.'<br/>';
+                    $msg .= '<i>Granted as</i> '.$user->roles.'<br/>';
+                    $msg .= '<b> with '.$company->name.'</b><br/>';
+                    $msg .= '<hr> Click <a href="http://34.70.44.101/api/'.$code.'">here</a> to validate your email';
                     if($user->email != '') {
                         $sMail->sendMail($user->email,$msg);    
                     }
