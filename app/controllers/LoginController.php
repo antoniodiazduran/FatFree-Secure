@@ -88,6 +88,7 @@
                 if(password_verify($password, $user->password)) {
                 
                     date_default_timezone_set('America/New_York');
+                    $sMail = new Controller;
                     $datetime = new DateTime();
                     $timezone = new DateTimeZone('America/New_York');
                     $datetime->setTimezone($timezone);
@@ -104,12 +105,14 @@
                     $this->f3->set('SESSION.timezone', $zone);
                     $this->f3->set('company',$user->company);
                     $this->f3->set('stat','success');
-                    
-                    $this->f3->set('view','main.htm');
-                    $sMail = new Controller;
-                    $msg = 'Username is:'.$user->username.' granted as '.$user->roles.' with '.$user->company.' click on the link ';
-                    $sMail->sendMail('antoniodiazduran@icloud.com',$msg);
                     $this->f3->set('msg','Welcome!');
+                    $this->f3->set('view','main.htm');
+                   
+                    $msg = 'Username is: '.$user->username.' granted as '.$user->roles.' with '.$user->company.' click on the link ';
+                    if($user->email != '') {
+                        $sMail->sendMail($user->email,$msg);    
+                    }
+                    
                 } else {
                     $this->f3->set('stat','danger');
                     $this->f3->set('msg','Incorrect Username & Password');

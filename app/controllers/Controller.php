@@ -44,9 +44,6 @@ class Controller {
       $msg = wordwrap($msg, 70, "<br/>");
       // Send - to, subject, message
       $bool = mail($to,'Infoman communications', $msg);
-      echo $to.$msg.$bool;
-      exit;
-
     }
 
     function __construct() {
