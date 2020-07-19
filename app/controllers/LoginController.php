@@ -20,7 +20,7 @@
             $this->f3->set('stat','warning');
             echo $template->render('auth/error.htm');
         } else {
-            $this->f3->set('msg','Username enabled');
+            $this->f3->set('msg','Username enabled, login in with your credentials...');
             $this->f3->set('stat','success');
             echo $template->render('auth/login.htm');
         }
