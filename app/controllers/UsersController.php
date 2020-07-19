@@ -42,13 +42,21 @@ class UsersController extends Controller {
                 // Sending email to user
                 $user->getByName($this->f3->get('POST.username'));
                 $company->getByName($user->company);
-                
-                $msg  = '<i>Username is: </i>'.$user->username.'<br/>';
-                $msg .= '<i>Granted as</i> '.$user->roles.'<br/>';
-                $msg .= '<b> with '.$company->name.'</b><br/>';
+
+                // Creatign email message
+                $msg  = '<b>Username is: </b>'.$user->username.'<br/>';
+                $msg .= '<b>Granted as</b> '.$user->roles.'<br/>';
+                $msg .= '<b> with '.$company->name.'</b><p/>';
                 $msg .= '<hr> Click on the link below to validate your email ('.$epoch.')<br/>';
                 $msg .= 'http://34.70.44.101/api/'.$code;
+
+                // Saving userlog to verify
+                $userlog = new Userlogs($this->d1);
+                $userlog->add($user->id,$code,$epoch);
+                
+                // Checking for empty email
                 if($user->email != '') {
+                    // Sending email via msmtprc
                     $sMail->sendMail($user->email,$msg);    
                 }
                 $this->f3->reroute('/users');
