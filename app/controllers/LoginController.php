@@ -106,8 +106,9 @@
                     $this->f3->set('stat','success');
                     $this->f3->set('msg','Welcome!');
                     $this->f3->set('view','main.htm');
+                    $sMail = new Controller;
                     $msg = 'Username is:'.$user->username.' granted as '.$user->roles.' with '.$user->company.' click on the link ';
-                    sendMail('antoniodiazduran@yahoo.com',$msg);
+                    $sMail->sendMail('antoniodiazduran@yahoo.com',$msg);
                 } else {
                     $this->f3->set('stat','danger');
                     $this->f3->set('msg','Incorrect Username & Password');
