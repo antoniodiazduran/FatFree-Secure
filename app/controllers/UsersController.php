@@ -44,7 +44,7 @@ class UsersController extends Controller {
                 $company->getByName($user->company);
 
                 // Creatign email message
-                $msg  = '<b>Username is: </b>'.$user->username.'<br/>';
+                $msg  = '<b>Username is: </b>'.$user->id.' '.$user->username.'<br/>';
                 $msg .= '<b>Granted as</b> '.$user->roles.'<br/>';
                 $msg .= '<b> with '.$company->name.'</b><p/>';
                 $msg .= '<hr> Click on the link below to validate your email ('.$epoch.')<br/>';
@@ -53,7 +53,7 @@ class UsersController extends Controller {
                 // Saving userlog to verify
                 $userlog = new Userlogs($this->d1);
                 $userlog->add($user->id,$code,$epoch);
-                
+
                 // Checking for empty email
                 if($user->email != '') {
                     // Sending email via msmtprc
