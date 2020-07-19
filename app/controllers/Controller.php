@@ -43,10 +43,10 @@ class Controller {
       // In case any of our lines are larger than 70 characters, we should use wordwrap()
       $msg = wordwrap($msg, 70, "<br/>");
       // Send - to, subject, message
-      $bool = mail($to,'Infoman communications', $message);
-      echo $bool;
+      $bool = mail($to,'Infoman communications', $msg);
+      echo $to.$msg.$bool;
       exit;
-      
+
     }
 
     function __construct() {
