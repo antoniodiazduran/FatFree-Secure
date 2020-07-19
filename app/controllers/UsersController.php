@@ -48,7 +48,7 @@ class UsersController extends Controller {
                 $msg .= '<b>Granted as</b> '.$user->roles.'<br/>';
                 $msg .= '<b> with '.$company->name.'</b><p/>';
                 $msg .= '<hr> Click on the link below to validate your email ('.$epoch.')<br/>';
-                $msg .= 'http://34.70.44.101/api/'.$code;
+                $msg .= 'http://34.70.44.101/bpval/'.$code.'/'.$epoch;
 
                 // Saving userlog to verify
                 $userlog = new Userlogs($this->d1);

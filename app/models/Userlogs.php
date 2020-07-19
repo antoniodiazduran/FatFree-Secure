@@ -15,7 +15,6 @@ class Userlogs extends DB\SQL\Mapper {
     public function add($relation,$secretcode,$epoch) {
         $sql  = "INSERT INTO bpuserlog (relation, secretcode, epoch) ";
         $sql .= "VALUES (?,?,?)";
-        echo $relation.' '.$secretcode.' '.$epoch;
         return $this->db->exec($sql,array($relation,$secretcode,$epoch));
     }
 
