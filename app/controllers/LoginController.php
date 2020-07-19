@@ -11,18 +11,18 @@
     }
 
     function enable(){
+        $template=new Template;
         $logs = new Userlogs($this->d1);
         $code = $this->f3->get('PARAMS.code');
         $status = $logs->userEnable($code);
         if ($status == 0) {
-            $template=new Template;
             $this->f3->set('msg','Validation code too old');
             $this->f3->set('stat','warning');
             echo $template->render('auth/error.htm');
         } else {
             $this->f3->set('msg','Username enabled');
             $this->f3->set('stat','success');
-            $this->f3->set('view','/login');
+            $this->f3->reroute('/login');           
         }
     }
 
