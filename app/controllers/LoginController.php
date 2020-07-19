@@ -104,11 +104,12 @@
                     $this->f3->set('SESSION.timezone', $zone);
                     $this->f3->set('company',$user->company);
                     $this->f3->set('stat','success');
-                    $this->f3->set('msg','Welcome!');
+                    
                     $this->f3->set('view','main.htm');
                     $sMail = new Controller;
                     $msg = 'Username is:'.$user->username.' granted as '.$user->roles.' with '.$user->company.' click on the link ';
-                    $sMail->sendMail('antoniodiazduran@yahoo.com','Infoman systems comms',$msg);
+                    $bool = $sMail->sendMail('antoniodiazduran@yahoo.com','Infoman systems comms',$msg);
+                    $this->f3->set('msg','Welcome!'.$bool);
                 } else {
                     $this->f3->set('stat','danger');
                     $this->f3->set('msg','Incorrect Username & Password');
