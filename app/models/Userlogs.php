@@ -7,11 +7,16 @@ class Userlogs extends DB\SQL\Mapper {
     }
 
     public function userEnable($code){
-        $sql  = "SELECT relation FROM bpuserlog WHERE secretcode = ?";
+        // Getting the relation number and the epoch number
+        $sql  = "SELECT relation,epoch FROM bpuserlog WHERE secretcode = ?";
         $relation = $this->db->exec($sql,$code);
-        $sql  = "SELECT * FROM bpuser WHERE id = ?";
-        $update = $this->db->exec($sql,$relation[0]['relation']);
-        var_dump($update); 
+        if($relation[0]['epoch']-time() > 400) {
+            echo "message too old";
+        } else {
+            $update = $this->db->exec($sql,$relation[0]['relation']);
+            var_dump($update); 
+        }
+        
         exit;
     }
 
