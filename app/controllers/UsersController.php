@@ -22,10 +22,34 @@ class UsersController extends Controller {
         if ($this->f3->get('SESSION.roles') == 'Admin'){
             if($this->f3->exists('POST.create'))
             {
-                $ints = new Users($this->d1);
+                // Connecting to users to save data
+                $newuser = new Users($this->d1);
+                // Enabling mail function, creating guid code and save epoch time
+                $sMail = new Controller;
+                $code = $sMail->guid();
+                $epoch = mktime();
+                // Creating encrypted password
                 $hash = password_hash($this->f3->get('POST.password'),PASSWORD_DEFAULT);
                 $this->f3->set('POST.password',$hash);
-                $ints->add();
+                // Adding data to table bpuser
+                $newuser->add();
+                
+                // Getting username information
+                $user = new Login($this->d1);
+                $company = new Company($this->d1);
+                
+                // Sending email to user
+                $user->getByName($this->f3->get('POST.username'));
+                $company->getByName($user->company);
+                
+                $msg  = '<i>Username is: </i>'.$user->username.'<br/>';
+                $msg .= '<i>Granted as</i> '.$user->roles.'<br/>';
+                $msg .= '<b> with '.$company->name.'</b><br/>';
+                $msg .= '<hr> Click on the link below to validate your email ('.$epoch.')<br/>';
+                $msg .= 'http://34.70.44.101/api/'.$code;
+                if($user->email != '') {
+                    $sMail->sendMail($user->email,$msg);    
+                }
                 $this->f3->reroute('/users');
             }
             else

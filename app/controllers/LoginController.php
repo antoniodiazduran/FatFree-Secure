@@ -106,18 +106,7 @@
                     $this->f3->set('company',$user->company);
                     $this->f3->set('stat','success');
                     $this->f3->set('msg','Welcome!');
-                    $this->f3->set('view','main.htm');
-                    // Sending email to user
-                    $code = $sMail->guid();
-                    $msg  = '<i>Username is: </i>'.$user->username.'<br/>';
-                    $msg .= '<i>Granted as</i> '.$user->roles.'<br/>';
-                    $msg .= '<b> with '.$company->name.'</b><br/>';
-                    $msg .= '<hr> Click on the link below to validate your email<br/>';
-                    $msg .= 'http://34.70.44.101/api/'.$code;
-                    if($user->email != '') {
-                        $sMail->sendMail($user->email,$msg);    
-                    }
-                    
+                    $this->f3->set('view','main.htm');                    
                 } else {
                     $this->f3->set('stat','danger');
                     $this->f3->set('msg','Incorrect Username & Password');
