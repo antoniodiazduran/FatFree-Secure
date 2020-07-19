@@ -45,7 +45,7 @@ class Controller {
       $headers = "MIME-Version: 1.0" . "\r\n";
       $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 
-      $msg = wordwrap($msg, 70, "<br/>");
+      $msg = wordwrap($msg, 200, "<br/>");
       // Send - to, subject, message
       $bool = mail($to,'Infoman communications', $msg, $headers);
     }
