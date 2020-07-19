@@ -27,7 +27,8 @@ class UsersController extends Controller {
                 // Enabling mail function, creating guid code and save epoch time
                 $sMail = new Controller;
                 $code = $sMail->guid();
-                $epoch = mktime();
+                date_default_timezone_set('America/New_York');
+                $epoch = time();
                 // Creating encrypted password
                 $hash = password_hash($this->f3->get('POST.password'),PASSWORD_DEFAULT);
                 $this->f3->set('POST.password',$hash);
