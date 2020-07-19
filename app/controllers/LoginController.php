@@ -107,8 +107,8 @@
                     $this->f3->set('stat','success');
                     $this->f3->set('msg','Welcome!');
                     $this->f3->set('view','main.htm');
-                   
-                    $msg = 'Username is: '.$user->username.' granted as '.$user->roles.' with '.$user->company.' click on the link ';
+                    // Sending email to user
+                    $msg = 'Username is: '.$user->username.' <br/> Granted as '.$user->roles.' <br/> with '.$company->name.' click on the link ';
                     if($user->email != '') {
                         $sMail->sendMail($user->email,$msg);    
                     }
