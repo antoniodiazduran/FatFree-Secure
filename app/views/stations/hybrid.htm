@@ -9,28 +9,28 @@
 <div class="row">
 	<div class="col-lg-4">
 	  <label class="control-label" for="site">Site:</label>
-		  <select id="site" name="site" value="" class="browser-default custom-select">
+		  <select id="site" name="site" value="" class="browser-default custom-select" required>
 		  </select>
 	</div>
 </div>
 <div class="row">
 	<div class="col-lg-4">
 	  <label class="control-label" for="product">Product/Area:</label>
-		  <select id="product" name="product" value="" class="browser-default custom-select">
+		  <select id="product" name="product" value="" class="browser-default custom-select" required>
 		  </select>
 	</div>
 </div>
 <div class="row">
 <div class="col-lg-4">
 	<label class="control-label" for="machine">Machine/Department:</label>
-		<select id="machine" name="machine" value="" class="browser-default custom-select">
+		<select id="machine" name="machine" value="" class="browser-default custom-select" required>
 	</select>
 </div>
 </div>  
   <div class="row">
   <div class="col-lg-4">
     <label class="control-label" for="title">Station/Topic:</label>
-      <input type="text" class="form-control" id="title" name="title" value="<check if="{{ @mode == 'update' }}">{{ @POST.title }} </check>" placeholder="Station Name">
+      <input type="text" class="form-control" id="title" name="title" value="<check if="{{ @mode == 'update' }}">{{ @POST.title }} </check>" placeholder="Station Name" required>
   </div>
 </div>
 <br>
@@ -87,7 +87,7 @@
 	$.get( "/productlist/"+filter+"/"+cid  )	
 		.done(function( data ) {
 		var datx = JSON.parse(data);
-		$('#product').append($('<option>').text("Select...").attr('value',0));
+		$('#product').append($('<option>').text("Select...").attr('value',''));
 		$.each(datx, function(index,value) {
 			if (value.id == {{ @POST.product }}  ) {
 				$('#product').append($('<option>').text(value.title).attr('value',value.id).attr('selected','selected'));
@@ -102,7 +102,7 @@
 	$.get( "/machinelist/"+filter+"/"+cid  )
   		.done(function( data ) {
 		var datx = JSON.parse(data);
-		$('#machine').append($('<option>').text("Select...").attr('value',0));
+		$('#machine').append($('<option>').text("Select...").attr('value',''));
 		$.each(datx, function(index,value) {
 			if (value.id == {{ @POST.machine }}  ) {
 				$('#machine').append($('<option>').text(value.title).attr('value',value.id).attr('selected','selected'));
@@ -117,7 +117,7 @@
 	$.get( "/sitelist/"+filter+"/"+cid  )
   		.done(function( data ) {
 		var datx = JSON.parse(data);
-		$('#site').append($('<option>').text("Select...").attr('value',0));
+		$('#site').append($('<option>').text("Select...").attr('value',''));
 		$.each(datx, function(index,value) {
 			if (value.id == {{ @POST.site }}  ) {
 				$('#site').append($('<option>').text(value.city).attr('value',value.id).attr('selected','selected'));
@@ -142,7 +142,7 @@ function productCList() {
 	$.get( "/productlist/"+filter+"/"+cid  )
                 .done(function( data ) {
 				var datx = JSON.parse(data);
-				$('#product').append($('<option>').text('Select...').attr('value',0));
+				$('#product').append($('<option>').text('Select...').attr('value',''));
                 $.each(datx, function(index,value) {
                         $('#product').append($('<option>').text(value.title).attr('value',value.id));
                 });
@@ -155,7 +155,7 @@ function machineCList() {
 	$.get( "/machinelist/"+filter+"/"+cid  )
                 .done(function( data ) {
 				var datx = JSON.parse(data);
-				$('#machine').append($('<option>').text('Select...').attr('value',0));
+				$('#machine').append($('<option>').text('Select...').attr('value',''));
                 $.each(datx, function(index,value) {
                         $('#machine').append($('<option>').text(value.title).attr('value',value.id));
                 });
@@ -168,7 +168,7 @@ function siteCList() {
 	$.get( "/sitelist/"+filter+"/"+cid  )
                 .done(function( data ) {
 				var datx = JSON.parse(data);
-				$('#site').append($('<option>').text('Select...').attr('value',0));
+				$('#site').append($('<option>').text('Select...').attr('value',''));
                 $.each(datx, function(index,value) {
                         $('#site').append($('<option>').text(value.city).attr('value',value.id));
                 });
