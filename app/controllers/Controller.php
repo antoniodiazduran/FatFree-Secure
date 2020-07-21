@@ -29,7 +29,8 @@ class Controller {
       if ($this->f3->get('SECURE')) {
         if($this->f3->get('SESSION.user') != null ) {
           if ( $this->f3->get('SESSION.ip') === $this->f3->ip() ) {
-            echo Template::instance()->render('layout.htm');
+            //echo Template::instance()->render('layout.htm');
+            $this->f3->reroute('/');
           } else {
 	          echo "Session Terminated..".$this->f3->get('SESSION.ip');
 	        }
