@@ -22,6 +22,10 @@
         } else {
             $this->f3->set('msg','Username enabled, login in with your credentials...');
             $this->f3->set('stat','success');
+            $this->f3->set('SESSION.user', '');
+            $this->f3->set('SESSION.roles', '');
+            $this->f3->set('SESSION.company', '');
+            $this->f3->set('SESSION.companyname', '');
             echo $template->render('auth/login.htm');
         }
     }
