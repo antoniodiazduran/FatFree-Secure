@@ -59,7 +59,7 @@ $(document).ready(function(){
 
 function confirmDelete(section,rid) {
 	if(confirm("Delete record:"+rid+" ?")){
-		window.open("/"+section+"/delete/"+rid,"_self");
+		window.open("/{{ @section }}/delete/"+rid,"_self");
 	}
 }
 
