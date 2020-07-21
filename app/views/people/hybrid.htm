@@ -7,10 +7,10 @@
             <input type="hidden" id="company" name="company" value="{{ @SESSION.company }}"/>
             <input type="hidden" name="{{ @mode }}" value="{{ @mode }}"/>
             <input type="hidden" id="username" name="username" value="{{ @SESSION.user }}"/>   
-            <div class="col-lg-2"><input type="text" id="firstname" name="firstname" class="form-control" placeholder="First name" value="{{ @POST.firstname }}"></div>
-            <div class="col-lg-2"><input type="text" id="lastname" name="lastname" class="form-control" placeholder="Last name" value="{{ @POST.lastname }}"></div>
-            <div class="col-lg-3"><input type="text" id="email" name="email" class="form-control" placeholder="e-mail" value="{{ @POST.email }}"></div>
-            <div class="col-lg-2"><input type="text" id="accesscode" name="accesscode" class="form-control" placeholder="Access Code" value="{{ @POST.accesscode }}"></div>
+            <div class="col-lg-2"><input type="text" id="firstname" name="firstname" class="form-control" placeholder="First name" value="{{ @POST.firstname }}" required></div>
+            <div class="col-lg-2"><input type="text" id="lastname" name="lastname" class="form-control" placeholder="Last name" value="{{ @POST.lastname }}" required></div>
+            <div class="col-lg-3"><input type="text" id="email" name="email" class="form-control" placeholder="e-mail" value="{{ @POST.email }}" required></div>
+            <div class="col-lg-2"><input type="text" id="accesscode" name="accesscode" class="form-control" placeholder="Access Code" value="{{ @POST.accesscode }}" required></div>
             <div class="col-lg-1"><input type="submit" id="mode" name="mode" value="{{ @mode }}" class="btn btn-warning"></div>
             <div class="col-lg-1"><check if="{{ @mode == 'update'}}"><a href="{{ @BASE.'/'.@section }}" ><button type="button" class="btn">cancel</button></a></check></div>
         </div>
