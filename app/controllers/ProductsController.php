@@ -16,7 +16,7 @@ class ProductsController extends Controller {
         $classvar = new Products($this->db);
         $this->f3->set('products',$classvar->all($this->f3->get('SESSION.company')));
         $this->f3->set('section','products');
-        $this->f3->set('columns','[3,4,5]');
+        $this->f3->set('columns','[1,2,3]');
         $this->f3->set('subnav','true');
         $this->f3->set('page_head','List');
         $this->f3->set('view',$this->getViewFolder().'/list.htm');

@@ -16,7 +16,7 @@ class SitesController extends Controller {
         $classvar = new Sites($this->db);
         $this->f3->set('sites',$classvar->all($this->f3->get('SESSION.company')));
         $this->f3->set('section','sites');
-        $this->f3->set('columns','[4,5]');
+        $this->f3->set('columns','[1,2,3]');
         $this->f3->set('subnav','true');
         $this->f3->set('page_head','List');
         $this->f3->set('view',$this->getViewFolder().'/list.htm');

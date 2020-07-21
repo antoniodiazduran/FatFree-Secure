@@ -16,7 +16,7 @@ class MachinesController extends Controller {
         $classvar = new Machines($this->db);
         $this->f3->set('machines',$classvar->all($this->f3->get('SESSION.company')));
         $this->f3->set('section','machines');
-        $this->f3->set('columns','[3,4]');
+        $this->f3->set('columns','[1,2,3]');
         $this->f3->set('subnav','true');
         $this->f3->set('page_head','List');
         $this->f3->set('view',$this->getViewFolder().'/list.htm');
