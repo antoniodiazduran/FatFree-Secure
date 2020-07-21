@@ -91,7 +91,6 @@
       </li>
     </check>
 
-    <check if="{{ @SECURE == true}}">
     <check if="{{ @SESSION.roles=='Admin' }}">
 	    <true>
           <li class="nav-item dropdown">
@@ -109,6 +108,7 @@
               <a class="dropdown-item" href="/stations">Stations <img src="/ui/images/r_arrow.png" width="20"></a>
               <a class="dropdown-item" href="/instructions">Instructions</a>
               <a class="dropdown-item" href="/audits">Audits</a>
+              <a class="dropdown-item" href="/people">People</a>
             </div>
           </li>
 	    </true>
@@ -127,7 +127,6 @@
             <a class="dropdown-item"><font color="gray">Expire: {{@SESSION.timeoutdate}}</font></a>
           </div>
       </li>
-    </check>
   </ul>
  </div>  
 </nav>

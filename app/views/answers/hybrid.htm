@@ -3,15 +3,20 @@
 <div id="dvData">
 <form method="POST" action="/{{ @section }}/{{ @mode }}">
     <div class="row">
-        <div class="col-sm-6">
-            <label><string>0.</string> &nbsp;Trainee Name</label>
+        <div class="col-sm-2">
+            <label><string>0.</string> &nbsp;Access Code</label>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-6" style="color:gray;">
-            <input type="text" name="trainee" class="form-control" value=""/>
+        <div class="col col-sm-2" style="color:gray;">
+            <input type="password" id="accesscode" class="form-control" onkeyup="getTrainee()" value=""/>
+        </div>
+    
+        <div class="col col-sm-6" style="color:gray;">
+            <input type="text" name="trainee" id="trainee" class="form-control" readonly/>
         </div>
     </div>
+    <br>
     <repeat group="{{ @sqldata }}" value="{{ @rows }}">
         <div class="row">
             <div class="col-sm-6">
@@ -62,11 +67,27 @@
 </div>
 
 <script>
-    
+
    $(document).ready(function(){
     $("#instructions-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
    });
-
+  function getTrainee() {
+    tid = document.getElementById('accesscode').value;
+    $.get( "/trainee/"+tid  )	
+		.done(function( data ) {
+        var datx = JSON.parse(data);
+        if (datx == '') {
+            $('#trainee').val('') ;
+        } else {
+            $.each(datx, function(idx,obj) {
+                $('#trainee').val(obj.name) ;
+                $('#accesscode').val('');
+                console.log(obj.id);
+            });
+        }
+        
+	});
+  }
 </script>
 
 
