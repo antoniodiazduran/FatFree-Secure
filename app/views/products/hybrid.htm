@@ -8,14 +8,14 @@
     <div class="row">
       <div class="col-sm-4">
       <label class="control-label" for="company">Company:</label>
-      <select id="company" name="company" class="form-control">
+      <select id="company" name="company" class="form-control" required>
       </select>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-8">
         <label class="control-label" for="title">Product:</label>
-            <input type="text" class="form-control" id="title" name="title" value="{{ @POST.title }}">
+            <input type="text" class="form-control" id="title" name="title" value="{{ @POST.title }}" required>
       </div>
     </div>
     <div class="row">
