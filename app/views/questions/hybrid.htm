@@ -13,7 +13,7 @@
             <div class="col-lg-2"><select id="field_type" name="field_type" class="form-control"><option>text</option><option>radio</option><option>checkbox</option><option>select</option></select></div>
             <div class="col-lg-2"><input type="text" id="field_list" name="field_list" class="form-control" placeholder="Field list" value="{{ @POST.field_list }}"></div>
             <div class="col-lg-2"><input type="text" id="field_default" name="field_default" class="form-control" placeholder="Field default" value="{{ @POST.field_default }}"></div>
-            <div class="col-lg-2"><input type="submit" id="mode" name="mode" value="{{ @mode }}" class="btn btn-warning"/><a href="/{{ @section }}/{{ @relation }}"><button type="button" class="btn">Reset</button></a> </div>         
+            <div class="col-lg-2"><input type="submit" id="mode" name="mode" value="{{ @mode }}" class="btn btn-warning"/><check if="{{ @mode == 'update'}}"><a href="/{{ @section }}/{{ @relation }}"><button type="button" class="btn">cancel</button></a></check> </div>         
         </div>
     </form> 
     <br>

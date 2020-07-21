@@ -12,7 +12,7 @@
             <div class="col-lg-3"><input type="text" id="email" name="email" class="form-control" placeholder="e-mail" value="{{ @POST.email }}"></div>
             <div class="col-lg-2"><input type="text" id="accesscode" name="accesscode" class="form-control" placeholder="Access Code" value="{{ @POST.accesscode }}"></div>
             <div class="col-lg-1"><input type="submit" id="mode" name="mode" value="{{ @mode }}" class="btn btn-warning"></div>
-            <div class="col-lg-1"><check if="{{ @mode == 'update'}}"><a href="{{ @BASE.'/'.@section }}" ><button type="button" class="btn">Cancel</button></a></check></div>
+            <div class="col-lg-1"><check if="{{ @mode == 'update'}}"><a href="{{ @BASE.'/'.@section }}" ><button type="button" class="btn">cancel</button></a></check></div>
         </div>
     </form>   
     <br>
