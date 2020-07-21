@@ -12,7 +12,7 @@ class Userlogs extends DB\SQL\Mapper {
         $sql  = "SELECT relation,epoch FROM bpuserlog WHERE secretcode = ?";
         $relation = $this->db->exec($sql,$code);
         $old = time() - $relation[0]['epoch']*1;
-        if( $old > 400) {
+        if( $old > 2000) {
             return 0;
         } else {
             $sql = "UPDATE bpuser SET verified = 1 WHERE id = ?";
