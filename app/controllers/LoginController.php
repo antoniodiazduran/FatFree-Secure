@@ -22,6 +22,7 @@
         } else {
             $this->f3->set('msg','Username enabled, login in with your credentials...');
             $this->f3->set('stat','success');
+            // Disabling previous user on web browser
             $this->f3->set('SESSION.user', '');
             $this->f3->set('SESSION.roles', '');
             $this->f3->set('SESSION.company', '');
@@ -77,7 +78,7 @@
              $msg .= 'It was granted for the '.$user->roles.' area <br/>';
              $msg .= '<p/>';
              $msg .= '<hr> Click on the link below to enable your account in the system <br/>';
-             $msg .= 'http://34.70.44.101/bpval/'.$code;
+             $msg .= 'http://35.209.35.43/bpval/'.$code;
 
              // Saving userlog to verify
              $userlog = new Userlogs($this->d1);
