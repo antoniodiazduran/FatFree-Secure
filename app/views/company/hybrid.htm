@@ -5,7 +5,6 @@
         <div class="row">
             <input type="hidden" id="id" name="id" value="{{ @POST.id }}"/>
             <input type="hidden" name="{{ @mode }}" value="{{ @mode }}"/>
-             
             <div class="col-lg-4"><input type="text" id="name" name="name" class="form-control" placeholder="{{ ucfirst(@section) }} name" value="{{ @POST.name }}"></div>
             <div class="col-lg-6"><input type="text" id="description" name="description" class="form-control" placeholder="Brief Description" value="{{ @POST.description }}"></div>
             <div class="col-lg-1"><input type="submit" id="mode" name="mode" value="{{ @mode }}" class="btn btn-warning"></div>
