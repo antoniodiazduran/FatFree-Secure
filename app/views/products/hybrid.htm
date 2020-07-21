@@ -69,7 +69,7 @@
         .done(function( data ) {
         var datx = JSON.parse(data);
         $company = {{ @SESSION.company*1 }};
-        $('#company').append($('<option>').text("Select...").attr('value',0));
+        $('#company').append($('<option>').text("Select...").attr('value',''));
         $.each(datx, function(index,value) {
           if (value.id == {{ @POST.company*1 }} ) {
             $('#company').append($('<option>').text(value.name).attr('value',value.id).attr('selected','selected'));
@@ -87,7 +87,7 @@
           .done(function( data ) {
           var datx = JSON.parse(data);
           $company = {{ @SESSION.company*1 }};
-				  $('#company').append($('<option>').text('Select...').attr('value',0));
+				  $('#company').append($('<option>').text('Select...').attr('value',''));
                 $.each(datx, function(index,value) {
                     if ($company == 0) {
                       $('#company').append($('<option>').text(value.name).attr('value',value.id));
