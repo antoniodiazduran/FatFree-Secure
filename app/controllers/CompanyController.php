@@ -14,9 +14,16 @@ class CompanyController extends Controller {
     public function index()
     {
         $classvar = new Company($this->db);
-        $this->f3->set('sites',$classvar->all($this->f3->get('SESSION.user')));
+        $this->f3->set('sqldata',$classvar->all($this->f3->get('SESSION.user')));
+        $this->f3->set('section','company');
+        $this->f3->set('columns','[1,2]');
+        $this->f3->set('mode','create');
+        $this->f3->set('subnav','true');
+        $this->f3->set('back','');
+        $this->f3->set('backto','company');
+        $this->f3->set('create','no');
         $this->f3->set('page_head','List');
-        $this->f3->set('view',$this->getViewFolder().'/list.htm');
+        $this->f3->set('view',$this->getViewFolder().'/hybrid.htm');
     }
 
     public function apisites()
@@ -69,7 +76,15 @@ class CompanyController extends Controller {
         else
         {
             $classvar->getById($this->f3->get('PARAMS.id'));
+            $this->f3->set('sqldata',$classvar->all($this->f3->get('SESSION.user')));
             $this->f3->set('page_head','Update');
+            $this->f3->set('section','company');
+            $this->f3->set('columns','[1,2]');
+            $this->f3->set('subnav','true');
+            $this->f3->set('back','');
+            $this->f3->set('backto','company');
+            $this->f3->set('create','no');
+            $this->f3->set('page_head','List');
 	        $this->f3->set('mode','update');
             $this->f3->set('view',$this->getViewFolder().'/hybrid.htm');
         }

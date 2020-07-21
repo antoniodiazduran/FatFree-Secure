@@ -1,0 +1,63 @@
+<form action="/company/{{ @mode }}" method="post" class="form-horizontal">
+    <div class="row">
+      <div class="col-lg-4">
+        <label class="control-label" for="name">Name: (short)</label>
+            <input type="text" class="form-control" id="name" name="name" value="{{ @POST.name }}">
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-6">
+        <label class="control-label" for="description">Description: (Legal name or long name)</label>
+          <textarea class="form-control" id="description" name="description" rows="3"><check if="{{ @mode == 'update' }}">{{ @POST.description }}</check></textarea>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col">
+       <check if="{{ @mode == 'update' }}">
+        <input type="hidden" name="id" value="{{ @POST.id }}">
+       </check>
+        <input type="hidden" name="timestamp" id="timestamp">
+        <input type="hidden" name="{{ @mode }}" value="{{ @mode }}" />
+        <button type="submit" class="btn btn-warning">{{ @mode }}</button>
+      </div>
+    </div>
+    </form>
+    <script>
+    
+     $(document).ready(function(){  
+        // Highlight the menu link
+        $("#create-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
+
+        // Updating the record 
+        $("#timestamp").val(formatNow());
+
+        <check if="{{ @mode == 'update' }}">
+        document.getElementById('transdate').value = formatDBDate('{{ @POST.transdate }}');
+        </check>
+        <check if="{{ @mode == 'create' }}">
+        document.getElementById('transdate').value = formatDates();
+        </check>
+        
+        
+
+    
+        $.each(countryFields, function(index, value){
+        if(value == '{{ @POST.country }}') {
+            $('#country').append($('<option>').text(value).attr('value',value).attr('selected','selected'));
+        } else {
+            $('#country').append($('<option>').text(value).attr('value',value));
+        }
+        });
+        // ajax {{ @mode }}
+        <check if="{{ @mode == 'update' }}">
+        </check>
+        <check if="{{ @mode == 'create' }}">
+        </check>
+    
+     });
+          
+    
+    </script>
+    

@@ -1,63 +1,59 @@
-<form action="/company/{{ @mode }}" method="post" class="form-horizontal">
-    <div class="row">
-      <div class="col-lg-4">
-        <label class="control-label" for="name">Name: (short)</label>
-            <input type="text" class="form-control" id="name" name="name" value="{{ @POST.name }}">
-      </div>
-    </div>
+<!--<input type="button" id="btnExport" value="Export"><br> //-->
+<p> 
+<div id="dvData">
+    <form method="post" id="{{ @section }}form" action="/{{ @section }}/{{ @mode }}">
+        <div class="row">
+            <input type="hidden" id="id" name="id" value="{{ @POST.id }}"/>
+            <input type="hidden" name="{{ @mode }}" value="{{ @mode }}"/>
+             
+            <div class="col-lg-4"><input type="text" id="name" name="name" class="form-control" placeholder="{{ ucfirst(@section) }} name" value="{{ @POST.name }}"></div>
+            <div class="col-lg-6"><input type="text" id="description" name="description" class="form-control" placeholder="Brief Description" value="{{ @POST.description }}"></div>
+            <div class="col-lg-1"><input type="submit" id="mode" name="mode" value="{{ @mode }}" class="btn btn-warning"></div>
+            <div class="col-lg-1"><a href="/company"><button type="button" class="btn ">cancel</button></a> </div>
+        </div>
+    </form>   
     <br>
-    <div class="row">
-      <div class="col-lg-6">
-        <label class="control-label" for="description">Description: (Legal name or long name)</label>
-          <textarea class="form-control" id="description" name="description" rows="3"><check if="{{ @mode == 'update' }}">{{ @POST.description }}</check></textarea>
-      </div>
-    </div>
-    <br>
-    <div class="row">
-      <div class="col">
-       <check if="{{ @mode == 'update' }}">
-        <input type="hidden" name="id" value="{{ @POST.id }}">
-       </check>
-        <input type="hidden" name="timestamp" id="timestamp">
-        <input type="hidden" name="{{ @mode }}" value="{{ @mode }}" />
-        <button type="submit" class="btn btn-warning">{{ @mode }}</button>
-      </div>
-    </div>
-    </form>
-    <script>
-    
-     $(document).ready(function(){  
-        // Highlight the menu link
-        $("#create-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
+        <table id="invoices" class="table ">
+           <thead class="thead-light">
+           <tr>
+               <th scope="col">Id</th>
+               <th scope="col">Name</th>
+               <th scope="col">Description</th>
+               <th scope="col"></th>
+	           <th scope="col">Action</th>
+           </tr>
+           </thead>
+       
+           <tbody>
+		   <repeat group="{{ @sqldata }}" value="{{ @rows }}">
+               <tr>
+                <td>{{ @rows.id }}</td>
+                <td>{{ @rows.name }}</td>
+                <td>{{ substr(@rows.description,0,100) }}</td>
+                <td></td> 
+                <td width="10%">
+                    <a href="{{ @BASE.'/'.@section.'/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15" title="Edit"></a> &nbsp;
+                    <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15" title="Delete"></a> 
+                </td>      
+               </tr>
+           </repeat>
+           </tbody>
+        </table>
+</div>
 
-        // Updating the record 
-        $("#timestamp").val(formatNow());
+<script>
+   var columns = {{ @columns }};
+    
+   $(document).ready(function(){
+    $("#list-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
+   });
 
-        <check if="{{ @mode == 'update' }}">
-        document.getElementById('transdate').value = formatDBDate('{{ @POST.transdate }}');
-        </check>
-        <check if="{{ @mode == 'create' }}">
-        document.getElementById('transdate').value = formatDates();
-        </check>
-        
-        
+   function confirmDelete(rid) {
+	if(confirm("Delete record # "+rid+" ?")){
+		window.open("/{{ @section }}/delete/"+rid,"_self");
+	}
+   }
+</script>
 
-    
-        $.each(countryFields, function(index, value){
-        if(value == '{{ @POST.country }}') {
-            $('#country').append($('<option>').text(value).attr('value',value).attr('selected','selected'));
-        } else {
-            $('#country').append($('<option>').text(value).attr('value',value));
-        }
-        });
-        // ajax {{ @mode }}
-        <check if="{{ @mode == 'update' }}">
-        </check>
-        <check if="{{ @mode == 'create' }}">
-        </check>
-    
-     });
-          
-    
-    </script>
-    
+
+

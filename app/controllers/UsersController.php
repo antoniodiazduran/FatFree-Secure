@@ -49,7 +49,7 @@ class UsersController extends Controller {
                 $msg .= 'It was granted for the '.$user->roles.' area and <br/>';
                 $msg .= 'assigned under company name : '.$company->name.'<p/>';
                 $msg .= '<hr> Click on the link below to enable your account in the system <br/>';
-                $msg .= 'http://34.70.44.101/bpval/'.$code;
+                $msg .= 'http://35.209.35.43/bpval/'.$code;
 
                 // Saving userlog to verify
                 $userlog = new Userlogs($this->d1);
