@@ -9,11 +9,11 @@
             <input type="hidden" id="company" name="company" value="{{ @SESSION.company }}"/>
             <input type="hidden" name="{{ @mode }}" value="{{ @mode }}"/>
             <input type="hidden" id="username" name="username" value="{{ @SESSION.user }}"/>   
-            <div class="col-lg-4"><input type="text" id="title" name="title" class="form-control" placeholder="{{ ucfirst(@section) }} title" value="{{ @POST.title }}"></div>
+            <div class="col-lg-4"><input type="text" id="title" name="title" class="form-control" placeholder="{{ ucfirst(@section) }} title" value="{{ @POST.title }}" required></div>
             <div class="col-lg-2"><select id="field_type" name="field_type" class="form-control"><option>text</option><option>radio</option><option>checkbox</option><option>select</option></select></div>
-            <div class="col-lg-2"><input type="text" id="field_list" name="field_list" class="form-control" placeholder="Field list" value="{{ @POST.field_list }}"></div>
-            <div class="col-lg-2"><input type="text" id="field_default" name="field_default" class="form-control" placeholder="Field default" value="{{ @POST.field_default }}"></div>
-            <div class="col-lg-2"><input type="submit" id="mode" name="mode" value="{{ @mode }}" class="btn btn-warning"/><check if="{{ @mode == 'update'}}"><a href="/{{ @section }}/{{ @relation }}"><button type="button" class="btn">cancel</button></a></check> </div>         
+            <div class="col-lg-2"><input type="text" id="field_list" name="field_list" class="form-control" placeholder="Field list" value="{{ @POST.field_list }}" required></div>
+            <div class="col-lg-2"><input type="text" id="field_default" name="field_default" class="form-control" placeholder="Field default" value="{{ @POST.field_default }}" required></div>
+            <div class="col-lg-1"><input type="submit" id="mode" name="mode" value="{{ @mode }}" class="btn btn-warning"/><check if="{{ @mode == 'update'}}"><a href="/{{ @section }}/{{ @relation }}"><button type="button" class="btn">cancel</button></a></check> </div>         
         </div>
     </form> 
     <br>
