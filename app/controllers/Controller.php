@@ -38,7 +38,7 @@ class Controller {
 	        }
         }
       } else {
-        //echo Template::instance()->render('layout.htm');
+        echo Template::instance()->render('layout.htm');
       }
     }
 
