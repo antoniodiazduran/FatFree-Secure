@@ -6,9 +6,9 @@
            <tr>
                <th scope="col">ID</th>
                <th scope="col">Company</th>
-               <th scope="col">Name:Location:City/State</th>
+               <th scope="col"><u>Site</u></th>
                <th scope="col">Country</th>
-               <th scope="col">Admin</th>
+               <th scope="col">Description</th>
                <th scope="col"></th>
                <th scope="col">Action</th>
            </tr>
@@ -21,7 +21,7 @@
                    <td>{{ trim(@rows.company) }}</td>
                    <td>{{ trim(@rows.city) }},  {{ trim(@rows.state) }}</td>
                    <td>{{ trim(@rows.country) }}</td>
-                   <td>{{ trim(@rows.username) }}</td>
+                   <td>{{ trim(@rows.description) }}</td>
                    <td></td>
                    <td>
                        <a href="{{ @BASE.'/sites/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15"></a> &nbsp;

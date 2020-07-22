@@ -14,7 +14,7 @@
     </div>
     <div class="row">
       <div class="col-lg-4">
-        <label class="control-label" for="city">Name/Location/City:</label>
+        <label class="control-label" for="city">Name/Location/City: <a href="#" data-toggle="popover" title="Main relational field" data-content="The content of this field will be used in the future for other links">?</a></label>
             <input type="text" class="form-control" id="city" name="city" value="{{ @POST.city }}" required>
       </div>
     </div>
@@ -59,6 +59,8 @@
       $("#create-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
       // Updating the record 
       $("#timestamp").val(formatNow());
+      // Popover code 
+      $('[data-toggle="popover"]').popover({trigger:"hover"}); 
 
         <check if="{{ @mode == 'update' }}">
         document.getElementById('transdate').value = formatDBDate('{{ @POST.transdate }}');
