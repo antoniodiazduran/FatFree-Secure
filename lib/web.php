@@ -256,6 +256,8 @@ class Web extends Prefab {
 	function receive($func=NULL,$overwrite=FALSE,$slug=TRUE) {
 		$fw=Base::instance();
 		$dir=$fw->UPLOADS;
+		echo $dir;
+		exit;
 		if (!is_dir($dir))
 			mkdir($dir,Base::MODE,TRUE);
 		if ($fw->VERB=='PUT') {

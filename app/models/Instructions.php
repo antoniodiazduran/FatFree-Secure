@@ -20,7 +20,7 @@ class Instructions extends DB\SQL\Mapper {
         $sql  = 'SELECT *, ';
         $sql .= '(SELECT COUNT(id) FROM instructions i WHERE v.id = i.relation) AS tasks ';
         $sql .= 'FROM stations_view3 v ';
-        $sql .= 'WHERE company = ? ORDER BY product DESC';
+        $sql .= 'WHERE company = ? ORDER BY site,product,machine,title';
         $result = $this->db->exec($sql,$company);
         return $result;
     }

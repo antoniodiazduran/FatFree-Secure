@@ -12,7 +12,7 @@ class Stations extends DB\SQL\Mapper {
         $sql .= '(select count(id) from scrap s where s.relation = v.id) as defect, ';
         $sql .= '(select count(id) from downtime d where d.relation = v.id) as delay, ';
         $sql .= '(select count(id) from rework d where d.relation = v.id) as rework ';
-        $sql .= 'FROM stations_view3 v WHERE company = ? ORDER BY timestamp DESC';
+        $sql .= 'FROM stations_view3 v WHERE company = ? ORDER BY site,product,machine,title';
         $result = $this->db->exec($sql,$company);
         return $result;
     }
