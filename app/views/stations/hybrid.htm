@@ -43,7 +43,7 @@
 <div class="row">
 	<div class="col-lg-4">
 	  <label class="control-label" for="description">Training Refresh:</label>
-		<input type="number" class="form-control" id="inst_refresh" name="inst_refresh" min="30" value="<check if="{{ @mode == 'update' }}">{{ @POST.inst_refresh }}</check>" placeholder="Refresh period (days)"/>
+		<input type="number" class="form-control" id="inst_refresh" name="inst_refresh" min="30" value="<check if="{{ @mode == 'update' }}"><true>{{ @POST.inst_refresh }}</true><false>90</false></check>" placeholder="Refresh period (days)"/>
 	</div>
 </div>
 <br>
