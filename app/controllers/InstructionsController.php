@@ -71,7 +71,7 @@ class InstructionsController extends Controller {
         $this->f3->set('preview','yes');
         $this->f3->set('back','yes');
         $this->f3->set('create','no');
-        $this->f3->set('backto','instructions/view');
+        $this->f3->set('backto','instructions/'.$this->f3->get('PARAMS.id'));
         $this->f3->set('columns','[0,1,2,3]');
         $this->f3->set('images',$instImage);
         $this->f3->set('breadcrumbs',$classvar->breadcrumbs($this->f3->get('PARAMS.id'),$this->f3->get('SESSION.company')));
@@ -89,7 +89,7 @@ class InstructionsController extends Controller {
         $this->f3->set('section','instructions');
         $this->f3->set('subnav','true');
         $this->f3->set('back','yes');
-        $this->f3->set('backto','instructions/view');
+        $this->f3->set('backto','instructions/'.$this->f3->get('PARAMS.id'));
         $this->f3->set('preview','yes');
         $this->f3->set('columns','[0,1,2,3]');
         $this->f3->set('create','no');
