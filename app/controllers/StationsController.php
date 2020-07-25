@@ -20,6 +20,7 @@ class StationsController extends Controller {
         $this->f3->set('back','no');
         $this->f3->set('backto','stations');
         $this->f3->set('columns','[0,1,2,3]');
+        $this->f3->set('review','yes');
         $this->f3->set('page_head','List');
         $this->f3->set('view',$this->getViewFolder().'/list.htm');
     }
