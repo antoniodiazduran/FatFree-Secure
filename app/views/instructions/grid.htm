@@ -6,7 +6,10 @@
 
     <repeat group="{{ @instructions }}" value="{{ @rows }}">    
         <div class="grid">
-            <img src="/{{ @rows.internalfn }}">
+            <check if="{{ @rows.internalfn != ''}}">
+              <img src="/{{ @rows.internalfn }}">
+            </check>
+          
             <p class="whats">{{ substr(@rows.whats,0,50) }}</p>
             <p class="hows">{{ @rows.hows }}</p>
             <p class="detail">Sequence: {{ @rows.sequence }} :: Images: {{ @rows.figcount}} </p>
