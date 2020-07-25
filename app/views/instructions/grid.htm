@@ -12,7 +12,7 @@
           
             <p class="whats">{{ substr(@rows.whats,0,50) }}</p>
             <p class="hows">{{ @rows.hows }}</p>
-            <p class="detail">Sequence: {{ @rows.sequence }} :: <check if="{{ @rows.figcount != 0}}">Images: {{ @rows.figcount}}</check> </p>
+            <p class="detail">Sequence: {{ @rows.sequence }} <check if="{{ @rows.figcount != 0}}">:: Images: {{ @rows.figcount}}</check> </p>
         </div>
         &nbsp;
     </repeat>
