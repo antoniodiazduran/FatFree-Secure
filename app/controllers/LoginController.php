@@ -133,9 +133,12 @@
     }
 
     function logout() {
-            $this->f3->set('SESSION.user', null);
-            $this->f3->set('SESSION.company', null);
-            $this->f3->reroute('/login');
+        $logger = new Log('error.log');
+        // Logger
+        $logger->write('Username '.$this->f3->get('SESSION.user').' logout');
+        $this->f3->set('SESSION.user', null);
+        $this->f3->set('SESSION.company', null);
+        $this->f3->reroute('/login');    
     }
 
     function authenticate() {
