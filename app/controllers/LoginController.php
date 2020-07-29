@@ -142,6 +142,7 @@
         $username = $this->f3->get('POST.username');
         $password = $this->f3->get('POST.password');
         $user = new Login($this->d1);
+        $logger = new Log('error.log');
         $company = new Company($this->d1);
         // Getting user information
         $user->getByName($username);
@@ -149,6 +150,8 @@
             // Username not founf
             $this->f3->set('msg','Username not found');
             $this->f3->set('stat','warning');
+            // Logger
+            $logger->write('Username '.$username.' not found');
             $template=new Template;
             echo $template->render('auth/login.htm');
         } else {
@@ -168,7 +171,8 @@
                     $timezone = new DateTimeZone('America/New_York');
                     $datetime->setTimezone($timezone);
                     $zone = $datetime->format('T');
-                
+                    //logger
+                    $logger->write('Username '.$user->username.' succesfully login');
 
                     $this->f3->set('SESSION.user', $user->username);
                     $this->f3->set('SESSION.roles', $user->roles);
@@ -185,6 +189,9 @@
                 } else {
                     $this->f3->set('stat','danger');
                     $this->f3->set('msg','Incorrect Username & Password');
+                    // Logger
+                    $logger->write('Incorrect username and password for '.$user->username);
+
                     // Rendering 
                     $template=new Template;
                     echo $template->render('auth/login.htm');    
@@ -192,6 +199,8 @@
             } else {
                 $this->f3->set('stat','warning');
                 $this->f3->set('msg','User not verified!');
+                // Logger
+                $logger->write('User not verified for '.$user->username);
                 // Rendering 
                 $template=new Template;
                 echo $template->render('auth/login.htm'); 
