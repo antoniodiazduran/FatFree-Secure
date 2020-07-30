@@ -144,14 +144,34 @@ class InstructionsController extends Controller {
             if($this->f3->get('POST.significant')=='') {
                 // Updating the value
                 $classvar->edit($this->f3->get('POST.id'));
-                
+                // Original Instructions relation
+                $rid = $this->f3->get('POST.relation');
             } else {
-                // Creating a new registry
-                $this->f3->set('POST.id',null);
+                // Original Instructions relation
+                $rid = $this->f3->get('POST.relation');
+                //// Creating a new registry
+                // Saving the original record id for new figure record
+                $mid = $this->f3->get('POST.id');
+                unset($_POST['id']);  // Deleting array element
                 $nid = $classvar->add();
-            
+                //
+                // Creating a new record(s) for figures     
+                $classfig = new Figures($this->db);
+                $relfigs = $classfig->getRelationFigs($mid);
+                foreach($relfigs as $key=>$value) {
+                    $_POST=array();  // Reseting the post values
+                    $classfig->getById($value['id']);  // Gathering data from database
+                    // Delete array elements to mimic new record
+                    unset($_POST['id']);
+                    unset($_POST['timestamp']);
+                    // replaces the old relation for new instruction record
+                    $this->f3->set('POST.relation',$nid);   
+                    // Adding new figures record with same info but new relation id
+                    $classfig->add();
+                }
+                
             }
-            $this->f3->reroute('/'.$this->getViewFolder()."/".$this->f3->get('POST.relation'));
+            $this->f3->reroute('/'.$this->getViewFolder()."/".$rid);
             
         }
         else

@@ -29,6 +29,7 @@ class Figures extends DB\SQL\Mapper {
     
     public function add() {
         // Add data
+        $this->load(array('id=?',0)); // Reset the pointer from database to add one more row
         $this->copyFrom('POST');
         $this->save();
     }
@@ -36,6 +37,17 @@ class Figures extends DB\SQL\Mapper {
     public function getById($id) {
         // Getting data
         $this->load(array('id=?',$id));
+        $this->copyTo('POST');
+    }
+
+    public function getRelationFigs($rid) {
+        $sql  = "SELECT id FROM figures WHERE relation = ?";
+        return $this->db->exec($sql, $rid);
+    }
+
+    public function getByRelation($rid) {
+        // Getting data
+        $this->load(array('relation=?',$rid));
         $this->copyTo('POST');
     }
 

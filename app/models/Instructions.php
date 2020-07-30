@@ -34,10 +34,16 @@ class Instructions extends DB\SQL\Mapper {
 
     public function grid($id,$company) {
         // Selecting data
-        $sql  = "SELECT i.id, i.hows, i.whats, i.whys, i.sequence, ";
+        //$sql  = "SELECT i.id, i.hows, i.whats, i.whys, i.sequence, ";
+        //$sql .= "(SELECT internalfn FROM figures f WHERE i.id = f.relation ORDER BY f.id LIMIT 1) as internalfn, ";
+        //$sql .= "(SELECT COUNT(id) FROM figures f WHERE i.id = f.relation) AS figcount ";
+        //$sql .= "FROM instructions i   WHERE relation = ?";
+        $sql  = "SELECT i.id,i.relation,i.sequence, i.hows, i.whats, i.whys, ";
         $sql .= "(SELECT internalfn FROM figures f WHERE i.id = f.relation ORDER BY f.id LIMIT 1) as internalfn, ";
-        $sql .= "(SELECT COUNT(id) FROM figures f WHERE i.id = f.relation) AS figcount ";
-        $sql .= "FROM instructions i   WHERE relation = ?";
+        $sql .= "(SELECT COUNT(id) FROM figures f WHERE i.id = f.relation) AS figcount  ";
+        $sql .= "FROM instructions i ";
+        $sql .= "WHERE i.timestamp IN (select max(timestamp) ";
+        $sql .= "FROM instructions n WHERE n.sequence = i.sequence ) AND i.relation = ? ORDER BY i.sequence;";
         $result = $this->db->exec($sql,$id);
         return $result;
     }

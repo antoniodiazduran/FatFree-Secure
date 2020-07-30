@@ -11,6 +11,7 @@
             <th scope="col">What</th>
             <th scope="col">How</th>
             <th scope="col">Why</th>
+            <th scope="col">Images</th>
             <th scope="col">Action</th>
            </tr>
            </thead>
@@ -23,10 +24,11 @@
                    <td width="20%">{{ trim(@rows.whats) }}</td>
                    <td width="25%">{{ trim(@rows.hows) }}</td>
                    <td width="25%">{{ trim(@rows.whys) }}</td>
-                   <td width="15%">
-                      <a href="/figures/{{ trim(@rows.id) }}"><img src="/ui/images/image.png" width="22" title="Edit/Add pictures"></a>x{{ @rows.figcount }}&nbsp;
+                   <td width="5%">{{ @rows.figcount }}</td>
+                   <td width="10%">
+                      <a href="/figures/{{ trim(@rows.id) }}"><img src="/ui/images/image.png" width="22" title="Edit/Add pictures"></a>&nbsp;
                       <a href="{{ @BASE.'/'. @section .'/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15" title="Edit task"></a> &nbsp;
-                      <a href="#" onClick="confirmDelete('{{ @section }}',{{ @rows.id }})"><img src="/ui/images/trash.gif" width="15" title="Delete task"></a> 
+                      <!--<a href="#" onClick="confirmDelete('{{ @section }}',{{ @rows.id }})"><img src="/ui/images/trash.gif" width="15" title="Delete task"></a> //-->
                    </td>
   
                </tr>
