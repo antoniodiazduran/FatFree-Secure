@@ -34,11 +34,12 @@
         var dd = new Date().getDate();
         var ii = new Date().getMinutes();
         var hh = new Date().getHours();
+        var ss = new Date().getSeconds();
         if (mm<10) { mm = "0"+mm; }
         if (dd<10) { dd = "0"+dd; }
         if (hh<10) { hh = "0"+hh; }
         if (ii<10) { ii = "0"+ii; }
-        return yy+'/'+mm+'/'+dd+' '+hh+':'+ii;
+        return yy+'/'+mm+'/'+dd+' '+hh+':'+ii+':'+ss;
     }
 
     function formatDBDate(clockdate) {

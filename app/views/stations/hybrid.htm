@@ -59,7 +59,6 @@
    <check if="{{ @mode == 'update' }}">
     <input type="hidden" name="id" value="{{ @POST.id }}">
    </check>
-    <input type="hidden" id="timestamp" name="timestamp">
 	<input type="hidden" name="username" value="{{ @SESSION.user }}"/>
 	<input type="hidden" name="company" value="{{ @SESSION.company }}"/>
     <input type="hidden" name="{{ @mode }}" value="{{ @mode }}" />
@@ -72,7 +71,7 @@
  $(document).ready(function(){  
 	$("#create-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
 	//Getting time stamp for record
-	$("#timestamp").val(formatNow());
+	//$("#timestamp").val(formatNow());
 	<check if="{{ @mode == 'update' }}">
 	document.getElementById('transdate').value = formatDBDate('{{ @POST.transdate }}');
 	</check>

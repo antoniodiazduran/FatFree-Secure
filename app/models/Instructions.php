@@ -8,9 +8,16 @@ class Instructions extends DB\SQL\Mapper {
 
     public function all($id,$company) {
         // Selecting data
-        $sql  = "SELECT @row:=@row+1 AS seq ,i.id, i.hows, i.whats, i.whys, i.sequence, ";
-        $sql .= "(SELECT COUNT(id) FROM figures f WHERE i.id = f.relation) AS figcount ";
-        $sql .= "FROM instructions i, (SELECT @row:=0) r WHERE relation = ?  ORDER BY sequence";
+        //$sql  = "SELECT @row:=@row+1 AS seq ,i.id, i.hows, i.whats, i.whys, i.sequence, ";
+        //$sql .= "(SELECT COUNT(id) FROM figures f WHERE i.id = f.relation) AS figcount ";
+        //$sql .= "FROM instructions i, (SELECT @row:=0) r WHERE relation = ?  ORDER BY sequence";
+        //
+        // Looking for the newest sequence, based on relation 
+        $sql  = "SELECT @row:=@row+1 AS seq, id,relation,sequence, timestamp, hows, whats, whys, ";
+        $sql .= "(SELECT COUNT(id) FROM figures f WHERE i.id = f.relation) AS figcount  ";
+        $sql .= "FROM instructions i, (SELECT @row:=0) r ";
+        $sql .= "WHERE i.timestamp IN (select max(timestamp) ";
+        $sql .= "FROM instructions n WHERE n.sequence = i.sequence ) AND relation = ? ORDER BY i.sequence;";
         $result = $this->db->exec($sql,$id);
         return $result;
     }
@@ -64,6 +71,7 @@ class Instructions extends DB\SQL\Mapper {
         // Add data
         $this->copyFrom('POST');
         $this->save();
+        return $this->id;
     }
 
     public function getById($id) {

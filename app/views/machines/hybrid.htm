@@ -31,7 +31,6 @@
        <check if="{{ @mode == 'update' }}">
         <input type="hidden" name="id" value="{{ @POST.id }}">
        </check>
-        <input type="hidden" name="timestamp" id="timestamp">
         <input type="hidden" name="username" value="{{ @SESSION.user }}"/>
         <input type="hidden" name="{{ @mode }}" value="{{ @mode }}" />
         <button type="submit" class="btn btn-warning">{{ @mode }}</button>
@@ -44,7 +43,7 @@
       // Highlight the menu link
       $("#create-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
       // Updating the record 
-      $("#timestamp").val(formatNow());
+      //$("#timestamp").val(formatNow());
 
         <check if="{{ @mode == 'update' }}">
           document.getElementById('transdate').value = formatDBDate('{{ @POST.transdate }}');

@@ -10,10 +10,14 @@
        <label class="control-label" for="transdate">Sequence:</label>
          <input type="text" class="form-control" id="sequence" name="sequence" required value="<check if="{{ @mode == 'create'}}">{{ @nextsequence[0]['nextsequence'] }}</check>{{ @POST.sequence }}">
      </div>
+     <div class="col-lg-4">
+      <br><br>
+      <label class="control-label" for="transdate">Significant change? </label><p></p>
+        <input type="checkbox" class="" id="significant" name="significant" checked value="yes"> Yes
+    </div>
     </div>
     <br>
     <div class="row">
-      
       <div class="col-lg-4">
         <label class="control-label" for="whats">What:</label> 
             <textarea class="form-control" rows="5" id="whats" name="whats" placeholder="What to do">{{ @POST.whats }}</textarea>
@@ -36,7 +40,6 @@
        <check if="{{ @mode == 'update' }}">
         <input type="hidden" name="id" value="{{ @POST.id }}">
        </check>
-        <input type="hidden" name="timestamp" id="timestamp">
         <input type="hidden" name="relation" id="relation" value="{{ @relation }}">
         <input type="hidden" name="username" value="{{ @SESSION.user }}"/>
         <input type="hidden" name="{{ @mode }}" value="{{ @mode }}" />
@@ -48,7 +51,7 @@
     
      $(document).ready(function(){  
         // Updating the record 
-        $("#timestamp").val(formatNow());
+        //$("#timestamp").val(formatNow());
 
         <check if="{{ @mode == 'update' }}">
         document.getElementById('transdate').value = formatDBDate('{{ @POST.transdate }}');

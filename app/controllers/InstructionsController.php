@@ -120,7 +120,7 @@ class InstructionsController extends Controller {
         if($this->f3->exists('POST.create'))
         {
             $classvar = new Instructions($this->db);
-            $classvar->add();
+            $nid = $classvar->add();
             $this->f3->reroute('/'.$this->getViewFolder()."/".$this->f3->get('POST.relation'));
         }
         else
@@ -141,8 +141,18 @@ class InstructionsController extends Controller {
 
         if($this->f3->exists('POST.update'))
         {
-            $classvar->edit($this->f3->get('POST.id'));
+            if($this->f3->get('POST.significant')=='') {
+                // Updating the value
+                $classvar->edit($this->f3->get('POST.id'));
+                
+            } else {
+                // Creating a new registry
+                $this->f3->set('POST.id',null);
+                $nid = $classvar->add();
+            
+            }
             $this->f3->reroute('/'.$this->getViewFolder()."/".$this->f3->get('POST.relation'));
+            
         }
         else
         {
