@@ -43,7 +43,7 @@ class Instructions extends DB\SQL\Mapper {
         $sql .= "(SELECT COUNT(id) FROM figures f WHERE i.id = f.relation) AS figcount  ";
         $sql .= "FROM instructions i ";
         $sql .= "WHERE i.timestamp IN (select max(timestamp) ";
-        $sql .= "FROM instructions n WHERE n.sequence = i.sequence ) AND i.relation = ? ORDER BY i.sequence;";
+        $sql .= "FROM instructions n WHERE n.sequence = i.sequence AND i.relation = n.relation) AND i.relation = ? ORDER BY i.sequence;";
         $result = $this->db->exec($sql,$id);
         return $result;
     }
