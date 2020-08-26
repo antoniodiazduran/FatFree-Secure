@@ -31,7 +31,7 @@
                   <td align="right">{{ number_format(@rows.vat,2) }}</td>
                   <td align="right">{{ number_format(@rows.vat+@rows.taxes+@rows.qty,2) }}</td>
                   <td>{{ trim(@rows.country) }}</td>
-                  <td align="center"><check if="trim(@rows.filename)!=''"><a href="uploads/{{ trim(@rows.filename) }}"><img src="/ui/images/page.gif" width="15"></a></check></td>
+                  <td align="center"><check if="trim(@rows.filename)!=''"><a href="uploads/{{ trim(@rows.internalfn) }}"><img src="/ui/images/page.gif" width="15"></a></check></td>
                   <td></td>
                   <td>
                       <a href="{{ @BASE.'/'.@section.'/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15"></a> &nbsp;

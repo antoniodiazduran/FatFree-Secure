@@ -7,7 +7,7 @@ class Expenses extends DB\SQL\Mapper {
     }
 
     public function all($company) {
-        $sql  = 'SELECT * FROM expenses_view2 WHERE company = ? ORDER BY transdate DESC';
+        $sql  = 'SELECT * FROM expenses_view3 WHERE company = ? ORDER BY transdate DESC';
         $result = $this->db->exec($sql,$company);
         return $result;
     }
