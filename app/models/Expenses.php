@@ -12,6 +12,13 @@ class Expenses extends DB\SQL\Mapper {
         return $result;
     }
 
+    public function apiexpensesdetail($id) {
+        // Selecting data
+        $sql  = 'SELECT description,FORMAT(qty+taxes,2) AS total, FORMAT(qty,2) AS price FROM expenses_view3 WHERE id = ?';
+        $result = $this->db->exec($sql,array($id));
+        echo json_encode($result);
+    }
+
     public function apiexpensesfilter($customer,$company) {
         // Selecting data
         $sql  = 'SELECT id,area,description FROM expenses_view3 WHERE customer = ? AND company = ?';

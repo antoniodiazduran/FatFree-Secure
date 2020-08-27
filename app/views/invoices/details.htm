@@ -85,18 +85,31 @@
 	$("#exp").hide();
    });
 
+   $("#exp").change ( function() {
+	var id = $("#exp").val();
+	$.get("/expensedetail/"+id).done( function (data) {
+		var datx = JSON.parse(data);
+		$("#price").val(datx[0].price);		
+		$("#total").val(datx[0].total);		
+		$("#description").val(datx[0].description);		
+	});
+   });
+
    $("#detail").change ( function() {
 	if($("#detail").val()=='Expenses') {
 		$("#qty").hide();
 		$("#exp").show();
-		apiexpenses();
+		apiexpenseslist();
 	} else {
 		$("#qty").show();
 		$("#exp").hide();
+		$("#price").val('');
+                $("#total").val('');
+                $("#description").val('');
 	}
    });
 
-   function apiexpenses() {
+   function apiexpenseslist() {
 	var filter = {{ @details[0].customer }} ;
 	$("#exp").empty();
    	$.get( "/expenselist/"+filter  )

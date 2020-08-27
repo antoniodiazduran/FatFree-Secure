@@ -23,6 +23,14 @@ class ExpController extends Controller {
         $this->f3->set('view',$this->getViewFolder().'/list.htm');
     }
 
+    public function apiexpensesdetail()
+    {
+        $classvar = new Expenses($this->db);
+        $id = $this->f3->get('PARAMS.id');
+        $this->f3->set('ups',$classvar->apiexpensesdetail($id) );
+            exit;       // API Call to get data for popup
+    }
+
     public function apiexpensesfilter()
     {
         $classvar = new Expenses($this->db);
