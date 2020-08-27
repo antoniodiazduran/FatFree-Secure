@@ -32,7 +32,8 @@
 		<tr>
 			<td><input type="text" id="transdate" name="transdate" class="form-control" placeholder="Select date"></td>
 			<td><select id="detail" name="detail" class="form-control"></select></td>
-			<td><input style="text-align:right;" type="text" id="qty" name="qty" class="form-control" placeholder="Hours/Days"></td>
+			<td><input style="text-align:right;" type="text" id="qty" name="qty" class="form-control" placeholder="Hours/Days">
+			<select id="exp" name="exp" class="form-control"></select></td>
 			<td><input style="text-align:right; type="text" id="price" name="price" class="form-control" placeholder="Price"></td>
 			<td><input style="text-align:right;type="text" id="total" name="total" class="form-control" placeholder="Total" readonly></td>
 		</tr>
@@ -81,7 +82,33 @@
         $.each(detailFields, function(index, value){
                 $('#detail').append($('<option>').text(value).attr('value',value));
         });
+	$("#exp").hide();
    });
+
+   $("#detail").change ( function() {
+	if($("#detail").val()=='Expenses') {
+		$("#qty").hide();
+		$("#exp").show();
+		apiexpenses();
+	} else {
+		$("#qty").show();
+		$("#exp").hide();
+	}
+   });
+
+   function apiexpenses() {
+	var filter = {{ @details[0].customer }} ;
+	$("#exp").empty();
+   	$.get( "/expenselist/"+filter  )
+        .done(function( data ) {
+                var datx = JSON.parse(data);
+                
+		$('#exp').append($('<option>').text("Select...").attr('value',''));
+                $.each(datx, function(index,value) {
+                      $('#exp').append($('<option>').text(value.description).attr('value',value.id));
+                });
+   	});
+   }
 
    $("#mode").click( function () {
                 var errors = '';

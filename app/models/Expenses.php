@@ -12,6 +12,13 @@ class Expenses extends DB\SQL\Mapper {
         return $result;
     }
 
+    public function apiexpensesfilter($customer,$company) {
+        // Selecting data
+        $sql  = 'SELECT id,area,description FROM expenses_view3 WHERE customer = ? AND company = ?';
+        $result = $this->db->exec($sql,array($customer,$company));
+        echo json_encode($result);
+    }
+
     public function add() {
         $this->copyFrom('POST');
         $this->save();

@@ -23,6 +23,15 @@ class ExpController extends Controller {
         $this->f3->set('view',$this->getViewFolder().'/list.htm');
     }
 
+    public function apiexpensesfilter()
+    {
+        $classvar = new Expenses($this->db);
+        $customer = $this->f3->get('PARAMS.filter');
+	$company = $this->f3->get('SESSION.company');
+        $this->f3->set('ups',$classvar->apiexpensesfilter($customer,$company) );
+            exit;       // API Call to get data for popup
+    }
+
     public function chart()
     {
 	$this->f3->set('page_head','Chart');
