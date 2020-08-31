@@ -27,6 +27,22 @@
 </div>
 <br>
 <div class="row">
+  <div class="col-lg-3">
+    <label class="control-label" for="exp">Added as expense? :</label>
+        <input type="checkbox" id="exp" name="exp" value="">
+  </div>
+</div>
+<div class="row" id="dqty">
+  <div class="col-lg-3">
+    <label class="control-label" for="area">Quantity:</label>
+        <input type="text" id="qty" name="qty" value="" placeholder="0.00" class="form-control">
+  </div>
+  <div class="col-lg-2">
+	<br><br><span style="color:red;" id="errarea"></span>
+  </div> 
+</div>
+<br>
+<div class="row">
   <div class="col-lg-4">
     <label class="control-label" for="filename">File Name:</label>
       <input type="text" class="form-control" id="filename" name="filename" placeholder="File Name" readonly>
@@ -58,6 +74,7 @@
   // Highlight the menu link
   $("#upload-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
 
+	$("#dqty").hide();
 	$("#create").hide();
         $("#transdate").val(formatDates());
         $("#timestamp").val(formatNow());
@@ -72,6 +89,15 @@
         });
  });     
 
+ $("#exp").change( function() {
+	if($("#exp").is(':checked') ) {
+		$("#dqty").show();
+		$("#exp").val(1)
+	} else {
+		$("#dqty").hide();
+		$("#exp").val(0);
+	}
+ });
  $("#upForm").change(function () {
 	$("#errcustomer").text("");
 	$("#errarea").text("")

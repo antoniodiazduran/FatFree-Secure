@@ -35,7 +35,7 @@
   </div>
   <div class="col">
     <label class="control-label" for="taxes">Taxes:</label>
-      <input type="text" class="form-control" id="taxes" name="taxes" placeholder="0.00" <check if="{{ @mode == 'update' }}">value="{{ @POST.taxes }}"</check> style="text-align:right;">
+      <input type="text" class="form-control" id="taxes" name="taxes" value="0" placeholder="0.00" <check if="{{ @mode == 'update' }}">value="{{ @POST.taxes }}"</check> style="text-align:right;">
   </div>
   <div class="col">
     <label class="control-label" for="vat">VAT:</label>

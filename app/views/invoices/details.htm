@@ -4,7 +4,8 @@
 	<b>Customer:</b> {{ @details[0].customer }}<br>
 	<b>Record ID:</b> {{ @details[0].id }}<br>
 	<b>Total :</b> {{ number_format(@details[0].total,2) }}<br>
-	<b>Status :</b> {{ @details[0].invoicestatus }}
+	<b>Status :</b> {{ @details[0].invoicestatus }}<br>
+	<b>Number :</b> {{ @details[0].invoicenumber }}
 </div>
 <div class="col"> <b>Address:</b><br> {{ @details[0].customerd }}</div>
 <div class="col"> <b>Description:</b><br>{{ @details[0].description }}</div>
@@ -32,8 +33,10 @@
 		<tr>
 			<td><input type="text" id="transdate" name="transdate" class="form-control" placeholder="Select date"></td>
 			<td><select id="detail" name="detail" class="form-control"></select></td>
-			<td><input style="text-align:right;" type="text" id="qty" name="qty" class="form-control" placeholder="Hours/Days">
-			<select id="exp" name="exp" class="form-control"></select></td>
+			<td>
+				<input style="text-align:right;" type="text" id="qty" name="qty" class="form-control" placeholder="Hours/Days">
+				<select id="exp" name="exp" class="form-control"></select>
+			</td>
 			<td><input style="text-align:right; type="text" id="price" name="price" class="form-control" placeholder="Price"></td>
 			<td><input style="text-align:right;type="text" id="total" name="total" class="form-control" placeholder="Total" readonly></td>
 		</tr>
@@ -45,7 +48,7 @@
 		</check>
            <repeat group="{{ @invoicesd }}" value="{{ @rows }}">
                <tr>
-                   <td align="right">{{ trim(@rows.transdate) }}</td>
+                   <td align="right">{{ substr(@rows.transdate,0,11) }}</td>
                    <td><b>{{ trim(@rows.detail) }}</b><br><i>{{ trim(@rows.description)}}</i></td>
                    <td align="right">{{ number_format(@rows.qty,2) }}</td>
                    <td align="right">{{ number_format(@rows.price,2) }}</td>
@@ -89,6 +92,9 @@
 	var id = $("#exp").val();
 	$.get("/expensedetail/"+id).done( function (data) {
 		var datx = JSON.parse(data);
+console.log(datx);
+		$("#qty").val(1);		
+		$("#transdate").val(datx[0].transdate);		
 		$("#price").val(datx[0].price);		
 		$("#total").val(datx[0].total);		
 		$("#description").val(datx[0].description);		
@@ -103,6 +109,7 @@
 	} else {
 		$("#qty").show();
 		$("#exp").hide();
+		$("#qty").val('');
 		$("#price").val('');
                 $("#total").val('');
                 $("#description").val('');

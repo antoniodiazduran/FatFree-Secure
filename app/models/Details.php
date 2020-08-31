@@ -15,6 +15,9 @@ class Details extends DB\SQL\Mapper {
     public function add() {
         $this->copyFrom('POST');
         $this->save();
+	$nid = $this->_id;
+	$sql  = 'UPDATE expenses SET invoice = ? WHERE id = '.$_POST['exp'];
+	$this->db->exec($sql,$nid);
     }
 
     public function getRid($id) {
@@ -37,6 +40,8 @@ class Details extends DB\SQL\Mapper {
     public function delete($id) {
         $this->load(array('id=?',$id));
         $this->erase();
+	$sql  = 'UPDATE expenses SET invoice = null WHERE invoice = ?';
+	$this->db->exec($sql,$id);
     }
 
 }

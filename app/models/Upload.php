@@ -65,6 +65,15 @@ class Upload extends DB\SQL\Mapper {
  	  		$sql .= 'VALUES (?,?,?,?,?,?,?) ';
 	  		//$this->db->exec($sql,array( $fn['transdate'],$fn['filename'],$fn['customer'],$fn['area'],$this->getGUID(),$user ) );
 	  		$this->db->exec($sql,array( $fn['transdate'],$fn['filename'],$fn['customer'],$fn['area'],substr($f,8,200),$fn['username'],$fn['company'] ) );
+			$nid = $this->db->lastInsertId();
+		   if($fn['exp']=='1') {
+			$exp  = 'INSERT INTO expenses (transdate,customer,area,username,company,receipt,qty)';
+			$exp .= 'VALUES(?,?,?,?,?,?,?);';
+	  		$this->db->exec($exp,array( $fn['transdate'],$fn['customer'],$fn['area'],$fn['username'],$fn['company'],$nid,$fn['qty'] ) );
+			$xid = $this->db->lastInsertId();
+			$upf = 'UPDATE upfiles SET expense = ? WHERE id = '.$nid;
+			$this->db->exec($upf,$xid); 
+		   }
         	} else {
 			$errors[] = $fn['filename']. ' file not uploaded!';
 		}
