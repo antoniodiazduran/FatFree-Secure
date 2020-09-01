@@ -4,7 +4,7 @@
 	<b>Customer:</b> {{ @details[0].customer }}<br>
 	<b>Record ID:</b> {{ @details[0].id }}<br>
 	<b>Total :</b> {{ number_format(@details[0].total,2) }}<br>
-	<b>Status :</b> {{ @details[0].invoicestatus }}<br>
+	<b>Status :</b> {{ ucfirst(@details[0].invoicestatus) }}<br>
 	<b>Number :</b> {{ @details[0].invoicenumber }}
 </div>
 <div class="col"> <b>Address:</b><br> {{ @details[0].customerd }}</div>
@@ -49,7 +49,7 @@
            <repeat group="{{ @invoicesd }}" value="{{ @rows }}">
                <tr>
                    <td align="right">{{ substr(@rows.transdate,0,11) }}</td>
-                   <td><b>{{ trim(@rows.detail) }}</b><br><i>{{ trim(@rows.description)}}</i></td>
+                   <td>{{ trim(@rows.description) }}<br><i>{{ trim(@rows.detail)}}</i></td>
                    <td align="right">{{ number_format(@rows.qty,2) }}</td>
                    <td align="right">{{ number_format(@rows.price,2) }}</td>
                    <td align="right">{{ number_format(@rows.total,2) }}</td>
