@@ -14,7 +14,7 @@ class Expenses extends DB\SQL\Mapper {
 
     public function apiexpensesdetail($id) {
         // Selecting data
-        $sql  = 'SELECT DATE_FORMAT(transdate,"%Y/%m/%d") AS transdate ,description,FORMAT(qty+taxes,2) AS total, FORMAT(qty,2) AS price ';
+        $sql  = 'SELECT DATE_FORMAT(transdate,"%Y/%m/%d") AS transdate ,description,FORMAT(qty+taxes,2) AS total, FORMAT(qty,2) AS price, area ';
 	$sql .= 'FROM expenses_view4 WHERE id = ?';
         $result = $this->db->exec($sql,$id);
         echo json_encode($result);
@@ -22,7 +22,7 @@ class Expenses extends DB\SQL\Mapper {
 
     public function apiexpensesfilter($customer,$company) {
         // Selecting data
-        $sql  = 'SELECT id,area,description FROM expenses_view4 WHERE customer = ? AND company = ? AND invoice is null';
+        $sql  = 'SELECT id,area,description,filename FROM expenses_view4 WHERE customer = ? AND company = ? AND invoice is null';
         $result = $this->db->exec($sql,array($customer,$company));
         echo json_encode($result);
     }

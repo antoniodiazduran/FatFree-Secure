@@ -92,12 +92,13 @@
 	var id = $("#exp").val();
 	$.get("/expensedetail/"+id).done( function (data) {
 		var datx = JSON.parse(data);
-console.log(datx);
-		$("#qty").val(1);		
-		$("#transdate").val(datx[0].transdate);		
-		$("#price").val(datx[0].price);		
-		$("#total").val(datx[0].total);		
-		$("#description").val(datx[0].description);		
+		//console.log(datx);
+		$("#qty").val(1);
+		$("#transdate").val(datx[0].transdate);
+		$("#price").val(datx[0].price);
+		$("#total").val(datx[0].total);
+//		$("#description").val(datx[0].description);
+		$("#description").val(datx[0].area);
 	});
    });
 
@@ -125,7 +126,7 @@ console.log(datx);
                 
 		$('#exp').append($('<option>').text("Select...").attr('value',''));
                 $.each(datx, function(index,value) {
-                      $('#exp').append($('<option>').text(value.description).attr('value',value.id));
+                      $('#exp').append($('<option>').text(value.filename).attr('value',value.id));
                 });
    	});
    }
