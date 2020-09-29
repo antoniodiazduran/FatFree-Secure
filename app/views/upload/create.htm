@@ -38,6 +38,11 @@
         <input type="text" id="qty" name="qty" value="" placeholder="0.00" class="form-control">
   </div>
   <div class="col-lg-2">
+    <label class="control-label" for="area">Country:</label>
+        <select id="country" name="country" value="" class="browser-default custom-select">
+        </select>
+  </div>
+  <div class="col-lg-2">
 	<br><br><span style="color:red;" id="errarea"></span>
   </div> 
 </div>
@@ -87,6 +92,13 @@
         $.each(areaFields, function(index, value){
                 $('#area').append($('<option>').text(value).attr('value',value));
         });
+	$.each(countryFields, function(index, value){
+        if(value == '{{ @POST.country }}') {
+                $('#country').append($('<option>').text(value).attr('value',value).attr('selected','selected'));
+        } else {
+                $('#country').append($('<option>').text(value).attr('value',value));
+        }
+	});
  });     
 
  $("#exp").change( function() {
