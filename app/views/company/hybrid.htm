@@ -5,10 +5,32 @@
         <div class="row">
             <input type="hidden" id="id" name="id" value="{{ @POST.id }}"/>
             <input type="hidden" name="{{ @mode }}" value="{{ @mode }}"/>
-            <div class="col-lg-4"><input type="text" id="name" name="name" class="form-control" placeholder="{{ ucfirst(@section) }} name" value="{{ @POST.name }}"></div>
-            <div class="col-lg-6"><input type="text" id="description" name="description" class="form-control" placeholder="Brief Description" value="{{ @POST.description }}"></div>
-            <div class="col-lg-1"><input type="submit" id="mode" name="mode" value="{{ @mode }}" class="btn btn-warning"></div>
-            <div class="col-lg-1"><a href="/company"><button type="button" class="btn ">cancel</button></a> </div>
+            <div class="col-lg-3"><input type="text" id="name" name="name" class="form-control" placeholder="{{ ucfirst(@section) }} name" value="{{ @POST.name }}"></div>
+            <div class="col-lg-3"><input type="text" id="description" name="description" class="form-control" placeholder="Brief Description" value="{{ @POST.description }}"></div>
+            <div class="col-lg-1"><select class="form-control" id="nav_color" name="nav_color">
+					<option>
+					<option value="bg-primary" {{ @POST.nav_color=='bg-primary'?'selected':''}} >Blue 
+					<option value="bg-secondary" {{ @POST.nav_color=='bg-secondary'?'selected':''}}>Gray 
+					<option value="bg-info" {{ @POST.nav_color=='bg-info'?'selected':''}}>Teal
+					<option value="bg-warning" {{ @POST.nav_color=='bg-warning'?'selected':''}}>Yellow 
+					<option value="bg-danger" {{ @POST.nav_color=='bg-danger'?'selected':''}}>Red 
+					<option value="bg-success" {{ @POST.nav_color=='bg-success'?'selected':''}}>Green 
+					<option value="bg-success" {{ @POST.nav_color=='bg-dark'?'selected':''}}>Dark 
+				</select>
+	    </div>
+            <div class="col-lg-1"><select class="form-control" id="production_units" name="production_units">
+					<option>
+					<option value="pieces" {{ @POST.production_units=='pieces'?'selected':''}} >pieces
+					<option value="lbs" {{ @POST.production_units=='lbs'?'selected':''}}>lbs
+					<option value="gal" {{ @POST.production_units=='gal'?'selected':''}}>gal
+					<option value="kg" {{ @POST.production_units=='kg'?'selected':''}}>kg 
+					<option value="liters" {{ @POST.production_units=='liters'?'selected':''}}>liters 
+				</select>
+	    </div>
+            <div class="col-lg-2">
+		<input type="submit" id="mode" name="mode" value="{{ @mode }}" class="btn btn-warning">
+		<a href="/company"><button type="button" class="btn ">cancel</button></a> 
+	    </div>
         </div>
     </form>   
     <br>
@@ -18,6 +40,7 @@
                <th scope="col">Id</th>
                <th scope="col">Name</th>
                <th scope="col">Description</th>
+               <th scope="col">Navigation Color</th>
                <th scope="col"></th>
 	           <th scope="col">Action</th>
            </tr>
@@ -29,6 +52,7 @@
                 <td>{{ @rows.id }}</td>
                 <td>{{ @rows.name }}</td>
                 <td>{{ substr(@rows.description,0,100) }}</td>
+                <td>{{ @rows.nav_color }}</td>
                 <td></td> 
                 <td width="10%">
                     <a href="{{ @BASE.'/'.@section.'/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15" title="Edit"></a> &nbsp;

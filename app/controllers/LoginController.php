@@ -4,7 +4,7 @@
     function render(){
         $this->f3->set('SESSION.user', null);
         $this->f3->set('SESSION.company', null);
-	    $this->f3->set('msg','Weather in SC is HOT!');
+	    $this->f3->set('msg','Weather in SC is nice!!');
 	    $this->f3->set('stat','dark');
         $template=new Template;
         echo $template->render('auth/login.htm');
@@ -181,6 +181,7 @@
                     $this->f3->set('SESSION.roles', $user->roles);
                     $this->f3->set('SESSION.company', $user->company);
                     $this->f3->set('SESSION.companyname', $company->name);
+                    $this->f3->set('SESSION.nav_color', $company->nav_color);
                     $this->f3->set('SESSION.ip', $this->f3->ip());
                     $this->f3->set('SESSION.timeout', time()+$this->f3->get('expire'));
                     $this->f3->set('SESSION.timeoutdate',date('Y.m.d h:i:s',time()+$this->f3->get('expire')) );

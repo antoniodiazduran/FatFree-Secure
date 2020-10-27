@@ -14,7 +14,7 @@ class AuditsController extends Controller {
     public function index()
     {
         $classvar = new Audits($this->db);
-        $this->f3->set('sqldata',$classvar->all($this->f3->get('PARAMS.id')));
+        $this->f3->set('sqldata',$classvar->all($this->f3->get('PARAMS.id'),$this->f3->get('SESSION.company')));
         $this->f3->set('relation',$this->f3->get('PARAMS.id') );
         $this->f3->set('section','audits');
         $this->f3->set('columns','[1,2]');
@@ -30,7 +30,7 @@ class AuditsController extends Controller {
     public function detail()
     {
         $classvar = new Audits($this->db);
-        $this->f3->set('sqldata',$classvar->all($this->f3->get('PARAMS.id')));
+        $this->f3->set('sqldata',$classvar->all($this->f3->get('PARAMS.id'),$this->f3->get('PARAMS.company')));
         $this->f3->set('relation',$this->f3->get('PARAMS.id') );
         $this->f3->set('section','audits');
         $this->f3->set('columns','[1,2]');
@@ -101,7 +101,7 @@ class AuditsController extends Controller {
             $this->f3->set('mode','update');
             $this->f3->set('relation',$this->f3->get('POST.relation'));
             // Setting List
-            $this->f3->set('sqldata',$classvar->all($this->f3->get('POST.relation')));
+            $this->f3->set('sqldata',$classvar->all($this->f3->get('POST.relation'),$this->f3->get('SESSION.company')));
             $this->f3->set('section','audits');
             $this->f3->set('columns','[1,2]');
             $this->f3->set('subnav','true');

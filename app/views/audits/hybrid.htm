@@ -32,7 +32,7 @@
                 <td>{{ @rows.title }}</td>
                 <td>{{ substr(@rows.description,0,100) }}</td>
                 <td></td> 
-                <td width="10%">
+                <td width="15%">
                     <a href="{{ @BASE.'/questions/'. @rows.id }}"><img src="/ui/images/filelist.png" width="20" title="Detail"></a> &nbsp;
                     <a href="{{ @BASE.'/'.@section.'/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15" title="Edit"></a> &nbsp;
                     <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15" title="Delete"></a> 

@@ -6,14 +6,20 @@ class Audits extends DB\SQL\Mapper {
         parent::__construct($db,'audits');
     }
 
-    public function all($relation) {
+    public function all($relation,$company) {
         // Selecting data
-        if ($relation == 0) {
-            $sql  = "SELECT * FROM audits ORDER BY title";
+	if ($company == 0) {
+            $sql  = 'SELECT * FROM audits ORDER BY timestamp DESC';
+            $result = $this->db->exec($sql);
         } else {
-            $sql  = "SELECT * FROM audits WHERE relation = ? ORDER BY title";
+        if ($relation == 0) {
+            $sql  = "SELECT * FROM audits WHERE company = ?  ORDER BY title ";
+            $result = $this->db->exec($sql,$company);
+        } else {
+            $sql  = "SELECT * FROM audits WHERE relation = ? AND company = ? ORDER BY title";
+            $result = $this->db->exec($sql,array($relation, $company));
         }
-        $result = $this->db->exec($sql,$relation);
+	}
         return $result;
     }
 

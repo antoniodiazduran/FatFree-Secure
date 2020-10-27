@@ -13,7 +13,7 @@ class Instructions extends DB\SQL\Mapper {
         //$sql .= "FROM instructions i, (SELECT @row:=0) r WHERE relation = ?  ORDER BY sequence";
         //
         // Looking for the newest sequence, based on relation 
-        $sql  = "SELECT @row:=@row+1 AS seq, id,relation,sequence, timestamp, hows, whats, whys, ";
+	$sql  = "SELECT @row:=@row+1 AS seq, id,relation,sequence, timestamp, hows, whats, whys, ";
         $sql .= "(SELECT COUNT(id) FROM figures f WHERE i.id = f.relation) AS figcount  ";
         $sql .= "FROM instructions i, (SELECT @row:=0) r ";
         $sql .= "WHERE i.timestamp IN (select max(timestamp) ";
@@ -24,10 +24,14 @@ class Instructions extends DB\SQL\Mapper {
 
     public function list($company) {
         // Selecting data
-        $sql  = 'SELECT *, ';
+        if ($company == 0) {
+            $sql  = 'SELECT * FROM stations_view3 ORDER BY timestamp DESC';
+        } else {
+	$sql  = 'SELECT *, ';
         $sql .= '(SELECT COUNT(id) FROM instructions i WHERE v.id = i.relation) AS tasks ';
         $sql .= 'FROM stations_view3 v ';
         $sql .= 'WHERE company = ? ORDER BY site,product,machine,title';
+	}
         $result = $this->db->exec($sql,$company);
         return $result;
     }

@@ -46,6 +46,7 @@ class UpController extends Controller {
         }
         else
         {
+            $this->f3->set('section','upload');
             $this->f3->set('page_head','New');
             $this->f3->set('view','upload/create.htm');
         }

@@ -29,6 +29,15 @@
   </div>
   <div class="row">
     <div class="col-sm-4">
+    <label class="control-label" for="company">Verify:</label>
+    <select id="verified" name="verified" class="form-control">
+	<option value="1" {{ @POST.verified=='1'?' selected':''}} >Yes
+	<option value="0" {{ @POST.verified=='0'?' selected':''}} >No
+    </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
     <label class="control-label" for="email">Email:</label>
         <input type="text" id="email" name="email" value="{{ @POST.email}}" class="form-control"/>
     </div>

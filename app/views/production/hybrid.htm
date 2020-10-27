@@ -1,0 +1,161 @@
+<p>
+<form action="/production/{{ @mode }}" method="post" class="form-horizontal">
+<div class="row">
+  <div class="col-lg-4">
+    <label class="control-label" for="transdate">Transaction Date:</label>
+      <input type="text" class="form-control" id="transdate" name="transdate" placeholder="mm/dd/yyyy" value="<check if="{{ @mode == 'update' }}">value="{{ substr(@POST.transdate,0,10) }}</check>">
+  </div>
+</div>
+<div class="row">
+	<div class="col-lg-4">
+	<label class="control-label" for="site">Site:</label>
+		  <select id="site" name="site" value="" class="browser-default custom-select" required>
+		  </select>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-4">
+	<label class="control-label" for="product">Product/Area:</label>
+		  <select id="product" name="product" value="" class="browser-default custom-select" required>
+		  </select>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-4">
+	<label class="control-label" for="machine">Machine/Department:</label>
+		<select id="machine" name="machine" value="" class="browser-default custom-select" required>
+		</select>
+	</div>
+</div>  
+<div class="row">
+	<div class="col-lg-4">
+	<label class="control-label" for="machine">Station/Topic:</label>
+		<select id="station" name="station" value="" class="browser-default custom-select" required>
+		</select>
+	</div>
+</div>  
+<br>
+<div class="row">
+	<div class="col-lg-2">
+	  <label class="control-label" for="description">Quantity:</label>
+		<input type="number" class="form-control" id="qty" name="qty" value="<check if="{{ @mode == 'update' }}"><true>{{ @POST.qty }}</true><false>0</false></check>" placeholder="Number" required/>
+	</div>
+	<div class="col-lg-2">
+	  <label class="control-label" for="description">Units:</label>
+		<select id="units" name="units" value="" class="browser-default custom-select" required>
+		</select>
+	</div>
+</div>
+<br>
+<div class="row">
+  <div class="col">
+   <check if="{{ @mode == 'update' }}">
+    <input type="hidden" name="id" value="{{ @POST.id }}">
+   </check>
+	<input type="hidden" name="username" value="{{ @SESSION.user }}"/>
+	<input type="hidden" name="company" value="{{ @SESSION.company }}"/>
+    <input type="hidden" name="{{ @mode }}" value="{{ @mode }}" />
+    <button type="submit" class="btn btn-warning" >{{ @mode }}</button>
+  </div>
+</div>
+</form>
+<script>
+
+ $(document).ready(function(){  
+	$("#create-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
+	//Getting time stamp for record
+	//$("#timestamp").val(formatNow());
+	<check if="{{ @mode == 'update' }}">
+	  document.getElementById('transdate').value = formatDBDate('{{ @POST.transdate }}');
+	</check>
+	<check if="{{ @mode == 'create' }}">
+	  document.getElementById('transdate').value = formatNow();
+	</check>
+        
+	// ajax {{ @mode }}
+	<check if="{{ @mode == 'update' }}">
+
+	</check>
+	<check if="{{ @mode == 'create' }}">
+		siteCList({{ @SESSION.company*1 }},'company');
+		unitsProduction();
+	</check>
+ });
+
+ $('#site').change(function() {
+	console.log( $('#site').val() );
+	productCList( 'product','site',$('#site').val() );
+ });       
+ $('#product').change(function(){
+	console.log( $('#product').val() )
+	machineCList( 'machine','product',$('#product').val() );
+ });
+ $('#machine').change(function(){
+	console.log( $('#machine').val() )
+	stationCList( 'station',$('#product').val(),$('#machine').val() );
+ });
+ $('#station').change(function(){
+	console.log( $('#station').val() )
+ });
+
+ function unitsProduction () {
+	$('#units').text('');
+        $('#units').append($('<option>').text('Select...').attr('value',''));
+        $('#units').append($('<option>').text('Pieces').attr('value','Pieces'));
+        $('#units').append($('<option>').text('Liters').attr('value','Liters'));
+        $('#units').append($('<option>').text('mL').attr('value','mL'));
+        $('#units').append($('<option>').text('Gal').attr('value','Gal'));
+        $('#units').append($('<option>').text('Grams').attr('value','Grams'));
+        $('#units').append($('<option>').text('Kg').attr('value','Kg'));
+        $('#units').append($('<option>').text('Tons').attr('value','Tons'));
+        $('#units').append($('<option>').text('oz').attr('value','oz'));
+        $('#units').append($('<option>').text('Lbs').attr('value','Lbs'));
+ }
+
+ function stationCList(tab,fld,cid) {
+	$.get( "/stationapilist/"+tab+"/"+fld+"/"+cid  )
+                .done(function( data ) {
+				var datx = JSON.parse(data);
+				$('#scrap').text('');
+				$('#station').text('');
+				$('#station').append($('<option>').text('Select...').attr('value',''));
+                $.each(datx, function(index,value) {
+                        $('#station').append($('<option>').text(value.title).attr('value',value.id));
+                });
+	});
+ }
+ function machineCList(tab,fld,cid) {
+	$.get( "/stationapilist/"+tab+"/"+fld+"/"+cid  )
+                .done(function( data ) {
+				var datx = JSON.parse(data);
+				$('#station').text('');
+				$('#machine').text('');
+				$('#machine').append($('<option>').text('Select...').attr('value',''));
+                $.each(datx, function(index,value) {
+                        $('#machine').append($('<option>').text(value.title).attr('value',value.id));
+                });
+	});
+ }
+ function productCList(tab,fld,cid) {
+	$.get( "/stationapilist/"+tab+"/"+fld+"/"+cid  )
+                .done(function( data ) {
+				var datx = JSON.parse(data);
+				$('#machine').text('');
+				$('#product').text('');
+				$('#product').append($('<option>').text('Select...').attr('value',''));
+                $.each(datx, function(index,value) {
+                        $('#product').append($('<option>').text(value.title).attr('value',value.id));
+                });
+	});
+ }
+ function siteCList(cid, filter) {
+	$.get( "/sitelist/"+filter+"/"+cid  )
+                .done(function( data ) {
+				var datx = JSON.parse(data);
+				$('#site').append($('<option>').text('Select...').attr('value',''));
+                $.each(datx, function(index,value) {
+                        $('#site').append($('<option>').text(value.city).attr('value',value.id));
+                });
+        });
+ }
+</script>

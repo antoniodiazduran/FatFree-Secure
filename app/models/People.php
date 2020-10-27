@@ -6,10 +6,10 @@ class People extends DB\SQL\Mapper {
         parent::__construct($db,'people');
     }
 
-    public function all($relation) {
+    public function all($relation,$company) {
         // Selecting data
-        $sql  = "SELECT * FROM people ORDER BY lastname";
-        $result = $this->db->exec($sql,$relation);
+        $sql  = "SELECT * FROM people WHERE company = ? ORDER BY lastname";
+        $result = $this->db->exec($sql,$company);
         return $result;
     }
 

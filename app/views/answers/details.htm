@@ -6,11 +6,11 @@
            <tr>
                <th scope="col">Id</th>
                <th scope="col">Audit's Date</th>
-               <th scope="col">Username</th>
+               <th scope="col">Trainee</th>
+               <th scope="col">Question</th>
+               <th scope="col">Answer</th>
                <th scope="col"></th>
-               <th scope="col"></th>
-               <th scope="col"></th>
-	       <th scope="col">Action</th>
+	       <th scope="col"></th>
            </tr>
            </thead>
        
@@ -18,14 +18,13 @@
 		   <repeat group="{{ @sqldata }}" value="{{ @rows }}">
                <tr>
                 <td>{{ @rows.id }}</td>
-
                 <td>{{ @rows.timestamp }}</td>
                 <td>{{ @rows.trainee }}</td>
-                <td></td> 
-                <td></td> 
+                <td>{{ @rows.question }}</td>
+                <td>{{ @rows.answer }}</td>
                 <td></td> 
 		<td>
-		<a href="{{ @BASE.'/'.@section.'/detail/'. @rows.id }}"><img src="/ui/images/filelist.png" width="20" title="Audit Detail"></a>
+		<!--<a href="{{ @BASE.'/'.@section.'/detail/'. @rows.id }}"><img src="/ui/images/filelist.png" width="20" title="Audit Detail"></a>//-->
 		</td>
                </tr>
            </repeat>

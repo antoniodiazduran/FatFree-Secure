@@ -127,6 +127,7 @@ class InstructionsController extends Controller {
         {
             $classvar = new Instructions($this->db);
             $this->f3->set('page_head','New');
+            $this->f3->set('section','instructions');
             $this->f3->set('mode','create');
             $this->f3->set('breadcrumbs',$classvar->breadcrumbs($this->f3->get('PARAMS.id'),$this->f3->get('SESSION.user')));
             $this->f3->set('nextsequence',$classvar->lastsequence($this->f3->get('PARAMS.id')));
@@ -178,6 +179,7 @@ class InstructionsController extends Controller {
         {
             $classvar->getById($this->f3->get('PARAMS.id'));
             $this->f3->set('page_head','Update');
+            $this->f3->set('section','instructions');
             $this->f3->set('mode','update');
             $this->f3->set('relation',$classvar->relation($this->f3->get('PARAMS.id')));
             $this->f3->set('view',$this->getViewFolder().'/hybrid.htm');

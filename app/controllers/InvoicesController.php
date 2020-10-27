@@ -60,6 +60,7 @@ class InvoicesController extends Controller {
         else
         {
             $this->f3->set('page_head','New');
+            $this->f3->set('section','invoices');
             $this->f3->set('view','/'.$this->getViewFolder().'/create.htm');
         }
     }

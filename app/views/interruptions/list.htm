@@ -1,0 +1,64 @@
+<!--<input type="button" id="btnExport" value="Export"><br> //-->
+<div id="dvData">
+        <table id="expenses" class="table table-hover">
+           <thead class="thead-light">
+           <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Site</th>
+              <th scope="col">Product</th>
+              <th scope="col">Machine</th>
+              <th scope="col">Station</th>
+              <th scope="col"><u>Scrap</u></th>
+              <th scope="col">Type</th>
+              <th scope="col">Qty</th>
+              <th scope="col">Units</th>
+              <th scope="col"></th>
+              <th scope="col">Action</th>
+           </tr>
+           </thead>
+       
+           <tbody>
+           <repeat group="{{ @sqldata }}" value="{{ @rows }}">
+               <tr>
+                  <td>{{ trim(@rows.id) }}</td>
+                  <td>{{ trim(@rows.siteName) }}</td>
+                  <td>{{ trim(@rows.productName) }}</td>
+                  <td>{{ trim(@rows.machineName) }}</td>
+                  <td>{{ trim(@rows.stationName) }}</td>
+                  <td>{{ trim(@rows.scrapName) }}</td>
+                  <td>{{ trim(@rows.type)=='s' ? 'Scrap' : 'Downtime' }}</td>
+                  <td>{{ trim(@rows.qty) }}</td>
+                  <td>{{ trim(@rows.units) }}</td>
+		  <td></td>
+                  <td>
+                    <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15" title="Delete"></a> 
+                  </td>
+               </tr>
+           </repeat>
+           </tbody>
+       
+        </table>
+       </div>
+<script>
+// Number of columns to filter data
+var columns = {{ @columns }};
+
+$(document).ready(function(){
+  $("#list-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
+  $("#btnExport").click(function(e) {
+//    window.open('data:application/vnd.ms-excel,' + encodeURIComponent($('#dvData').html()) );
+    window.open('data:application/csv,' + encodeURIComponent($('#dvData').html()) );
+    e.preventDefault();
+  })
+});
+
+function confirmDelete(rid) {
+	if(confirm("Delete record:"+rid+" ?")){
+		window.open("/{{ @section }}/delete/"+rid,"_self");
+	}
+}
+
+</script>
+
+
+

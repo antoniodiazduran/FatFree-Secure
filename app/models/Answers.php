@@ -8,22 +8,32 @@ class Answers extends DB\SQL\Mapper {
 
     public function all($company) {
         // Selecting data
-        if ($relation == 0) {
-            $sql  = "SELECT * FROM audits ORDER BY title";
-        } else {
-            $sql  = "SELECT * FROM audits WHERE relation = ? ORDER BY title";
-        }
-        $result = $this->db->exec($sql,$company);
+        $sql  = "SELECT * FROM audits WHERE company = ? ORDER BY title";
+	$result = $this->db->exec($sql,$company);
+        return $result;
+    }
+
+    public function backone($relation) {
+        // Selecting data
+        $sql  = "SELECT relation FROM answers WHERE id = ?";
+        $result = $this->db->exec($sql,$relation);
+        return $result;
+    }
+    public function details($relation) {
+        // Selecting data
+        $sql  = "SELECT timestamp,id,relation,answer,trainee,(SELECT title FROM questions WHERE id = answers.question) as question FROM answers WHERE timestamp = (SELECT timestamp FROM answers WHERE id = ?)";
+        $result = $this->db->exec($sql,$relation);
         return $result;
     }
 
     public function answers($relation) {
         // Selecting data
-        //$sql  = "SELECT trainee,timestamp FROM answers WHERE relation = ? GROUP BY username,timestamp";
-        $sql  = "SELECT * FROM answers WHERE relation = ?";
+        //$sql  = "SELECT trainee,timestamp FROM answers WHERE relation = ? GROUP BY timestamp";
+        $sql  = "SELECT timestamp,id,trainee FROM answers WHERE relation = ? GROUP BY timestamp	ORDER BY timestamp DESC";
         $result = $this->db->exec($sql,$relation);
         return $result;
     }
+
     public function questions($relation) {
         // Selecting data
         $sql  = "SELECT * FROM questions WHERE relation = ?";

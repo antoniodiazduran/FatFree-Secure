@@ -1,32 +1,21 @@
 <?php
 
-class Company extends DB\SQL\Mapper {
+class Production extends DB\SQL\Mapper {
 
     public function __construct(DB\SQL $db) {
-        parent::__construct($db,'company');
+        parent::__construct($db,'production');
     }
 
-    public function all($cmp) {
+    public function all($company) {
         // Selecting data
-	if ($cmp != 0) {
-           $sql  = 'SELECT * FROM company  WHERE id = ? ORDER BY name DESC';
-	} else {
-           $sql  = 'SELECT * FROM company ORDER BY name DESC';
-	}
-        $result = $this->db->exec($sql,$cmp);
+        $sql  = 'SELECT *,';
+        $sql .= '(SELECT title FROM products WHERE i.product = id) AS productName, ';
+	$sql .= '(SELECT title FROM machines WHERE id = i.machine) AS machineName, ';
+	$sql .= '(SELECT title FROM stations WHERE id = i.station) AS stationName, ';
+	$sql .= '(SELECT city FROM sites WHERE id = i.site) AS siteName ';
+	$sql .= 'FROM production i WHERE company = ?';
+        $result = $this->db->exec($sql,$company);
         return $result;
-    }
-
-    public function apicompany() {
-        // Selecting data
-        $sql  = 'SELECT id,name FROM company ORDER BY name';
-        $result = $this->db->exec($sql);
-        echo json_encode($result);
-    }
-
-    public function getByName($id) {
-        // Getting data
-        $this->load(array('id=?',$id));
     }
 
     public function add() {

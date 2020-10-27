@@ -24,11 +24,25 @@ class AnswersController extends Controller {
         $this->f3->set('page_head','List');
         $this->f3->set('view',$this->getViewFolder().'/list.htm');
     }
+    public function details()
+    {
+        $classvar = new Answers($this->db);
+        $this->f3->set('sqldata',$classvar->details($this->f3->get('PARAMS.id')));
+        $backone = $classvar->backone($this->f3->get('PARAMS.id'));
+        $this->f3->set('section','answers');
+        $this->f3->set('columns','[1,2,3,4]');
+        $this->f3->set('subnav','true');
+        $this->f3->set('back','yes');
+        $this->f3->set('backto','answers/list/'.$backone[0]['relation']);
+        $this->f3->set('create','no');
+        $this->f3->set('page_head','List');
+        $this->f3->set('view',$this->getViewFolder().'/details.htm');
+    }
     public function audits()
     {
         $classvar = new Answers($this->db);
         $this->f3->set('sqldata',$classvar->answers($this->f3->get('PARAMS.id')));
-        $this->f3->set('section','audits');
+        $this->f3->set('section','answers');
         $this->f3->set('columns','[1,2,3,4]');
         $this->f3->set('subnav','true');
         $this->f3->set('back','yes');

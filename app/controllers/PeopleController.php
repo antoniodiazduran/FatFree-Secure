@@ -14,7 +14,7 @@ class PeopleController extends Controller {
     public function index()
     {
         $classvar = new People($this->db);
-        $this->f3->set('sqldata',$classvar->all($this->f3->get('PARAMS.id')));
+        $this->f3->set('sqldata',$classvar->all($this->f3->get('PARAMS.id'),$this->f3->get('SESSION.company')));
         $this->f3->set('relation',$this->f3->get('PARAMS.id') );
         $this->f3->set('section','people');
         $this->f3->set('columns','[1,2,3]');

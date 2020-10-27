@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-md bg-warning navbar-light fixed-top">
+<nav class="navbar navbar-expand-md {{ @SESSION.nav_color }} navbar-light fixed-top">
   <!--<a href="/"><img src="/ui/images/DiazLLC_logo_box.jpeg" height="25"></a>//-->
-  <a href="/"><h5 style="color:gray;">{{ucfirst(@section)}}</h5></a>
+  <a href="/"><h6 style="color:silver;">{{ucfirst(@section)}}</h6></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -9,9 +9,19 @@
     <li><div class="col">&nbsp;</div></li>
    <check if="{{ @SESSION.roles=='Operations' }}">
       <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="production-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <check if="{{@icons == 1 }}"><img src="/ui/images/clock.png" width="23" title="production"></check>
+          <check if="{{@labels == 1 }}">Production</check>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/production/create">Create</a>
+          <a class="dropdown-item" href="/production">List</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="interruptions-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <img src="/ui/images/pause.png" width="23" title="Interruptions">
-          <check if="{{@icons == 0 }}">Interruptions</check>
+          <check if="{{@icons == 1 }}"><img src="/ui/images/pause.png" width="23" title="Interruptions"></check>
+          <check if="{{@labels == 1 }}">Interruptions</check>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/interruptions/create">Create</a>
@@ -20,8 +30,8 @@
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="pareto-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <img src="/ui/images/pareto.png" width="23" title="Pareto">
-          <check if="{{@icons == 0 }}">Pareto</check>
+          <check if="{{@icons == 1 }}"><img src="/ui/images/pareto.png" width="23" title="Pareto"></check>
+          <check if="{{@labels == 1 }}">Pareto</check>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/pareto/create">Create</a>
@@ -30,30 +40,30 @@
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="trends-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <img src="/ui/images/trend.png" width="23" title="Trends">
-          <check if="{{@icons == 0 }}">Trends</check>
+          <check if="{{@icons == 1 }}"><img src="/ui/images/trend.png" width="23" title="Trends"></check>
+          <check if="{{@labels == 1 }}">Trends</check>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/trends/create">Create</a>
           <a class="dropdown-item" href="/trends">List</a>
         </div>
       </li>
-      <li class="nav-item dropdown">
+</check>
+<!--      <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="instructions-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <img src="/ui/images/stations.png" width="20" title="Instructions">
-          <check if="{{@icons == 0 }}">Instructions</check>
+          <check if="{{@icons == 1 }}">Instructions</check>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/instructions/view">List</a>
           <a class="dropdown-item" href="/audits/list">Audits</a>
         </div>
-      </li>
-   </check>
+      </li>//-->
    <check if="{{ @SESSION.roles=='Finance' }}">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="expenses-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <img src="/ui/images/expense.png" width="25" title="Expenses">
-          <check if="{{@icons == 0 }}">Expenses</check>
+          <check if="{{@icons == 1 }}"><img src="/ui/images/expense.png" width="25" title="Expenses"></check>
+          <check if="{{@labels == 1 }}">Expenses</check>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/expenses/create">Create</a>
@@ -62,8 +72,8 @@
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="clock-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <img src="/ui/images/clock.png" width="24" title="Clock">
-          <check if="{{@icons == 0 }}">Clock</check>
+          <check if="{{@icons == 1 }}"><img src="/ui/images/clock.png" width="24" title="Clock"></check>
+          <check if="{{@labels == 1 }}">Clock</check>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/clocktime/create">Create</a>
@@ -72,8 +82,8 @@
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="invoices-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <img src="/ui/images/invoice.png" width="22" title="Invoices">
-          <check if="{{@icons == 0 }}">Invoices</check>
+          <check if="{{@icons == 1 }}"><img src="/ui/images/invoice.png" width="22" title="Invoices"></check>
+          <check if="{{@labels == 1 }}">Invoices</check>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/invoices/create">Create</a>
@@ -82,8 +92,8 @@
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="upload-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <img src="/ui/images/upload.png" width="25" title="Upload">
-          <check if="{{@icons == 0 }}">Upload</check>
+          <check if="{{@icons == 1 }}"><img src="/ui/images/upload.png" width="25" title="Upload"></check>
+          <check if="{{@labels == 1 }}">Upload</check>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/upload/create">Create</a>
@@ -106,9 +116,10 @@
               <a class="dropdown-item" href="/sites">Sites</a>
               <a class="dropdown-item" href="/products">Products</a>
               <a class="dropdown-item" href="/machines">Machines</a>
-              <a class="dropdown-item" href="/stations">Stations <img src="/ui/images/r_arrow.png" width="20"></a>
+              <a class="dropdown-item" href="/stations">Stations</a>
               <a class="dropdown-item" href="/instructions">Instructions</a>
               <a class="dropdown-item" href="/audits">Audits</a>
+              <a class="dropdown-item" href="/audits/list">Answers</a>
               <a class="dropdown-item" href="/people">People</a>
             </div>
           </li>

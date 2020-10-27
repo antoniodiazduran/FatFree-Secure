@@ -14,7 +14,7 @@ class CompanyController extends Controller {
     public function index()
     {
         $classvar = new Company($this->db);
-        $this->f3->set('sqldata',$classvar->all($this->f3->get('SESSION.user')));
+        $this->f3->set('sqldata',$classvar->all($this->f3->get('SESSION.company')));
         $this->f3->set('section','company');
         $this->f3->set('columns','[1,2]');
         $this->f3->set('mode','create');
