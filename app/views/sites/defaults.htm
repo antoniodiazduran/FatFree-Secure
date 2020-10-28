@@ -1,0 +1,54 @@
+<!--<input type="button" id="btnExport" value="Export"><br> //-->
+<p>
+<div id="dvData">
+        <table id="sites" class="table table-hover">
+           <thead class="thead-light">
+           <tr>
+               <th scope="col">ID</th>
+               <th scope="col">Company</th>
+               <th scope="col"><u>Site</u></th>
+               <th scope="col">Country</th>
+               <th scope="col">Description</th>
+               <th scope="col"></th>
+               <th scope="col">Action</th>
+           </tr>
+           </thead>
+       
+           <tbody>
+           <repeat group="{{ @sites }}" value="{{ @rows }}">
+               <tr>
+                   <td>{{ trim(@rows.id) }}</td>
+                   <td>{{ trim(@rows.company) }}</td>
+                   <td>{{ trim(@rows.city) }},  {{ trim(@rows.state) }}</td>
+                   <td>{{ trim(@rows.country) }}</td>
+                   <td>{{ trim(@rows.description) }}</td>
+                   <td></td>
+                   <td>
+                       <a href="{{ @BASE.'/sites/makedefault/'. @rows.id }}"><img src="/ui/images/settings.png" width="20"></a> &nbsp;
+                   </td>
+       
+               </tr>
+           </repeat>
+           </tbody>
+       
+        </table>
+       </div>
+<script>
+var columns = {{ @columns}};
+
+$(document).ready(function(){
+  // Highlight the menu link
+$("#list-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
+});
+
+function confirmDelete(rid) {
+	if(confirm("Delete record:"+rid+" ?")){
+		window.open("/sites/delete/"+rid,"_self");
+	}
+}
+
+
+</script>
+
+
+

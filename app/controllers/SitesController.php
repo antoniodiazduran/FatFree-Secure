@@ -22,6 +22,24 @@ class SitesController extends Controller {
         $this->f3->set('view',$this->getViewFolder().'/list.htm');
     }
 
+    public function makedefault()  {
+        $classvar = new Sites($this->db);
+        $this->f3->set('SESSION.sitename',$classvar->sitename($this->f3->get('PARAMS.id')));
+	$this->f3->set('SESSION.sitenumber', $this->f3->get('PARAMS.id'));
+        $this->f3->reroute('/');
+    }
+
+    public function defaults()
+    {
+        $classvar = new Sites($this->db);
+        $this->f3->set('sites',$classvar->all($this->f3->get('SESSION.company')));
+        $this->f3->set('section','default site');
+        $this->f3->set('columns','[1,2,3]');
+        $this->f3->set('subnav','false');
+        $this->f3->set('page_head','List');
+        $this->f3->set('view',$this->getViewFolder().'/defaults.htm');
+    }
+
     public function apisites()
     {
         $classvar = new Sites($this->db);

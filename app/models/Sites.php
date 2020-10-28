@@ -26,6 +26,13 @@ class Sites extends DB\SQL\Mapper {
         echo json_encode($result);
     }
 
+    public function sitename($id) {
+        // Selecting data
+        $sql  = 'SELECT city FROM sites WHERE id  = ? ';
+        $result = $this->db->exec($sql,$id);
+        return $result[0]['city'];
+    }
+
     public function apisitesfilter($filter,$id) {
         // Selecting data
         $sql  = 'SELECT id,city FROM sites WHERE '.$filter.' = ? ORDER BY city';

@@ -27,6 +27,8 @@
             $this->f3->set('SESSION.roles', '');
             $this->f3->set('SESSION.company', '');
             $this->f3->set('SESSION.companyname', '');
+            $this->f3->set('SESSION.sitename', '');
+            $this->f3->set('SESSION.sitenumber', '');
             echo $template->render('auth/login.htm');
         }
     }
@@ -182,6 +184,8 @@
                     $this->f3->set('SESSION.company', $user->company);
                     $this->f3->set('SESSION.companyname', $company->name);
                     $this->f3->set('SESSION.nav_color', $company->nav_color);
+                    $this->f3->set('SESSION.sitename', '');
+                    $this->f3->set('SESSION.sitenumber', '');
                     $this->f3->set('SESSION.ip', $this->f3->ip());
                     $this->f3->set('SESSION.timeout', time()+$this->f3->get('expire'));
                     $this->f3->set('SESSION.timeoutdate',date('Y.m.d h:i:s',time()+$this->f3->get('expire')) );
