@@ -4,7 +4,7 @@
     function render(){
         $this->f3->set('SESSION.user', null);
         $this->f3->set('SESSION.company', null);
-	    $this->f3->set('msg','Weather in SC is nice!!');
+	    $this->f3->set('msg','Merry Christmas !!');
 	    $this->f3->set('stat','dark');
         $template=new Template;
         echo $template->render('auth/login.htm');
@@ -135,7 +135,7 @@
     }
 
     function logout() {
-        $logger = new Log('error.log');
+        $logger = new Log('access.log');
         // Logger
         $logger->write('Username '.$this->f3->get('SESSION.user').' logout');
         $this->f3->set('SESSION.user', null);
@@ -147,7 +147,7 @@
         $username = $this->f3->get('POST.username');
         $password = $this->f3->get('POST.password');
         $user = new Login($this->d1);
-        $logger = new Log('error.log');
+        $logger = new Log('access.log');
         $company = new Company($this->d1);
         // Getting user information
         $user->getByName($username);
