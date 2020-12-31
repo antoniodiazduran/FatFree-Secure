@@ -4,7 +4,7 @@
     function render(){
         $this->f3->set('SESSION.user', null);
         $this->f3->set('SESSION.company', null);
-	    $this->f3->set('msg','Merry Christmas !!');
+	    $this->f3->set('msg',$this->f3->get('msgs'));
 	    $this->f3->set('stat','dark');
         $template=new Template;
         echo $template->render('auth/login.htm');
