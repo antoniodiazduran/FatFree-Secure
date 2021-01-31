@@ -102,6 +102,21 @@
       </li>
     </check>
 
+    <check if="{{ @SESSION.roles=='Realtor' }}">
+	    <true>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="list-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Realtor
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/clients">Clients</a>
+              <a class="dropdown-item" href="/houses">Houses</a>
+              <a class="dropdown-item" href="/documents">Documents</a>
+            </div>
+          </li>
+	    </true>
+    </check>
+
     <check if="{{ @SESSION.roles=='Admin' }}">
 	    <true>
           <li class="nav-item dropdown">

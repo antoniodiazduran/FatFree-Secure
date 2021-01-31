@@ -1,0 +1,109 @@
+<!--<input type="button" id="btnExport" value="Export"><br> //-->
+
+<div id="dvData">
+        <table id="expenses" class="table table-hover">
+	<colgroup>
+       	<col span="1" style="width: 5%;">
+       	<col span="1" style="width: 15%;">
+       	<col span="1" style="width: 10%;">
+       	<col span="1" style="width: 30%;">
+       	<col span="1" style="width: 30%;">
+       	<col span="1" style="width: 5%;">
+       	<col span="1" style="width: 5%;">
+    	</colgroup>
+           <thead class="thead-light">
+           <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Date</th>
+              <th scope="col">Client</th>
+              <th scope="col">Address</th>
+              <th scope="col">Filename</th>
+              <th scope="col"></th>
+              <th scope="col">Action</th>
+           </tr>
+           </thead>
+       
+           <tbody>
+		<form action="/houses/docscreate" method="post" id="upForm" class="form-horizontal" enctype="multipart/form-data">
+		<tr bgcolor="lightblue">
+			<td></td>
+			<td><input type="text" class="form-control" id="transdate" name="transdate" placeholder="mm/dd/yyyy"></td>
+			<td>{{ @clientname }}</td>
+			<td>{{ @housesaddress }}</td>		
+			<td><input type="file" id="filetoupload" name="filetoupload" placeholder="Browse your file"></td>
+			<td></td>
+			<td>
+			<input type="hidden" name="housesid" id="housesid" value="{{ @housesid }}"/>
+			<input type="hidden" name="clientid" id="clientid" value="{{ @clientid }}"/>
+			<input type="hidden" name="internal" id="internal"/>
+			<input type="hidden" name="filename" id="filename"/>
+			<input type="hidden" name="username" value="{{ @SESSION.user }}"/>
+			<input type="hidden" name="company" value="{{ @SESSION.company }}"/>
+			<input type="hidden" name="upload" value="upload" />
+			<button type="submit" id="create" class="btn btn-warning">create</button>
+			</td>
+		</tr>	
+		
+		</form>
+           <repeat group="{{ @sqldata }}" value="{{ @rows }}">
+               <tr>
+                  <td>{{ trim(@rows.id) }}</td>
+                  <td>{{ substr(trim(@rows.transdate),0,10) }}</td>
+                  <td>{{ trim(@rows.clientname) }}</td>
+                  <td>{{ trim(@rows.address) }}</td>
+                  <td><a href="/uploads/{{ trim(@rows.internalfn) }}">{{ trim(@rows.filename) }}</a></td>
+                  <td></td>
+                  <td>
+                      <a href="#" onClick="confirmDelete('{{@section}}',{{ @rows.id }})"><img src="/ui/images/trash.gif" width="15"></a> 
+                  </td>
+               </tr>
+           </repeat>
+           </tbody>
+       
+        </table>
+       </div>
+<script>
+// Numbers of columns filtering
+var columns = {{ @columns }};
+var validate = 0;
+
+$(document).ready(function(){
+  // Highlight the menu link
+  $("#expenses-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
+  // Change file names and add guid
+  $("#create").hide();
+  $("#filetoupload").change( function() {
+                var ftu = $(this).val().substring(12,200);
+                $("#filename").val(ftu);
+                var vuuid = guid();
+                $("#internal").val(vuuid);
+	validate += 1;
+	console.log(validate);
+	if (validate >= 1) { $("#create").show();} 
+  });  
+  $("#transdate").val(formatDates());
+  $("#btnExport").click(function(e) {
+    //    window.open('data:application/vnd.ms-excel,' + encodeURIComponent($('#dvData').html()) );
+    window.open('data:application/csv,' + encodeURIComponent($('#dvData').html()) );
+    e.preventDefault();
+  })
+});
+ 
+
+function guid() {
+    function _p8(s) {
+        var p = (Math.random().toString(16)+"000000000").substr(2,8);
+        //console.log(p);
+        return s ? "-" + p.substr(0,4) + "-" + p.substr(4,4) : p ;
+    }
+    return _p8() + _p8(true) + _p8(true) + _p8();
+}
+function confirmDelete(section,rid) {
+	if(confirm("Delete record:"+rid+" ?")){
+		window.open("/"+section+"/delete/"+rid,"_self");
+	}
+}
+</script>
+
+
+

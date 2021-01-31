@@ -1,0 +1,149 @@
+<!--<input type="button" id="btnExport" value="Export"><br> //-->
+<div class="row">
+<div class="col"> 
+	<b>Client:</b> {{ @houses[0].client }}<br>
+	<b>House:</b> {{ @houses[0].house }}<br>
+</div>
+<div class="col"> <b>Address:</b><br> {{ @houses[0].address }}</div>
+<div class="col"> <b>Price:</b><br>{{ @houses[0].price }}</div>
+</div>
+<div id="errors" style="color:red;"></div>
+<p> 
+<div id="dvData">
+	<form method="post" id="detform" action="/invoices/details/create">
+        <table id="invoices" class="table ">
+           <thead class="thead-light">
+           <tr>
+               <th scope="col">Date</th>
+               <th scope="col">Detail</th>
+               <th scope="col">Quantiy</th>
+	       <th scope="col">Price</th>
+               <th scope="col">Total</th>
+               <th scope="col">Action</th>
+           </tr>
+           </thead>
+       
+           <tbody>
+		<check if="{{ @details[0].invoicestatus == 'not ready' }}">
+		<true>
+		<tr>
+			<td><input type="text" id="transdate" name="transdate" class="form-control" placeholder="Select date"></td>
+			<td><select id="detail" name="detail" class="form-control"></select></td>
+			<td>
+				<input style="text-align:right;" type="text" id="qty" name="qty" class="form-control" placeholder="Hours/Days">
+				<select id="exp" name="exp" class="form-control"></select>
+			</td>
+			<td><input style="text-align:right; type="text" id="price" name="price" class="form-control" placeholder="Price"></td>
+			<td><input style="text-align:right;type="text" id="total" name="total" class="form-control" placeholder="Total" readonly></td>
+		</tr>
+		<tr>
+			<td colspan="5"><input type="text" id="description" class="form-control" name="description" placeholder="Describe the work"></td>
+			<td><input type="button" id="mode" name="mode" value="Submit" class="btn btn-warning"></td>
+		</tr>
+		</true>
+		</check>
+           <repeat group="{{ @invoicesd }}" value="{{ @rows }}">
+               <tr>
+                   <td align="right">{{ substr(@rows.transdate,0,11) }}</td>
+                   <td>{{ trim(@rows.description) }}<br><i>{{ trim(@rows.detail)}}</i></td>
+                   <td align="right">{{ number_format(@rows.qty,2) }}</td>
+                   <td align="right">{{ number_format(@rows.price,2) }}</td>
+                   <td align="right">{{ number_format(@rows.total,2) }}</td>
+                   <td align="center">
+			<check if="{{ @details[0].invoicestatus == 'not ready'}}">
+                        <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15"></a>
+			</check>
+                   </td>       
+               </tr>
+           </repeat>
+           </tbody>
+        </table>
+	<input type="hidden" id="rid" name="rid" value="{{ @details[0].id }}">
+	<input type="hidden" id="relation" name="relation" value="{{ @details[0].id }}">
+	<input type="hidden" id="create" name="create">
+	<input type="hidden" id="username" name="{{ @SESION.user }}" value="">
+	</form>
+       </div>
+
+<script>
+   $(document).ready(function(){
+        // Highlight the menu link
+        $("#invoices-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
+        
+        $("#qty").change( function() {
+                tot = $("#qty").val()*1*$("#price").val()*1;
+                $("#total").val( tot.toFixed(2) );
+        });
+        $("#price").change( function() {
+                tot = $("#qty").val()*1*$("#price").val()*1;
+                $("#total").val( tot.toFixed(2) );
+        });
+        $.each(detailFields, function(index, value){
+                $('#detail').append($('<option>').text(value).attr('value',value));
+        });
+	$("#exp").hide();
+   });
+
+   $("#exp").change ( function() {
+	var id = $("#exp").val();
+	$.get("/expensedetail/"+id).done( function (data) {
+		var datx = JSON.parse(data);
+		//console.log(datx);
+		$("#qty").val(1);
+		$("#transdate").val(datx[0].transdate);
+		$("#price").val(datx[0].price);
+		$("#total").val(datx[0].total);
+//		$("#description").val(datx[0].description);
+		$("#description").val(datx[0].area);
+	});
+   });
+
+   $("#detail").change ( function() {
+	if($("#detail").val()=='Expenses') {
+		$("#qty").hide();
+		$("#exp").show();
+		apiexpenseslist();
+	} else {
+		$("#qty").show();
+		$("#exp").hide();
+		$("#qty").val('');
+		$("#price").val('');
+                $("#total").val('');
+                $("#description").val('');
+	}
+   });
+
+   function apiexpenseslist() {
+	var filter = {{ @details[0].customer }} ;
+	$("#exp").empty();
+   	$.get( "/expenselist/"+filter  )
+        .done(function( data ) {
+                var datx = JSON.parse(data);
+                
+		$('#exp').append($('<option>').text("Select...").attr('value',''));
+                $.each(datx, function(index,value) {
+                      $('#exp').append($('<option>').text(value.filename).attr('value',value.id));
+                });
+   	});
+   }
+
+   $("#mode").click( function () {
+                var errors = '';
+                if (document.getElementById('transdate').value.length == 0) { errors += "* Date can't be empty!<br>" }
+                if (document.getElementById('detail').value.length == 0) { errors += "* Select detail!<br>" }
+                if (document.getElementById('qty').value.length == 0) { errors += "* Quantity can't be Null!<br>" }
+                if (document.getElementById('price').value.length == 0) { errors += "* Price can't be Null!<br>" }
+                if (document.getElementById('description').value.length == 0) { errors += "* Description can't be empty!<br>" }
+                document.getElementById('errors').innerHTML = errors;
+                if (errors.length == 0) { document.getElementById('detform').submit(); }
+   });
+
+   function confirmDelete(rid) {
+	if(confirm("Delete record # "+rid+" ?")){
+		window.open("/invoices/details/delete/"+rid,"_self");
+	}
+   }
+</script>
+
+
+

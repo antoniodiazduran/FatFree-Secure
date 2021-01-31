@@ -1,0 +1,71 @@
+<!--<input type="button" id="btnExport" value="Export"><br> //-->
+
+<div id="dvData">
+        <table id="expenses" class="table table-hover">
+	<colgroup>
+       	<col span="1" style="width: 5%;">
+       	<col span="1" style="width: 10%;">
+       	<col span="1" style="width: 10%;">
+       	<col span="1" style="width: 5%;">
+       	<col span="1" style="width: 10%;">
+       	<col span="1" style="width: 15%;">
+       	<col span="1" style="width: 15%;">
+    	</colgroup>
+           <thead class="thead-light">
+           <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Date</th>
+              <th scope="col">Client</th>
+              <th scope="col">Address</th>
+              <th scope="col">Code</th>
+              <th scope="col">Filename</th>
+              <th scope="col">Internal</th>
+              <th scope="col"></th>
+              <th scope="col">Action</th>
+           </tr>
+           </thead>
+       
+           <tbody>
+           <repeat group="{{ @sqldata }}" value="{{ @rows }}">
+               <tr>
+                  <td>{{ trim(@rows.id) }}</td>
+                  <td>{{ substr(trim(@rows.transdate),0,10) }}</td>
+                  <td>{{ trim(@rows.clientname) }}</td>
+                  <td>{{ trim(@rows.address) }}</td>
+                  <td>{{ trim(@rows.housesid) }}</td>
+                  <td>{{ trim(@rows.filename) }}</td>
+                  <td><a href="/uploads/{{ trim(@rows.internalfn) }}">File</a></td>
+                  <td></td>
+                  <td>
+                      <a href="#" onClick="confirmDelete('{{@section}}',{{ @rows.id }})"><img src="/ui/images/trash.gif" width="15"></a> 
+                  </td>
+               </tr>
+           </repeat>
+           </tbody>
+       
+        </table>
+       </div>
+<script>
+// Numbers of columns filtering
+var columns = {{ @columns }};
+
+$(document).ready(function(){
+  // Highlight the menu link
+  $("#expenses-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
+  
+  $("#btnExport").click(function(e) {
+    //    window.open('data:application/vnd.ms-excel,' + encodeURIComponent($('#dvData').html()) );
+    window.open('data:application/csv,' + encodeURIComponent($('#dvData').html()) );
+    e.preventDefault();
+  })
+});
+
+function confirmDelete(section,rid) {
+	if(confirm("Delete record:"+rid+" ?")){
+		window.open("/"+section+"/delete/"+rid,"_self");
+	}
+}
+</script>
+
+
+

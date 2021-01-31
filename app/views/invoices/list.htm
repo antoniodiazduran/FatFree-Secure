@@ -24,7 +24,7 @@
                    <td>{{ substr(trim(@rows.duedate),0,10) }}</td>
                    <td>{{ trim(@rows.invoicestatus) }}</td>
                    <td>{{ trim(@rows.customer) }}</td>
-                   <td>{{ substr(trim(@rows.customerd),0,25) }}...</td>
+                   <td><a href="https://maps.google.com/maps/search/?api=1&query={{ substr(trim(@rows.customerd),0,50) }}" target="_blank"> {{ substr(trim(@rows.customerd),0,25)}}...</a></td>
                    <td>{{ trim(@rows.invoicenumber) }}</td>
                    <td align="right">{{ number_format(@rows.total,2) }}</td>
                    <td align="center">
