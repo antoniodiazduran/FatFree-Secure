@@ -6,9 +6,9 @@ class Clients extends DB\SQL\Mapper {
         parent::__construct($db,'clients');
     }
 
-    public function all($company) {
-        $sql  = 'SELECT * FROM clients WHERE company = ? ORDER BY id DESC';
-        $result = $this->db->exec($sql,$company);
+    public function all($company,$username) {
+        $sql  = 'SELECT * FROM clients WHERE company = ? AND username = ? ORDER BY id DESC';
+        $result = $this->db->exec($sql,array($company,$username));
         return $result;
     }
 

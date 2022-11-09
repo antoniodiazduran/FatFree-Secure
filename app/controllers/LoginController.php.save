@@ -35,11 +35,11 @@
 
     function error() {
 	if ($this->f3->get('SESSION.user')!='') {
-	    $this->f3->set('msg','Hmmm... have you been drinking?');
+	    $this->f3->set('msg','Hmmm... no reason to be around here');
 	    $this->f3->set('view','/auth/internalerror.htm');
 	} else {
         $template=new Template;
-	    $this->f3->set('msg','Are you lost or something?');
+	    $this->f3->set('msg','Are you lost ?');
         echo $template->render('auth/error.htm');
 	}
     }
@@ -65,10 +65,11 @@
              $this->f3->set('POST.password',$hash);
              // Adding data to table bpuser
              $newuser->add();
+             
              // Getting username information
              $user = new Login($this->d1);
              $company = new Company($this->d1);
-
+             
              // Sending email to user
              $user->getByName($this->f3->get('POST.username'));
              $company->getByName($user->company);
@@ -89,7 +90,7 @@
              $mailsent = 1;
              if($user->email != '') {
                  // Sending email via msmtprc
-                 $mailsent = $sMail->sendMail($user->email,$msg);
+                 $mailsent = $sMail->sendMail($user->email,$msg);    
              }
              if ($mailsent == 0) {
                 $this->f3->set('msg','Username and Password Created, please check your email to enable your account');
@@ -98,7 +99,7 @@
                 $this->f3->set('msg','Mail not sent, please check with the system administrator');
                 $this->f3->set('stat','danger');
              }
-
+            
         }
             $template=new Template;
             echo $template->render('auth/login.htm');
@@ -139,7 +140,7 @@
         $logger->write('Username '.$this->f3->get('SESSION.user').' logout');
         $this->f3->set('SESSION.user', null);
         $this->f3->set('SESSION.company', null);
-        $this->f3->reroute('/login');
+        $this->f3->reroute('/login');    
     }
 
     function authenticate() {
@@ -168,6 +169,7 @@
                     //echo $pass;
                     //exit;
                 if(password_verify($password, $user->password)) {
+                
                     date_default_timezone_set('America/New_York');
                     $sMail = new Controller;
                     $datetime = new DateTime();
@@ -176,17 +178,12 @@
                     $zone = $datetime->format('T');
                     //logger
                     $logger->write('Username '.$user->username.' succesfully login');
-		    // user configurations
+
                     $this->f3->set('SESSION.user', $user->username);
                     $this->f3->set('SESSION.roles', $user->roles);
                     $this->f3->set('SESSION.company', $user->company);
                     $this->f3->set('SESSION.companyname', $company->name);
-			// Admin user color
-			if($user->company==0) {
-				$this->f3->set('SESSION.nav_color', 'bg-light');
-			} else {
-                    		$this->f3->set('SESSION.nav_color', $company->nav_color);
-			}
+                    $this->f3->set('SESSION.nav_color', $company->nav_color);
                     $this->f3->set('SESSION.sitename', '');
                     $this->f3->set('SESSION.sitenumber', '');
                     $this->f3->set('SESSION.ip', $this->f3->ip());
@@ -196,26 +193,25 @@
                     $this->f3->set('company',$user->company);
                     $this->f3->set('stat','success');
                     $this->f3->set('msg','Welcome!');
-                    $this->f3->set('view','main.htm');
+                    $this->f3->set('view','main.htm');                    
                 } else {
-		    // error logging in
                     $this->f3->set('stat','danger');
                     $this->f3->set('msg','Incorrect Username & Password');
                     // Logger
                     $logger->write('Incorrect username and password for '.$user->username);
-                    // Rendering
+
+                    // Rendering 
                     $template=new Template;
-                    echo $template->render('auth/login.htm');
+                    echo $template->render('auth/login.htm');    
                 }
             } else {
- 		// user missing verification
                 $this->f3->set('stat','warning');
                 $this->f3->set('msg','User not verified!');
                 // Logger
                 $logger->write('User not verified for '.$user->username);
-                // Rendering
+                // Rendering 
                 $template=new Template;
-                echo $template->render('auth/login.htm');
+                echo $template->render('auth/login.htm'); 
             }
         }
     }

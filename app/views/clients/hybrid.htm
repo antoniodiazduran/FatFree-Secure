@@ -143,6 +143,11 @@ Hobbies:
                 $('#status').append($('<option>').text(value).attr('value',value));
         }
         });
+$("#clientcell").change(function () {
+    var  x = $("#clientcell").val();
+    	 x = x.replace(/\D+/g,'').replace(/(\d{3})(\d{3})(\d{4})/,'($1) $2-$3');	
+	$("#clientcell").val(x);
+});
 	// ajax {{ @mode }}
 	<check if="{{ @mode == 'update' }}">
 	</check>
@@ -151,5 +156,4 @@ Hobbies:
 
  });
       
-
 </script>

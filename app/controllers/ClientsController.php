@@ -14,7 +14,7 @@ class ClientsController extends Controller {
     public function index()
     {
         $clients = new Clients($this->db);
-        $this->f3->set('sqldata',$clients->all($this->f3->get('SESSION.company')));
+        $this->f3->set('sqldata',$clients->all($this->f3->get('SESSION.company'),$this->f3->get('SESSION.user')));
         $this->f3->set('section','clients');
         $this->f3->set('subnav','true');
         $this->f3->set('back','no');

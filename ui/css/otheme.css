@@ -126,7 +126,7 @@ code {
 
 .content {
 	padding:0 20px;
-	max-width:100%;
+	max-width:768px;
 	margin:0 auto;
 }
 
@@ -136,7 +136,7 @@ code {
 
 .header img {
 	width:90%;
-	max-width:100%;
+	max-width:768px;
 	padding:0 5%;
 }
 
@@ -148,7 +148,7 @@ code {
 .footer p {
 	color:#eee;
 	padding:20px;
-	max-width:100%;
+	max-width:768px;
 	margin:0 auto;
 }
 
