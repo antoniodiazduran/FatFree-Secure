@@ -49,16 +49,6 @@
         </div>
       </li>
 </check>
-<!--      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="instructions-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <img src="/ui/images/stations.png" width="20" title="Instructions">
-          <check if="{{@icons == 1 }}">Instructions</check>
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/instructions/view">List</a>
-          <a class="dropdown-item" href="/audits/list">Audits</a>
-        </div>
-      </li>//-->
    <check if="{{ @SESSION.roles=='Finance' }}">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="expenses-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -102,7 +92,24 @@
       </li>
     </check>
 
-    <check if="{{ @SESSION.roles=='Realtor' }}">
+    <check if="{{ @SESSION.roles=='Superuser' }}">
+	    <true>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="list-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Realtor
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/agents">Agents</a>
+              <a class="dropdown-item" href="/appointments">Appointments</a>
+              <a class="dropdown-item" href="/clients">Clients</a>
+              <a class="dropdown-item" href="/houses">Houses</a>
+              <a class="dropdown-item" href="/documents">Documents</a>
+            </div>
+          </li>
+	    </true>
+    </check>
+
+    <check if="{{ @SESSION.roles=='Editor' }}">
 	    <true>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="list-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

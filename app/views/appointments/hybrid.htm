@@ -1,0 +1,167 @@
+<form action="/appointments/{{ @mode }}" method="post" class="form-horizontal">
+<div class="form-group">
+  <div class="col-lg-4">
+    <label class="control-label" for="transdate">Date:</label>
+      <input type="text" class="form-control" id="transdate" name="transdate" placeholder="mm/dd/yyyy">
+  </div>
+</div>
+<div class="form-group">
+  <div class="col-lg-4">
+    <label class="control-label" for="leadsource">Lead Source:</label>
+      <input type="text" class="form-control" id="leadsource" name="leadsource" <check if="{{ @mode == 'update' }}">value="{{ @POST.leadsource }}" </check> placeholder="Lead Source Name">
+  </div>
+</div>
+<div class="form-group">
+  <div class="col-lg-4">
+    <label class="control-label" for="customername">Customer Name:</label>
+      <input type="text" class="form-control" id="customername" name="customername" <check if="{{ @mode == 'update' }}">value="{{ @POST.customername }}" </check> placeholder="Customer Name">
+  </div>
+</div>
+<div class="form-group">
+  <div class="col-lg-4">
+    <label class="control-label" for="customerphone">Customer Phone:</label>
+      <input type="text" class="form-control" id="customerphone" name="customerphone" <check if="{{ @mode == 'update' }}">value="{{ @POST.customerphone }}" </check> placeholder="xxx-xxx-xxxx">
+  </div>
+</div>
+<div class="form-group">
+  <div class="col-lg-4">
+    <label class="control-label" for="customeraddress">Customer Address:</label>
+      <input type="text" class="form-control" id="customeraddress" name="customeraddress" <check if="{{ @mode == 'update' }}">value="{{ @POST.customeraddress }}" </check> placeholder="Customer Address">
+  </div>
+</div>
+<div class="form-group">
+  <div class="col-lg-4">
+    <label class="control-label" for="customerappointment">Customer Appointment Date:</label>
+      <input type="text" class="form-control" id="customerappointment" name="customerappointment" <check if="{{ @mode == 'update' }}">value="{{ @POST.customerappointment }}" </check> placeholder="yyyy/mm/dd">
+  </div>
+</div>
+<div class="form-group">
+  <div class="col-lg-4">
+    <label class="control-label" for="agentappointmenttype">Agent Appointment Type:</label>
+        <select id="agentappointmenttype" name="agentappointmenttype" value="" class="browser-default custom-select">
+        </select>
+  </div>
+</div>
+<div class="form-group">
+  <div class="col-lg-4">
+    <label class="control-label" for="direction">Direction:</label>
+        <select id="direction" name="direction" value="" class="browser-default custom-select">
+        </select>
+  </div>
+</div>
+<div class="form-group">
+  <div class="col-lg-4">
+    <label class="control-label" for="agentgroup">Agent Group:</label>
+        <select id="agentgroup" name="agentgroup" value="" class="browser-default custom-select">
+        </select>
+  </div>
+</div>
+<div class="form-group">
+  <div class="col-lg-4">
+    <label class="control-label" for="agentname">Agent Name:</label>
+        <select id="agentname" name="agentname" value="" class="browser-default custom-select">
+		<option value="">
+		<repeat group="{{ @agents }}" value="{{ @rows }}">
+		<option value="{{ @rows.agentname }}" <check if="{{ @POST.agentname == @rows.agentname}}">selected</check> > {{ @rows.agentname }}
+		</repeat>
+        </select>
+  </div>
+</div>
+<div class="form-group">
+  <div class="col-lg-4">
+    <label class="control-label" for="customersign">Under Contract:</label>
+        <select id="customersign" name="customersign" value="" class="browser-default custom-select">
+        </select>
+  </div>
+</div>
+<div class="form-group">
+  <div class="col-lg-4">
+    <label class="control-label" for="customerkept">Status:</label>
+        <select id="customerkept" name="customerkept" value="" class="browser-default custom-select">
+        </select>
+  </div>
+</div>
+
+</div>
+<br>
+<div class="row">
+</div>
+<div class="row">
+</div>
+<br>
+<div class="form-group">
+  <div class="col">
+   <check if="{{ @mode == 'update' }}">
+    <input type="hidden" name="id" value="{{ @POST.id }}">
+   </check>
+	<input type="hidden" name="username" value="{{ @SESSION.user }}"/>
+	<input type="hidden" name="company" value="{{ @SESSION.company }}"/>
+    	<input type="hidden" name="{{ @mode }}" value="{{ @mode }}" />
+    <button type="submit" class="btn btn-warning">{{ @mode }}</button>
+  </div>
+</div>
+<p>
+</form>
+<script>
+
+ $(document).ready(function(){  
+	// Highlight the menu link
+	$("#expenses-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
+	// Check the mode
+	<check if="{{ @mode == 'update' }}">
+		document.getElementById('transdate').value = formatDBDate('{{ @POST.transdate }}');
+	</check>
+	<check if="{{ @mode == 'create' }}">
+		document.getElementById('transdate').value = formatDates();
+	</check>
+        $("#timestamp").val(formatNow());
+
+	$.each(appointmentType, function(index, value){
+	if(value == '{{ @POST.agentappointmenttype }}') {
+		$('#agentappointmenttype').append($('<option>').text(value).attr('value',value).attr('selected','selected'));
+	} else {
+		$('#agentappointmenttype').append($('<option>').text(value).attr('value',value));
+	}
+	});
+	$.each(agentGroup, function(index, value){
+	if(value == '{{ @POST.agentgroup }}') {
+		$('#agentgroup').append($('<option>').text(value).attr('value',value).attr('selected','selected'));
+	} else {
+		$('#agentgroup').append($('<option>').text(value).attr('value',value));
+	}
+	});
+	$.each(direction, function(index, value){
+	if(value == '{{ @POST.direction }}') {
+		$('#direction').append($('<option>').text(value).attr('value',value).attr('selected','selected'));
+	} else {
+		$('#direction').append($('<option>').text(value).attr('value',value));
+	}
+	});
+	$.each(contractFields, function(index, value){
+        if(value == '{{ @POST.customersign }}') {
+                $('#customersign').append($('<option>').text(value).attr('value',value).attr('selected','selected'));
+        } else {
+                $('#customersign').append($('<option>').text(value).attr('value',value));
+        }
+        });
+	$.each(realstateFields, function(index, value){
+        if(value == '{{ @POST.customerkept }}') {
+                $('#customerkept').append($('<option>').text(value).attr('value',value).attr('selected','selected'));
+        } else {
+                $('#customerkept').append($('<option>').text(value).attr('value',value));
+        }
+        });
+	$("#customerphone").change(function () {
+   	 var  x = $("#customerphone").val();
+    	 x = x.replace(/\D+/g,'').replace(/(\d{3})(\d{3})(\d{4})/,'($1) $2-$3');	
+	 $("#customerphone").val(x);	
+	});
+	// ajax {{ @mode }}
+	<check if="{{ @mode == 'update' }}">
+	</check>
+	<check if="{{ @mode == 'create' }}">
+	</check>
+
+ });
+      
+</script>

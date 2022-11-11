@@ -17,14 +17,14 @@
            <tbody>
            <repeat group="{{ @sites }}" value="{{ @rows }}">
                <tr>
-                   <td>{{ trim(@rows.id) }}</td>
+                   <td><i class="bi-person" title="{{ @rows.id.":".@rows.username }}"></i></td>
                    <td>{{ trim(@rows.company) }}</td>
                    <td>{{ trim(@rows.city) }},  {{ trim(@rows.state) }}</td>
                    <td>{{ trim(@rows.country) }}</td>
                    <td>{{ trim(@rows.description) }}</td>
                    <td></td>
                    <td>
-                       <a href="{{ @BASE.'/sites/makedefault/'. @rows.id }}"><img src="/ui/images/settings.png" width="20"></a> &nbsp;
+                       <a href="{{ @BASE.'/sites/makedefault/'. @rows.id }}"><i class="bi-gear" style="font-size:1.5em;"></i></a> &nbsp;
                    </td>
        
                </tr>

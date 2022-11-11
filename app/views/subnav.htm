@@ -1,17 +1,16 @@
 <div class="row">
     <div class="col-sm-4">
       <check if="{{ @back=='yes'}}">
-	      <a href="/{{ @backto }}"><img src="/ui/images/left.png" width="18" title="Back"></a> &nbsp; 
+	      <a href="/{{ @backto }}"><i class="bi-arrow-return-left" style="font-size:2em;" title="Return"></i></a> &nbsp; 
       </check>
       <check if="{{ @back=='one'}}">
-	      <a href="/instructions/{{ @relation }}"><img src="/ui/images/left.png" width="18" title="Back"></a> &nbsp; 
+	      <a href="/instructions/{{ @relation }}"><i class="bi-arror-left" style="font-size:2em;" title="Back"></i></a> &nbsp; 
       </check>
       <check if="{{ @create==''}}">
-        <a href="/{{ @section }}/create/{{ @relation }}"><img src="/ui/images/newpaget.png" width="25" title="New Record"></a>&nbsp;
+        <a href="/{{ @section }}/create/{{ @relation }}"><i class="bi-file-earmark-plus" style="font-size:2em;" title="Create record"></i></a>&nbsp;
       </check> 
       <check if="{{ @preview=='yes'}}">
-        <!--<a href="/instructions/full/{{ @relation}}"><img src="/ui/images/inst.png" width="30" title="Full View"></a> &nbsp; //-->
-        <a href="/instructions/grid/{{ @relation}}"><img src="/ui/images/nines.png" width="25" title="Grid"></a> &nbsp; 
+        <a href="/instructions/grid/{{ @relation}}"><i class="grip-3x2-gap" style="font-size:2em" title="Preview"></i></a> &nbsp; 
       </check>
     </div>
     <div class="col-sm-4">

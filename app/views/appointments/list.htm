@@ -4,22 +4,29 @@
         <table id="expenses" class="table table-hover">
 	<colgroup>
        	<col span="1" style="width: 5%;">
+       	<col span="1" style="width: 8%;">
        	<col span="1" style="width: 10%;">
-       	<col span="1" style="width: 10%;">
-       	<col span="1" style="width: 30%;">
+       	<col span="1" style="width: 8%;">
+       	<col span="1" style="width: 25%;">
+       	<col span="1" style="width: 8%;">
+       	<col span="1" style="width: 8%;">
+       	<col span="1" style="width: 8%;">
        	<col span="1" style="width: 5%;">
-       	<col span="1" style="width: 15%;">
        	<col span="1" style="width: 5%;">
     	</colgroup>
            <thead class="thead-light">
            <tr>
               <th scope="col">ID</th>
               <th scope="col">Date</th>
-              <th scope="col">Client</th>
+              <th scope="col">Customer</th>
+              <th scope="col">Phone</th>
               <th scope="col">Address</th>
-              <th scope="col">Code</th>
-              <th scope="col">Filename</th>
-              <th scope="col">Link</th>
+              <th scope="col">Group</th>
+              <th scope="col">Agent Name</th>
+              <th scope="col">App. Type</th>
+              <th scope="col">Direction</th>
+              <th scope="col">Kept?</th>
+              <th scope="col">Sign?</th>
               <th scope="col"></th>
               <th scope="col">Action</th>
            </tr>
@@ -28,15 +35,20 @@
            <tbody>
            <repeat group="{{ @sqldata }}" value="{{ @rows }}">
                <tr>
-                  <td>{{ trim(@rows.id) }}</td>
+                  <td><i class="bi-person" title="{{ @rows.id.":".@rows.username }}"></i></td>
                   <td>{{ substr(trim(@rows.transdate),0,10) }}</td>
-                  <td>{{ trim(@rows.clientname) }}</td>
-                  <td>{{ trim(@rows.address) }}</td>
-                  <td>{{ trim(@rows.housesid) }}</td>
-                  <td>{{ trim(@rows.filename) }}</td>
-                  <td><a href="/uploads/{{ trim(@rows.internalfn) }}"><i class="bi-files" title="Open file"></i></a></td>
+                  <td>{{ trim(@rows.customername) }}</td>
+                  <td>{{ trim(@rows.customerphone) }}</td>
+                  <td>{{ trim(@rows.customeraddress) }} &nbsp; <a href="{{ 'https://maps.google.com/maps/search/?api=1&query='. trim(@rows.customeraddress) }}" target="_blank"><i class="bi-pin-map" title="Map"></i></a></td>
+                  <td>{{ trim(@rows.agentgroup) }}</td>
+                  <td>{{ trim(@rows.agentname) }}</td>
+                  <td>{{ trim(@rows.agentappointmenttype) }}</td>
+                  <td>{{ trim(@rows.direction) }}</td>
+                  <td>{{ trim(@rows.customerkept) }}</td>
+                  <td>{{ trim(@rows.customersign) }}</td>
                   <td></td>
                   <td>
+                      <a href="{{ @BASE.'/'.@section.'/update/'. @rows.id }}"><i class="bi-pencil" title="Edit record"></i></a> &nbsp;
                       <a href="#" onClick="confirmDelete('{{@section}}',{{ @rows.id }})"><i class="bi-trash" title="Delete record"></i></a> 
                   </td>
                </tr>

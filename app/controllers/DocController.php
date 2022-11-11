@@ -7,7 +7,8 @@ class DocController extends Controller {
         $classvar = new Documents($this->d1);
         $ses =  $this->f3->get('SESSION.roles');
         $company =  $this->f3->get('SESSION.company');
-        $this->f3->set('sqldata',$classvar->all($ses,$company,$this->f3->get('PARAMS.id')) );
+        $username =  $this->f3->get('SESSION.user');
+        $this->f3->set('sqldata',$classvar->all($ses,$company,$this->f3->get('PARAMS.id'),$username) );
         $this->f3->set('section','documents');
         $this->f3->set('subnav','true');
         $this->f3->set('back','no');

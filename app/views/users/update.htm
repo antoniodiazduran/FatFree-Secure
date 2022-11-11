@@ -14,10 +14,12 @@
     <label class="control-label" for="roles">User role:</label>
         <select id="roles" name="roles" class="form-control" onChange="validate()">
                 <option>
+                <option {{ @POST.roles=='Admin'?' selected':'' }}>Admin
                 <option {{ @POST.roles=='Finance'?' selected':'' }}>Finance
                 <option {{ @POST.roles=='Operations'?' selected':'' }}>Operations
-                <option {{ @POST.roles=='Realtor'?' selected':'' }}>Realtor
-                <option {{ @POST.roles=='Admin'?' selected':'' }}>Admin
+                <option {{ @POST.roles=='Superuser'?' selected':'' }}>Superuser
+                <option {{ @POST.roles=='Editor'?' selected':'' }}>Editor
+                <option {{ @POST.roles=='Viewer'?' selected':'' }}>Viewer
         </select>
     </div>
   </div>

@@ -6,13 +6,13 @@ class Documents extends DB\SQL\Mapper {
         parent::__construct($d1,'documents');
     }
 
-    public function all($roles,$company,$id) {
+    public function all($roles,$company,$id,$username) {
         if ($roles!='Admin') {
-	    $sql  = 'SELECT d.*,h.address,c.clientname FROM documents d, houses h, clients c  WHERE h.company = ? and h.id = d.housesid and c.id = h.relation ORDER BY id DESC';
-            $result = $this->db->exec($sql,array($company));
+	    $sql  = 'SELECT d.*,h.address,c.clientname FROM documents d, houses h, clients c  WHERE h.company = ? and d.username = ? and h.id = d.housesid and c.id = h.relation ORDER BY id DESC';
+            $result = $this->db->exec($sql,array($company,$username));
         } else {
-	    $sql  = 'SELECT * FROM documents d, houses h WHERE h.relation = c.id ORDER BY id DESC';
-            $result = $this->db->exec($sql);
+	    $sql  = 'SELECT * FROM documents d, houses h WHERE d.username = ? and h.relation = c.id ORDER BY id DESC';
+            $result = $this->db->exec($sql,$username);
             $this->load(array('order'=>'transdate DESC'));
         }
         return $result;

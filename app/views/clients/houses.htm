@@ -31,10 +31,10 @@
                   <td>{{ trim(@rows.listed) }}</td>
                   <td></td>
                   <td>
-                      <a href="{{ 'https://maps.google.com/maps/search/?api=1&query='. trim(@rows.address).','.@rows.city.',SC '.@rows.zip }}" target="_blank"><img src="/ui/images/stations.png" width="20"></a> &nbsp;
-                      <a href="{{ @BASE.'/'.@section.'/documents/'. @rows.id.'/'.@rows.relation }}"><img src="/ui/images/page.gif" width="15"></a> &nbsp;
-                      <a href="{{ @BASE.'/'.@section.'/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15"></a> &nbsp;
-                      <a href="#" onClick="confirmDelete('{{@section}}',{{ @rows.id }})"><img src="/ui/images/trash.gif" width="15"></a> 
+                      <a href="{{ 'https://maps.google.com/maps/search/?api=1&query='. trim(@rows.address).','.@rows.city.',SC '.@rows.zip }}" target="_blank"><i class="bi-pin-map" title="Map"></i></a> &nbsp;
+                      <a href="{{ @BASE.'/'.@section.'/documents/'. @rows.id.'/'.@rows.relation }}"><i class="bi-upload" title="Upload file"></i></a> &nbsp;
+                      <a href="{{ @BASE.'/'.@section.'/update/'. @rows.id }}"><i class="bi-pencil" title="Edit record"></i></a> &nbsp;
+                      <a href="#" onClick="confirmDelete('{{@section}}',{{ @rows.id }})"><i class="bi-trash" title="Delete record"></i></a> 
                   </td>
                </tr>
            </repeat>

@@ -4,8 +4,12 @@
   var detailFields = ["","Expenses","Kaizen","Training","Couching","Support","Analyzing","Programming"];
   var statusFields = ["","not ready","sent","errors","paid","expense sent","expense paid"];
   var clienttypeFields = ["","Buyer","Seller"];
+  var direction = ["","Incoming","Outgoing"];
+  var agentGroup = ["","Stars","Rookies","Champions","Masterminds","Listing Agent","Other"];
+  var appointmentType = ["","In Person","Virtual"];
   var contractFields = ["","Yes","No"];
   var realstateFields = ["","Closed","Pending","Looking"];
+  var agentStatus = ["","Active","Inactive"];
 
     // Used on every list.htm file to filter "dvdata" table object
     function searchTable() {

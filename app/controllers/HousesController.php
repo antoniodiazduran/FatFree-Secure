@@ -14,7 +14,7 @@ class HousesController extends Controller {
     public function index()
     {
         $classvar = new Houses($this->db);
-        $this->f3->set('sqldata',$classvar->all($this->f3->get('SESSION.company')));
+        $this->f3->set('sqldata',$classvar->all($this->f3->get('SESSION.company'),$this->f3->get('SESSION.user')));
         $this->f3->set('section','houses');
         $this->f3->set('subnav','true');
         $this->f3->set('back','no');
@@ -49,7 +49,7 @@ class HousesController extends Controller {
     public function documents()
     {
         $classvar = new Houses($this->db);
-        $this->f3->set('sqldata',$classvar->alldocs($this->f3->get('SESSION.company'),$this->f3->get('PARAMS.id')));
+        $this->f3->set('sqldata',$classvar->alldocs($this->f3->get('SESSION.company'),$this->f3->get('PARAMS.id'),$this->f3->get('SESSION.user')));
         $this->f3->set('section','documents');
         $this->f3->set('subnav','true');
         $this->f3->set('back','yes');

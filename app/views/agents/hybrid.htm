@@ -1,0 +1,83 @@
+<form action="/agents/{{ @mode }}" method="post" class="form-horizontal">
+<div class="form-group">
+  <div class="col-lg-4">
+    <label class="control-label" for="agentname">Agent Name:</label>
+      <input type="text" class="form-control" id="agentname" name="agentname" <check if="{{ @mode == 'update' }}">value="{{ @POST.agentname }}" </check> placeholder="Agent name">
+  </div>
+</div>
+<div class="form-group">
+  <div class="col-lg-4">
+    <label class="control-label" for="agentphone">Phone:</label>
+	<input type="text" class="form-control" id="agentphone" name="agentphone" <check if="{{ @mode == 'update' }}">value="{{ @POST.agentphone }}" </check> placeholder="xxx-xxx-xxxx">
+  </div>
+</div>
+<div class="form-group">
+  <div class="col-lg-4">
+    <label class="control-label" for="agentemail">Email:</label>
+      <input type="text" class="form-control" id="agentemail" name="agentemail" <check if="{{ @mode == 'update' }}">value="{{ @POST.agentemail }}" </check> placeholder="user@doman.com">
+  </div>
+</div>
+<div class="form-group">
+  <div class="col-lg-4">
+    <label class="control-label" for="agentstatus">Status:</label>
+        <select id="agentstatus" name="agentstatus" value="" class="browser-default custom-select">
+        </select>
+  </div>
+</div>
+
+
+</div>
+<br>
+<div class="form-group">
+</div>
+<div class="form-group">
+</div>
+<br>
+<div class="form-group">
+  <div class="col">
+   <check if="{{ @mode == 'update' }}">
+    <input type="hidden" name="id" value="{{ @POST.id }}">
+   </check>
+	<input type="hidden" name="username" value="{{ @SESSION.user }}"/>
+	<input type="hidden" name="company" value="{{ @SESSION.company }}"/>
+	<input type="hidden" name="transdate" id="transdate" value="{[ @POST.transdate }}"/>
+    <input type="hidden" name="{{ @mode }}" value="{{ @mode }}" />
+    <button type="submit" class="btn btn-warning">{{ @mode }}</button>
+  </div>
+</div>
+</form>
+<script>
+
+ $(document).ready(function(){  
+	// Highlight the menu link
+	$("#expenses-link").removeClass('nav-link dropdown-toggle').addClass('nav-link dropdown-toggle active');
+	// Check the mode
+	<check if="{{ @mode == 'update' }}">
+	document.getElementById('transdate').value = formatDBDate('{{ @POST.transdate }}');
+	</check>
+	<check if="{{ @mode == 'create' }}">
+	document.getElementById('transdate').value = formatDates();
+	</check>
+        $("#timestamp").val(formatNow());
+
+	$.each(agentStatus, function(index, value){
+	if(value == '{{ @POST.agentstatus }}') {
+		$('#agentstatus').append($('<option>').text(value).attr('value',value).attr('selected','selected'));
+	} else {
+		$('#agentstatus').append($('<option>').text(value).attr('value',value));
+	}
+	});
+ $("#agentphone").change(function () {
+    var  x = $("#agentphone").val();
+    x = x.replace(/\D+/g,'').replace(/(\d{3})(\d{3})(\d{4})/,'($1) $2-$3');	
+    $("#agentphone").val(x);
+ });
+	// ajax {{ @mode }}
+	<check if="{{ @mode == 'update' }}">
+	</check>
+	<check if="{{ @mode == 'create' }}">
+	</check>
+
+ });
+      
+</script>

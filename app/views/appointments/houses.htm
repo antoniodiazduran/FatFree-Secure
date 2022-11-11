@@ -1,25 +1,18 @@
 <!--<input type="button" id="btnExport" value="Export"><br> //-->
 
+<h4>{{ @clientname }}</h4>
 <div id="dvData">
         <table id="expenses" class="table table-hover">
-	<colgroup>
-       	<col span="1" style="width: 5%;">
-       	<col span="1" style="width: 10%;">
-       	<col span="1" style="width: 10%;">
-       	<col span="1" style="width: 30%;">
-       	<col span="1" style="width: 5%;">
-       	<col span="1" style="width: 15%;">
-       	<col span="1" style="width: 5%;">
-    	</colgroup>
            <thead class="thead-light">
            <tr>
               <th scope="col">ID</th>
               <th scope="col">Date</th>
-              <th scope="col">Client</th>
               <th scope="col">Address</th>
-              <th scope="col">Code</th>
-              <th scope="col">Filename</th>
-              <th scope="col">Link</th>
+              <th scope="col">City</th>
+              <th scope="col">County</th>
+              <th scope="col">Zipcode</th>
+              <th scope="col">Price</th>
+              <th scope="col">Listed with</th>
               <th scope="col"></th>
               <th scope="col">Action</th>
            </tr>
@@ -30,14 +23,18 @@
                <tr>
                   <td>{{ trim(@rows.id) }}</td>
                   <td>{{ substr(trim(@rows.transdate),0,10) }}</td>
-                  <td>{{ trim(@rows.clientname) }}</td>
                   <td>{{ trim(@rows.address) }}</td>
-                  <td>{{ trim(@rows.housesid) }}</td>
-                  <td>{{ trim(@rows.filename) }}</td>
-                  <td><a href="/uploads/{{ trim(@rows.internalfn) }}"><i class="bi-files" title="Open file"></i></a></td>
+                  <td>{{ trim(@rows.city) }}</td>
+                  <td>{{ trim(@rows.county) }}</td>
+                  <td>{{ trim(@rows.zip) }}</td>
+                  <td>{{ number_format(@rows.price,2) }}</td>
+                  <td>{{ trim(@rows.listed) }}</td>
                   <td></td>
                   <td>
-                      <a href="#" onClick="confirmDelete('{{@section}}',{{ @rows.id }})"><i class="bi-trash" title="Delete record"></i></a> 
+                      <a href="{{ 'https://maps.google.com/maps/search/?api=1&query='. trim(@rows.address).','.@rows.city.',SC '.@rows.zip }}" target="_blank"><img src="/ui/images/stations.png" width="20"></a> &nbsp;
+                      <a href="{{ @BASE.'/'.@section.'/documents/'. @rows.id.'/'.@rows.relation }}"><img src="/ui/images/page.gif" width="15"></a> &nbsp;
+                      <a href="{{ @BASE.'/'.@section.'/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15"></a> &nbsp;
+                      <a href="#" onClick="confirmDelete('{{@section}}',{{ @rows.id }})"><img src="/ui/images/trash.gif" width="15"></a> 
                   </td>
                </tr>
            </repeat>

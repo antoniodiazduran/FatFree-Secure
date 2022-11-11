@@ -6,9 +6,9 @@ class Houses extends DB\SQL\Mapper {
         parent::__construct($db,'houses');
     }
 
-    public function all($company) {
-        $sql  = 'SELECT h.*,c.id as clientid, c.clientname FROM houses h, clients c WHERE h.company = ? and h.relation = c.id ORDER BY id DESC';
-        $result = $this->db->exec($sql,$company);
+    public function all($company,$userid) {
+        $sql  = 'SELECT h.*,c.id as clientid, c.clientname FROM houses h, clients c WHERE h.company = ? and h.username = ? and h.relation = c.id ORDER BY id DESC';
+        $result = $this->db->exec($sql,array($company,$userid));
         return $result;
     }
     public function houseAddress($id) {
@@ -21,11 +21,11 @@ class Houses extends DB\SQL\Mapper {
         $result = $this->db->exec($sql,$id);
         return $result[0]['clientname'];
     }
-    public function alldocs($company,$id) {
+    public function alldocs($company,$id,$userid) {
 	$sql  = 'SELECT d.*,concat(h.address,", ",h.city,", ",h.zip) as address,c.clientname FROM documents d, houses h, clients c  ';
-	$sql .= 'WHERE h.company = ? and h.id = d.housesid and c.id = h.relation and d.housesid = ?';
+	$sql .= 'WHERE h.company = ? and h.username = ? and h.id = d.housesid and c.id = h.relation and d.housesid = ?';
 	$sql .= 'ORDER BY d.id DESC';
-        $result = $this->db->exec($sql,array($company,$id));
+        $result = $this->db->exec($sql,array($company,$id,$userid));
         return $result;
     }
 

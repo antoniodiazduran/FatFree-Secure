@@ -1,12 +1,12 @@
 <form action="/documents/{{ @mode }}" method="post" id="upForm" class="form-horizontal" enctype="multipart/form-data">
 
- <div class="row">
+ <div class="form-group">
   <div class="col-lg-3">
     <label class="control-label" for="transdate">Transaction Date:</label>
       <input type="text" class="form-control" id="transdate" name="transdate" placeholder="mm/dd/yyyy">
   </div>
 </div>
-<div class="row">
+<div class="form-group">
  <div class="col-lg-3">
     <label class="control-label" for="client">Client:</label>
         <select id="relation" name="relation" value="" class="browser-default custom-select">
@@ -16,7 +16,7 @@
 	<br><br><span style="color:red;" id="errclient"></span>
  </div> 
 </div>
-<div class="row">
+<div class="form-group">
  <div class="col-lg-3">
     <label class="control-label" for="client">House:</label>
         <select id="housesid" name="housesid" value="" class="browser-default custom-select">
@@ -28,7 +28,7 @@
 </div>
 
 <br>
-<div class="row">
+<div class="form-group">
   <div class="col-lg-4">
     <label class="control-label" for="filename">File Name:</label>
       <input type="text" class="form-control" id="filename" name="filename" placeholder="File Name" readonly>
@@ -37,15 +37,14 @@
 	<br><br><span style="color:red;" id="errfilename"></span>
   </div> 
 </div>
-<br>
-<div class="row">
+<div class="form-group">
   <div class="col-lg-4">
     <label class="control-label" for="filetoupload">File to Upload:</label>
       <input type="file" id="filetoupload" name="filetoupload" placeholder="Browse your file">
   </div>
 </div>
 <br>
-<div class="row">
+<div class="form-group">
   <div class="col-lg-4">
     <input type="hidden" name="internal" id="internal"/>
     <input type="hidden" name="username" value="{{ @SESSION.user }}"/>
