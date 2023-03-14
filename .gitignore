@@ -1,3 +1,4 @@
 uploads
 vendor
 tmp
+data/main.sqlite
