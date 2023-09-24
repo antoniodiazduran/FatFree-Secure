@@ -10,10 +10,12 @@ class Company extends DB\SQL\Mapper {
         // Selecting data
 	if ($cmp != 0) {
            $sql  = 'SELECT * FROM company  WHERE id = ? ORDER BY name DESC';
+           $result = $this->db->exec($sql,$cmp);
 	} else {
            $sql  = 'SELECT * FROM company ORDER BY name DESC';
+           $result = $this->db->exec($sql);
+
 	}
-        $result = $this->db->exec($sql,$cmp);
         return $result;
     }
 

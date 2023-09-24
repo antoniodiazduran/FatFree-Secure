@@ -15,7 +15,7 @@ class UsersController extends Controller {
         } else {
             $this->f3->reroute('/');
         }
-        
+
     }
     public function create()
     {

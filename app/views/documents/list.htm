@@ -28,7 +28,7 @@
            <tbody>
            <repeat group="{{ @sqldata }}" value="{{ @rows }}">
                <tr>
-                  <td>{{ trim(@rows.id) }}</td>
+                  <td><i class="bi-person" title="{{ @rows.id.":".@rows.username }}"></i></td>
                   <td>{{ substr(trim(@rows.transdate),0,10) }}</td>
                   <td>{{ trim(@rows.clientname) }}</td>
                   <td>{{ trim(@rows.address) }}</td>

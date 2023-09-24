@@ -8,12 +8,12 @@ class Users extends DB\SQL\Mapper {
 
     public function all($company) {
         if($company == 0){
-            $sql = "SELECT  u.id, username, roles, email, c.name, IF(u.verified,'Yes','No') AS verified FROM bpuser u LEFT JOIN company c ON u.company = c.id ORDER BY username";
+       	    $sql = "SELECT  u.id, username, roles, email, c.name, u.verified FROM bpuser u LEFT JOIN company c ON u.company = c.id ORDER BY username";
+            $result = $this->db->exec($sql);
         } else {
-            $sql = "SELECT  u.id, username, roles, email, c.name, IF(u.verified,'Yes','No') AS verified FROM bpuser u LEFT JOIN company c ON u.company = c.id WHERE u.company = ? ORDER BY username";
+            $sql = "SELECT  u.id, username, roles, email, c.name, u.verified FROM bpuser u LEFT JOIN company c ON u.company = c.id WHERE u.company = ? ORDER BY username";
+	    $result = $this->db->exec($sql,$company);
         }
-        
-        $result = $this->db->exec($sql,$company);
         return $result;
     }
 

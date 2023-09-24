@@ -63,7 +63,10 @@ class Controller {
 
         $f3=Base::instance();
 
-        $db=new DB\SQL(
+	$db=new DB\SQL($f3->get('db_dns'));
+        $d1=new DB\SQL($f3->get('db_dns'));
+
+/*        $db=new DB\SQL(
             $f3->get('db_dns') . $f3->get('db_name'),
             $f3->get('db_user'),
             $f3->get('db_pass')
@@ -73,7 +76,7 @@ class Controller {
             $f3->get('d1_user'),
             $f3->get('d1_pass')
         );
-
+*/
 	$this->f3=$f3;
 	$this->db=$db;
 	$this->d1=$d1;

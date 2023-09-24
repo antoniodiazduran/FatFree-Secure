@@ -11,11 +11,12 @@ class Sites extends DB\SQL\Mapper {
         if ($company == 0) {
             $sql  = "SELECT s.id, c.name as company, s.username, s.city, s.state, s.country, s.description, s.transdate, s.timestamp ";
             $sql .= "FROM sites s LEFT JOIN company c ON s.company = c.id ORDER BY c.name";    
+        $result = $this->db->exec($sql);
         } else {
             $sql  = "SELECT s.id, c.name as company, s.username, s.city, s.state, s.country, s.description, s.transdate, s.timestamp ";
             $sql .= "FROM sites s LEFT JOIN company c ON s.company = c.id WHERE s.company = ? ORDER BY s.city";
-        }
         $result = $this->db->exec($sql,$company);
+        }
         return $result;
     }
 
