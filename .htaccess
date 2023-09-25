@@ -8,7 +8,7 @@ RewriteEngine On
 # RewriteBase /
 
 RewriteRule ^(tmp)\/|\.ini$ - [R=404]
-
+RewriteBase /fat/
 RewriteCond %{REQUEST_FILENAME} !-l
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

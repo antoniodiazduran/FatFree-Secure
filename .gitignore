@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 uploads/
 tmp/
 data/
-=======
-uploads
-vendor
-tmp
-data/main.sqlite
->>>>>>> 685d5867a01515997416aec5e7b608bf376eebe6
+lib/
+vendor/

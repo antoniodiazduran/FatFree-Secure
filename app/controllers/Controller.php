@@ -57,12 +57,10 @@ class Controller {
               return strtoupper(vsprintf('%s-%s-%s%s-%s-%s-%s%s', str_split(bin2hex($data), 4)));
       }
     }
-    
     function __construct() {
 
         $f3=Base::instance();
 
-<<<<<<< HEAD
 	$db=new DB\SQL($f3->get('db_dns'));
         $d1=new DB\SQL($f3->get('db_dns'));
 
@@ -75,10 +73,6 @@ class Controller {
             $f3->get('d1_dns') . $f3->get('d1_name'),
             $f3->get('d1_user'),
             $f3->get('d1_pass')
-=======
-        $db=new DB\SQL(
-            $f3->get('DBS')
->>>>>>> 685d5867a01515997416aec5e7b608bf376eebe6
         );
 */
 	$this->f3=$f3;

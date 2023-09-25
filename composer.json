@@ -2,7 +2,7 @@
     "name": "antoniodiaz/fat-free-secure",
     "description": "Secure micro framework based on FatFreeFramework",
     "require": {
-        "bcosca/fatfree-core": "^3.8"
+        "bcosca/fatfree-core": "^3.5"
     },
     "autoload": {
         "psr-4": {
