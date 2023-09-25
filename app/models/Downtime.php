@@ -10,10 +10,11 @@ class Downtime extends DB\SQL\Mapper {
         // Selecting data
         if ($relation == 0) {
             $sql  = "SELECT * FROM downtime ORDER BY reason";
+        $result = $this->db->exec($sql);
         } else {
             $sql  = "SELECT * FROM downtime WHERE relation = ? ORDER BY reason";
-        }
         $result = $this->db->exec($sql,$relation);
+        }
         return $result;
     }
 

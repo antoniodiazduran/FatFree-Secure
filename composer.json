@@ -1,0 +1,17 @@
+{
+    "name": "antoniodiaz/fat-free-secure",
+    "description": "Secure micro framework based on FatFreeFramework",
+    "require": {
+        "bcosca/fatfree-core": "^3.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Antoniodiaz\\FatFreeSecure\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Antonio Diaz"
+        }
+    ]
+}

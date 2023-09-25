@@ -4,7 +4,6 @@ class Controller {
 
     protected $f3;
     protected $db;
-    protected $d1;
 
     function beforeroute() {
       if ($this->f3->get('SECURE')) {
@@ -63,6 +62,7 @@ class Controller {
 
         $f3=Base::instance();
 
+<<<<<<< HEAD
 	$db=new DB\SQL($f3->get('db_dns'));
         $d1=new DB\SQL($f3->get('db_dns'));
 
@@ -75,11 +75,14 @@ class Controller {
             $f3->get('d1_dns') . $f3->get('d1_name'),
             $f3->get('d1_user'),
             $f3->get('d1_pass')
+=======
+        $db=new DB\SQL(
+            $f3->get('DBS')
+>>>>>>> 685d5867a01515997416aec5e7b608bf376eebe6
         );
 */
 	$this->f3=$f3;
 	$this->db=$db;
-	$this->d1=$d1;
     }
 }
 

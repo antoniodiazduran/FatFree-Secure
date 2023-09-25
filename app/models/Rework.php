@@ -10,10 +10,11 @@ class Rework extends DB\SQL\Mapper {
         // Selecting data
         if ($relation == 0) {
             $sql  = "SELECT * FROM rework ORDER BY reason";
+        $result = $this->db->exec($sql);
         } else {
             $sql  = "SELECT * FROM rework WHERE relation = ? ORDER BY reason";
-        }
         $result = $this->db->exec($sql,$relation);
+        }
         return $result;
     }
 

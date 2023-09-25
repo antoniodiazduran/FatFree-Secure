@@ -10,11 +10,11 @@ class Machines extends DB\SQL\Mapper {
         // Selecting data
         if ($company == 0) {
             $sql  = 'SELECT * FROM machines_view1 ORDER BY timestamp DESC';
+        $result = $this->db->exec($sql);
         } else {
             $sql  = 'SELECT * FROM machines_view1 WHERE cid = ? ORDER BY timestamp DESC';
-        }
-        
         $result = $this->db->exec($sql,$company);
+        }
         return $result;
     }
 

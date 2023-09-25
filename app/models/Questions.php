@@ -10,10 +10,11 @@ class Questions extends DB\SQL\Mapper {
         // Selecting data
         if ($relation == 0) {
             $sql  = "SELECT * FROM questions ORDER BY id";
+        $result = $this->db->exec($sql);
         } else {
             $sql  = "SELECT * FROM questions WHERE relation = ? ORDER BY id";
-        }
         $result = $this->db->exec($sql,$relation);
+        }
         return $result;
     }
 

@@ -10,10 +10,11 @@ class Scrap extends DB\SQL\Mapper {
         // Selecting data
         if ($relation == 0) {
             $sql  = "SELECT * FROM scrap ORDER BY reason";
+        $result = $this->db->exec($sql);
         } else {
             $sql  = "SELECT * FROM scrap WHERE relation = ? ORDER BY reason";
-        }
         $result = $this->db->exec($sql,$relation);
+        }
         return $result;
     }
 
