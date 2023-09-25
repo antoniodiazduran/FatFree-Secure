@@ -30,13 +30,13 @@
                   <td>{{ trim(@rows.delay) }}</td>
                   <td>{{ trim(@rows.rework) }}</td>
                   <td>
-                    <a href="{{ @BASE.'/scrap/'.@rows.id }}"><img src="/ui/images/defect.png" width="25" title="{{ @rows.defect }} Defects"></a> &nbsp;
-                    <a href="{{ @BASE.'/downtime/'.@rows.id }}"><img src="/ui/images/delay.png" width="20" title="{{ @rows.delay }} Delays"></a> &nbsp;
+                    <a href="{{ @BASE.'/scrap/'.@rows.id }}"><i class="bi-question-circle"  title="{{ @rows.defect }} Defects"></i></a> &nbsp;
+                    <a href="{{ @BASE.'/downtime/'.@rows.id }}"><i class="bi-hourglass"  title="{{ @rows.delay }} Delays"></i></a> &nbsp;
  <!--                   <a href="{{ @BASE.'/rework/'.@rows.id }}"><img src="/ui/images/rework.png" width="20" title="{{ @rows.rework }} Rework"></a> //-->
                   </td>
                   <td>
-                    <a href="{{ @BASE.'/'.@section.'/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15" title="Edit"></a> &nbsp;
-                    <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15" title="Delete"></a> 
+                    <a href="{{ @BASE.'/'.@section.'/update/'. @rows.id }}"><i class="bi-pencil" title="Edit"></i></a> &nbsp;
+                    <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><i class="bi-trash" title="Delete"></i></a> 
                   </td>
                </tr>
            </repeat>

@@ -25,8 +25,8 @@
                    <td>{{ trim(@rows.name) }}</td>
                    <td>{{ trim(@rows.verified) }}</td>
                    <td>
-                    <a href="{{ @BASE.'/users/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15"></a> &nbsp;
-                    <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15"></a> 
+                    <a href="{{ @BASE.'/users/update/'. @rows.id }}"><i class="bi-pencil" title="Edit"></i></a> &nbsp;
+                    <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><i class="bi-trash" title="Delete"></i></a> 
                    </td>       
                </tr>
            </repeat>

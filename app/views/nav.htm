@@ -10,7 +10,7 @@
    <check if="{{ @SESSION.roles=='Operations' }}">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="production-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <check if="{{@icons == 1 }}"><img src="/ui/images/clock.png" width="23" title="production"></check>
+          <check if="{{@icons == 1 }}"><i class="clock"></i></check>
           <check if="{{@labels == 1 }}">Production</check>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -20,7 +20,7 @@
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="interruptions-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <check if="{{@icons == 1 }}"><img src="/ui/images/pause.png" width="23" title="Interruptions"></check>
+          <check if="{{@icons == 1 }}"><i class="bi-pause-circle"></i></check>
           <check if="{{@labels == 1 }}">Interruptions</check>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -30,7 +30,7 @@
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="pareto-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <check if="{{@icons == 1 }}"><img src="/ui/images/pareto.png" width="23" title="Pareto"></check>
+          <check if="{{@icons == 1 }}"><i class="bi-bar-chart"></i></check>
           <check if="{{@labels == 1 }}">Pareto</check>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -40,7 +40,7 @@
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="trends-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <check if="{{@icons == 1 }}"><img src="/ui/images/trend.png" width="23" title="Trends"></check>
+          <check if="{{@icons == 1 }}"><i class="bi-graph-up-arrow"></i></check>
           <check if="{{@labels == 1 }}">Trends</check>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -52,7 +52,7 @@
    <check if="{{ @SESSION.roles=='Finance' }}">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="expenses-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <check if="{{@icons == 1 }}"><img src="/ui/images/expense.png" width="25" title="Expenses"></check>
+          <check if="{{@icons == 1 }}"><i class="bi-airplane"></i></check>
           <check if="{{@labels == 1 }}">Expenses</check>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -62,7 +62,7 @@
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="clock-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <check if="{{@icons == 1 }}"><img src="/ui/images/clock.png" width="24" title="Clock"></check>
+          <check if="{{@icons == 1 }}"><i class="bi-clock" title="Clock"></i></check>
           <check if="{{@labels == 1 }}">Clock</check>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -72,7 +72,7 @@
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="invoices-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <check if="{{@icons == 1 }}"><img src="/ui/images/invoice.png" width="22" title="Invoices"></check>
+          <check if="{{@icons == 1 }}"><i class="bi-file-ruled" title="Invoices"></i></check>
           <check if="{{@labels == 1 }}">Invoices</check>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -82,7 +82,7 @@
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="upload-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <check if="{{@icons == 1 }}"><img src="/ui/images/upload.png" width="25" title="Upload"></check>
+          <check if="{{@icons == 1 }}"><i class="bi-cloud-upload" title="Upload"></i></check>
           <check if="{{@labels == 1 }}">Upload</check>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">

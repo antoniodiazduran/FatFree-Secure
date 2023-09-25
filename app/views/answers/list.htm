@@ -20,8 +20,8 @@
                 <td>{{ substr(@rows.description,0,100) }}</td>
                 <td></td> 
                 <td width="10%">
-                    <a href="{{ @BASE.'/'.@section.'/create/'. @rows.id }}"><img src="/ui/images/newpaget.png" width="20" title="Questionnaire"></a> &nbsp;
-                    <a href="{{ @BASE.'/'.@section.'/list/'. @rows.id }}"><img src="/ui/images/filelist.png" width="20" title="Detail"></a> &nbsp;
+                    <a href="{{ @BASE.'/'.@section.'/create/'. @rows.id }}"><i class="bi-file-earmark-plus" title="Questionnaire"></i></a> &nbsp;
+                    <a href="{{ @BASE.'/'.@section.'/list/'. @rows.id }}"><i class="bi-file-earmark-text" title="Detail"></i></a> &nbsp;
                 </td>      
                </tr>
            </repeat>

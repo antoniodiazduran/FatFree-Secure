@@ -1,3 +1,4 @@
-uploads
+uploads/
 config/config.ini
-tmp
+tmp/
+data/

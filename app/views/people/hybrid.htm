@@ -39,9 +39,9 @@
                 <td>{{ @rows.accesscode }}</td> 
                 <td>{{ @rows.active==1?'Yes':'No' }}</td>
                 <td width="10%">
-                    <a href="{{ @BASE.'/'.@section.'/active/'. @rows.id }}"><img src="/ui/images/active.png" width="15" title="Active/Deactive"></a> &nbsp;
-                    <a href="{{ @BASE.'/'.@section.'/update/'. @rows.id }}"><img src="/ui/images/pencil.gif" width="15" title="Edit"></a> &nbsp;
-                    <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><img src="/ui/images/trash.gif" width="15" title="Delete"></a> 
+                    <a href="{{ @BASE.'/'.@section.'/active/'. @rows.id }}"><i class="bi-person" title="Active/Deactive"></i></a> &nbsp;
+                    <a href="{{ @BASE.'/'.@section.'/update/'. @rows.id }}"><i class="bi-pencil" title="Edit"></i></a> &nbsp;
+                    <a href="#" onClick="confirmDelete('{{ @rows.id }}')"><i class="bi-trash" title="Delete"></i></a> 
                 </td>      
                </tr>
            </repeat>
